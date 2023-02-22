@@ -1,0 +1,44 @@
+<div class="page-news">
+  {% IF news_list_empty %}
+    <div class="notice attention">Пока нет, но обязательно будут</div>
+  {% ELSE %}
+    <!-- Список новостей -->
+    <div class="news__list">
+      {% FOR news_list %}
+      <article class="news__list_item">
+        <a class="news__list_title" href="{news_list.URL}" title="Перейти к странице новости"><span>{news_list.TITLE}</span></a>
+        {% IF news_list.TEXT_SHORT %}
+        <p class="news__list_text">{news_list.TEXT_SHORT}</p>
+        {% ENDIF %}
+        {% IF news_list.SHOW_TIME %}
+        <time class="news__list_date" datetime="{news_list.TIME | date('d M Y')}">{news_list.TIME | date('d M Y')}</time>
+        {% ENDIF %}
+      </article>
+      {% ENDFOR news_list %}
+    </div>
+
+    <!-- Страницы -->
+    {% IF show_pages %}
+    <ol class="pages flex unstyled">
+      {% IF NEWS_PAGES_SHOW_FIRST %}
+      <li class="pages__item">
+        <a class="pages__link pages__link-first" href="?sid={NEWS_SECTION_ID}&page=1" title="Первая страница"><span><i class="icon-chevron_left"></i></span></a>
+      </li>
+      <li class="pages__item">
+        <a class="pages__link pages__link-prev" href="?sid={NEWS_SECTION_ID}&page={NEWS_PAGES_PREVIOUS}" title="Предыдущая страница"><span>{NEWS_PAGES_PREVIOUS}</span></a>
+      </li>
+      {% ENDIF %}
+      <li class="pages__item"><a class="pages__link pages__link-current"><span>{NEWS_PAGES_CURRENT}</span></a></li>
+      {% IF NEWS_PAGES_SHOW_LAST %}
+      <li class="pages__item">
+        <a class="pages__link pages__link-next" href="?sid={NEWS_SECTION_ID}&page={NEWS_PAGES_NEXT}" title="Следующая страница"><span>{NEWS_PAGES_NEXT}</span></a>
+      </li>
+      <li class="pages__item">
+        <a class="pages__link pages__link-last" href="?sid={NEWS_SECTION_ID}&page={NEWS_PAGES_LAST}" title="Последняя страница"><span><i class="icon-chevron_right"></i></span></a>
+      </li>
+      {% ENDIF %}
+    </ol>
+    {% ENDIF %}
+  
+  {% ENDIF %}
+</div>
