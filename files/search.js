@@ -214,7 +214,7 @@ $(function(){
 			// Запоминаем этот запрос, который мы ищем, чтобы не произвводить повторного поиска
 			options['last_search_query'] = old_val;
 			// Добавляем нашей форме поиска поле загрузки
-			searchBlock.f_search.addClass('search__load');
+			searchBlock.f_search.addClass('search__loading');
 			// Собираем параметры для Ajax запроса
 			var params = {
 						'ajax_q'                : 1,
@@ -259,7 +259,7 @@ $(function(){
 					// Показываем результаты на основе пришедших данных
 					showDropdownSearch(data);
 					// Убираем информацию о том что запрос грузится.
-					searchBlock.f_search.removeClass("search__load");
+					searchBlock.f_search.removeClass("search__loading");
 				}
 			});
 		}else{
@@ -330,7 +330,7 @@ $(function(){
 				$(".search-results__goods").hide();
 			}
 			// Убираем информацию о том что запрос грузится.
-			searchBlock.f_search.removeClass("search__load");
+			searchBlock.f_search.removeClass("search__loading");
 		}
 	}
 

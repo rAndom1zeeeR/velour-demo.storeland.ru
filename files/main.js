@@ -35,11 +35,6 @@ function addSpaces(nStr){
 	return String(nStr).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')
 }
 
-
-// Предзагрузчик. JQ
-// function preload() {
-// 	$('.preloader').delay(1000).fadeOut('slow')
-// }
 // Предзагрузчик. /JS/
 function preload() {
 	document.querySelectorAll('.preloader').forEach((el) => {
@@ -61,23 +56,8 @@ function lazyload(){
 
 
 ///////////////////////////////////////
-// Функция Наверх. /JQ/
-///////////////////////////////////////
-// function toTop() {
-// 	const goto = $('.toTop')
-// 	// Показать при скроле
-//   $(window).on('scroll', function(){
-// 		$(this).scrollTop() > 99 ? goto.fadeIn() : goto.fadeOut();
-//   });
-
-// 	// Действие наверх
-//   goto.on('click', function () {
-// 		$('html, body').animate({ scrollTop: 0 }, 500);
-
-//     return false;
-//   });
-// }
 // Функция Наверх. /JS/
+///////////////////////////////////////
 function toTop() {
 	const goto = document.getElementById('toTop')
 	// Показать при скроле
@@ -127,20 +107,8 @@ function notyStart($content, $type) {
 
 
 ///////////////////////////////////////
-// Изменение текста в объкте. /JQ/
-///////////////////////////////////////
-// function changeTxt(obj) {
-// 	const slot = obj.find('[slot]')
-// 	const hideTxt = slot.attr('slot')
-// 	const showTxt = slot.text()
-// 	// Обновляем данные
-// 	slot.text(hideTxt).attr('slot', showTxt)
-// 	// console.log('txtObject', obj)
-// 	// console.log('slot', slot)
-// 	// console.log('hideTxt', hideTxt)
-// 	// console.log('showTxt', showTxt)
-// }
 // Изменение текста в объкте. /JS/
+///////////////////////////////////////
 function changeTxt(obj) {
 	const slot = obj.querySelector('[slot]')
 	const hideTxt = slot.getAttribute('slot')
@@ -281,14 +249,6 @@ class Compare {
 			const сhecked = el.querySelector('.compare__input:checked')
 			if (сhecked) { el.style.display = 'none' }
 		})
-		// $('.compare__line').each(function () {
-		// 	const сhecked = $(this).find('.compare__input').filter(':checked')
-		// 	console.log('Compare сhecked', сhecked)
-		// 	if (сhecked.length > 0) {
-		// 		console.log('Compare this', $(this))
-		// 		$(this).hide()
-		// 	}
-		// })
 	};
 
 	// Показать отличия
@@ -852,15 +812,13 @@ class Product {
 			function createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, delUrl) {
 				return `
 					<div class="addto__item flex" data-id="${pDataid}">
-						<a class="addto__image flex-center" href="${pUrl}" title="${pName}"><img src="${pImg}" /></a>
-						<div class="addto__content">
-							<a class="addto__name" href="${pUrl}" title="${pName}"><span>${pName}</span></a>
+						<a class="addto__image flex-center" href="${pUrl}" title="${pName}"><img src="${pImg}" alt="${pName}" /></a>
+						<div class="addto__content flex">
 							<div class="addto__price ${pDataChar}">
 								<div class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${pDataPrice}</span><span>р.</span></span></div>
 							</div>
-							<div class="addto__actions">
-								<a class="addto__remove button-rotate button-link" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>
-							</div>
+							<a class="addto__name" href="${pUrl}" title="${pName}"><span>${pName}</span></a>
+							<a class="addto__remove button-rotate button-link" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>
 						</div>
 					</div>
 				`;
@@ -2900,7 +2858,7 @@ function mainnav(id,rows,media){
 
 		// Восстановление классов для больших экранов
 		mainNavOverflow.addClass('dropdown__content');
-		mainNavMore.addClass('mainnav__more_hidden')
+		mainNavMore.addClass('mainnav__more-hidden')
 
 		if(overMenuExist){
 			mainNavOverflow.find('li').removeClass('mainnav__replaced');
@@ -2960,7 +2918,7 @@ function mainnav(id,rows,media){
 	}else{
 		// Удаление классов для маленьких экранов
 		$('.mainnav__overflow').removeClass('dropdown__content');
-		$('.mainnav__more').removeClass('mainnav__more_hidden');
+		$('.mainnav__more').removeClass('mainnav__more-hidden');
 	}
 }
 

@@ -2,22 +2,26 @@
 /*** Основные переменные шаблона ***/
 /**************************************/
 :root {
-	--color-black: #000000;
+	--color-black: #242037;
 	--color-white: #ffffff;
-	--color-gray: #737373;
+	--color-gray: #575757;
 	--color-lightgray: #C4C4C4;
-	--color-border: #999999;
+	--color-border: #575757;
 	--color-red: #E83B35;
-	--color-primary: #00DBDA;
-	--color-secondary: #0CF2B1;
+	--color-primary: #FC3F91;
+	--color-secondary: #1CA89D;
+	--color-tertiary: #FFEEEA;
+	--color-quaternary: #0197F6;
 	--color-shadow: rgba(0, 0, 0, .1);
+	--ease3: all 0.3s ease;
 }
+
 
 /**************************************/
 /*** Основные стили ***/
 /**************************************/
 html {font-size: 100%;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;-webkit-font-smoothing: antialiased;}
-body {line-height: 1;font-size: 16px;font-weight: 400;position: relative;overflow-x: hidden;margin: 0;padding: 0;}
+body {line-height: 1;font-size: 14px;font-weight: 400;position: relative;overflow-x: hidden;margin: 0;padding: 0;}
 
 /*** Основной контейнер ***/
 *, *:before, *:after {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
@@ -57,8 +61,14 @@ p {margin: 0 0 16px 0;line-height: 1.5;overflow: hidden;}
 .mask {overflow: hidden;mask-image: linear-gradient(to bottom, black 50%, transparent 90%);}
 
 
-/* Квадрат с иконкой */
-.square {margin: 0;padding: 0;text-align: center;cursor: pointer;}
+/**************************************/
+/*** Видимость элементов ***/
+/**************************************/
+.is-show {display: block;}
+.is-hide {display: none;}
+.is-visible {opacity: 1;visibility: visible;}
+.is-hidden {opacity: 0;visibility: hidden;}
+
 
 /**************************************/
 /*** Заголовки ***/
@@ -163,18 +173,18 @@ h6 {font-size: 14px;}
 /**************************************/
 /*** Выпадающие объекты ***/
 /**************************************/
-.dropdown__content {margin-top: 16px;width: 400px;padding: 16px;background-color: var(--color-white);border: 1px solid var(--color-border);transform: scale(1,0);transform-origin: right top;transition: all 0.3s ease-in-out;right: 0;position: absolute;z-index: 11;}
+/* .dropdown__content {margin-top: 16px;width: 400px;padding: 16px;background-color: var(--color-white);border: 1px solid var(--color-border);transform: scale(1,0);transform-origin: right top;transition: all 0.3s ease-in-out;right: 0;position: absolute;z-index: 11;}
 .dropdown.is-opened .dropdown__content {display: block;}
 @media all and (min-width: 1024px) {
 	.dropdown .dropdown__open:before {content: '';right: 0;bottom: -16px;height: 32px;width: 100%;display: block;position: absolute;}
 	.dropdown:hover .dropdown__content {transform: scale(1);}
-}
+} */
 
 
 /**************************************/
 /*** Выпадающий контент. Корзина, Сравнение, Избранное ***/
 /**************************************/
-.addto__title {margin-bottom: 24px;display: none;font-size: 18px;font-weight: bold;}
+/* .addto__title {margin-bottom: 24px;display: none;font-size: 18px;font-weight: bold;}
 .addto__empty {font-size: 18px;font-weight: bold;}
 .addto__items {max-height: 280px;overflow-y: auto;}
 .addto__items::-webkit-scrollbar {width: 8px;}
@@ -198,7 +208,7 @@ h6 {font-size: 14px;}
 .has-items .addto__empty {display: none;}
 .has-items .addto__buttons {display: flex;}
 .has-items .addto__total {display: flex;}
-.addto__login {width: 224px;}
+.addto__login {width: 224px;} */
 
 
 /**************************************/
