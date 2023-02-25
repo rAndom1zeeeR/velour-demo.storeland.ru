@@ -563,11 +563,11 @@ class QuantityAddto extends Quantity {
 		const totalDiscount = document.querySelector('.addto__total-discount')
 		if (newDiscount){
 			// console.log('updAddto newDiscount1', newDiscount);
-			totalDiscount.classList.remove('is-disabled')
+			totalDiscount.classList.remove('is-hidden')
 			quantityAddto.updAddtoDiscount(newDiscount.innerHTML)
 		} else {
 			// console.log('updAddto newDiscount2', newDiscount);
-			totalDiscount.classList.add('is-disabled')
+			totalDiscount.classList.add('is-hidden')
 		}
 
 	};
@@ -708,7 +708,7 @@ class Product {
 		this.init = function () {
 			$('.product__item').each(function () {
 				product.hoverImage($(this))
-				product.priceDiff(this, 'price')
+				product.priceDiff(this)
 			})
 		}
 
@@ -2091,11 +2091,9 @@ class Goods {
 						if (modificationPriceOld > modificationPriceNow) {
 							goodsPriceOld.css({ 'display': 'inline-block' });
 							goodsPriceOld.html(modificationPriceOldFormated);
-							goodsPriceOld.parent().addClass('has-price-old');
 						} else {
 							goodsPriceOld.hide();
 							goodsPriceOld.html('');
-							goodsPriceOld.parent().removeClass('has-price-old');
 						}
 
 						// Есть ли товар есть в наличии. Много Мало Отсутствует 
@@ -3329,16 +3327,24 @@ function swiperShow(){
 			clickable: true,
 		},
 		navigation: {
+			enabled: false,
 			nextEl: id + ' .swiper-button-next',
 			prevEl: id + ' .swiper-button-prev',
 		},
+		on: {
+			init: function(){
+				updSlide(this)
+			},
+			slideChange: function(){
+				updSlide(this)
+			},
+		}
 	});
 
-	// Скрываем навигацию если слайдер заблокирован
-	if($(id).find('.swiper-button-lock').length){
-		$(id).find('.swiper-button-lock').parent().addClass('swiper-navigation-lock')
-	}else{
-		$(id).find('.swiper-navigation').removeClass('swiper-navigation-lock')
+	// Обновление слайдов в навигации
+	function updSlide(obj){
+		const content = obj.slides[obj.activeIndex].querySelector('.slideshow__content-hidden').innerHTML
+		document.querySelector('.slideshow__content').innerHTML = content
 	}
 }
 

@@ -74,7 +74,7 @@
               <input type="hidden" name="form[goods_mod_id]" value="{goods_mod_info.GOODS_MOD_ID}" class="goodsModificationId" />
               <input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
               <!-- Добавление товара в корзину -->
-              <div class="compare__addCart product__addCart">
+              <div class="compare__addCart product__addtoCart">
                 {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE && goods_mod_info.REST_VALUE=0 %}
                   <a class="add-notify button-empty" 
                     title="Уведомить" 
@@ -119,7 +119,7 @@
         <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
           <div class="compare__item swiper-slide" data-index="{goods_mod_info.index}">
-            <div class="compare__price product__price {CURRENCY_CHAR_CODE} {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT>goods_mod_info.PRICE_NOW %}has-price-old{% ELSEIF goods_mod_info.PRICE_OLD>goods_mod_info.PRICE_NOW %}has-price-old{% ENDIF %}" data-id="{goods_mod_info.GOODS_MOD_ID}">
+            <div class="compare__price product__price {CURRENCY_CHAR_CODE}" data-id="{goods_mod_info.GOODS_MOD_ID}">
               <span class="price__now {CURRENCY_CHAR_CODE}" data-price="{goods_mod_info.PRICE_NOW}" itemprop="price">{goods_mod_info.PRICE_NOW | money_format}</span>
 	            {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT > goods_mod_info.PRICE_NOW %}
               <span class="price__old {CURRENCY_CHAR_CODE}" data-price="{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT}">{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>

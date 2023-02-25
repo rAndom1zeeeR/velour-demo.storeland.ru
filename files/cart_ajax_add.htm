@@ -89,7 +89,7 @@
 							<input class="qty__input" 
 										type="text" 
 										name="form[quantity][{cart_items.GOODS_MOD_ID}]" 
-										maxlength="4" 
+										maxlength="3" 
 										{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}max="{cart_items.GOODS_MOD_REST_VALUE}" {% ENDIF %}
 										min="1" 
 										value="{cart_items.ORDER_LINE_QUANTITY}" 
