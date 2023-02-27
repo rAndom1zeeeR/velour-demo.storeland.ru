@@ -2976,89 +2976,53 @@ function scrollContent($content, $obj){
 ///////////////////////////////////////
 // Новости
 ///////////////////////////////////////
-function indexNews() {
-	const news = '#news'
+function swiperNews() {
+	const id = '#news'
 	// Свайпер слайдер новостей
-	function swiperNews(id) {
-		const nav = id + ' .swiper-navigation'
-
-		// Слайдер товаров
-		const swiper = new Swiper(id + ' .swiper', {
-			loop: false,
-			autoplay: true,
-			watchSlidesVisibility: true,
-			simulateTouch: true,
-			grabCursor: true,
-			slidesPerView: '4',
-			spaceBetween: 32,
-			nested: true,
-			preloadImages: false,
-			autoHeight: false,
-			lazy: {
-				enabled: false,
-				loadPrevNext: true,
-				loadOnTransitionStart: true,
+	const swiper = new Swiper(id + ' .swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '4',
+		spaceBetween: 32,
+		nested: true,
+		preloadImages: false,
+		autoHeight: false,
+		lazy: {
+			enabled: false,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
 			},
-			navigation: {
-				nextEl: news + ' .swiper-button-next',
-				prevEl: news + ' .swiper-button-prev',
+			320: {
+				slidesPerView: '1',
 			},
-			breakpoints: {
-				0: {
-					slidesPerView: '1',
-				},
-				320: {
-					slidesPerView: '1',
-				},
-				480: {
-					slidesPerView: '2',
-				},
-				640: {
-					slidesPerView: '2',
-				},
-				768: {
-					slidesPerView: '3',
-				},
-				1024: {
-					slidesPerView: '3',
-				},
-				1200: {
-					slidesPerView: '4',
-				}
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '2',
+			},
+			768: {
+				slidesPerView: '3',
+			},
+			1024: {
+				slidesPerView: '4',
+			},
+			1200: {
+				slidesPerView: '4',
 			}
-		});
-
-		// Скрываем навигацию если слайдер заблокирован
-		if($(news).find('.swiper-button-disabled').length == 2){
-			$(news).find('.swiper-navigation').addClass('swiper-navigation-lock')
-		}else{
-			$(news).find('.swiper-navigation').removeClass('swiper-navigation-lock')
 		}
-	}
-
-	// Запуск функций новостей
-	function initNews(){
-		$(news).find('.tabs__content').each(function () {
-			const attr = $(this).attr('id');
-			swiperNews('#' + attr)
-			// Скрываем навигацию родителя если слайдер заблокирован
-			$('#' + attr).find('.swiper-navigation').parent().addClass('swiper-navigation-lock')
-		});
-	}
-	initNews()
-
-	// Табы в товарах на главной
-	// TODO добавить хеш в табе новостей
-	$(news).find('.news__nav').on('click', function(event) {
-		event.preventDefault();
-		const tab = $(this).attr('data-tab');
-		$(news).find('.news__nav').removeClass('is-actived')
-		$(news).find('.tabs__content').removeClass('is-show');
-		$(this).addClass('is-actived');
-    $('#'+ tab).addClass('is-show');
-		initNews()
 	});
-
 }
 
 ///////////////////////////////////////
@@ -3240,68 +3204,6 @@ ajaxForms('.page-сallback','pageCallbackFlag','Спасибо за обраще
 //ajaxForms('#subscribe','subscribeFlag','Спасибо за обращение! Вы подписались на наши уведомления','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 
 
-// Функции стандартного слайдера
-function swiperSlider(id){
-	// Слайдер товаров
-	const swiper = new Swiper(id + ' .swiper', {
-		loop: false,
-		autoplay: false,
-		watchSlidesVisibility: true,
-		simulateTouch: true,
-		grabCursor: true,
-		slidesPerView: '4',
-		spaceBetween: 32,
-		nested: true,
-		preloadImages: false,
-		lazy: {
-			enabled: true,
-			loadPrevNext: true,
-			loadOnTransitionStart: true,
-		},
-		navigation: {
-			nextEl: id + ' .swiper-button-next',
-			prevEl: id + ' .swiper-button-prev',
-		},
-		pagination: {
-			el: id + ' .swiper-pagination',
-			type: 'bullets',
-			dynamicBullets: false,
-			clickable: true,
-		},
-		breakpoints: {
-			0: {
-				slidesPerView: '1',
-			},
-			320: {
-				slidesPerView: '1',
-			},
-			480: {
-				slidesPerView: '2',
-			},
-			640: {
-				slidesPerView: '2',
-			},
-			768: {
-				slidesPerView: '3',
-			},
-			1024: {
-				slidesPerView: '4',
-			},
-			1200: {
-				slidesPerView: '4',
-			}
-		},
-	});
-
-	// Скрываем навигацию если слайдер заблокирован
-	if($(id).find('.swiper-button-lock').length){
-		$(id).find('.swiper-button-lock').parent().addClass('swiper-navigation-lock')
-	}else{
-		$(id).find('.swiper-navigation').removeClass('swiper-navigation-lock')
-	}
-
-}
-
 // Слайдер на главной
 function swiperShow(){
 	const id = '#slideshow'
@@ -3346,6 +3248,106 @@ function swiperShow(){
 		const content = obj.slides[obj.activeIndex].querySelector('.slideshow__content-hidden').innerHTML
 		document.querySelector('.slideshow__content').innerHTML = content
 	}
+}
+
+// Функции стандартного слайдера
+function swiperSales(){
+	const id = '#pdt__sales'
+	// Слайдер товаров
+	const swiper = new Swiper(id + ' .swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '3',
+		spaceBetween: 32,
+		nested: true,
+		preloadImages: false,
+		lazy: {
+			enabled: true,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '1',
+			},
+			640: {
+				slidesPerView: '2',
+			},
+			768: {
+				slidesPerView: '2',
+			},
+			1024: {
+				slidesPerView: '2',
+			},
+			1200: {
+				slidesPerView: '3',
+			}
+		},
+	});
+
+}
+
+// Функции стандартного слайдера
+function swiperViewed(){
+	const id = '#pdt__viewed'
+	// Слайдер товаров
+	const swiper = new Swiper(id + ' .swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '6',
+		spaceBetween: 20,
+		nested: true,
+		preloadImages: false,
+		lazy: {
+			enabled: true,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '3',
+			},
+			768: {
+				slidesPerView: '3',
+			},
+			1024: {
+				slidesPerView: '4',
+			},
+			1200: {
+				slidesPerView: '6',
+			}
+		},
+	});
+
 }
 
 
@@ -3476,7 +3478,7 @@ $(document).ready(function () {
 	openMenu();
 	toTop();
   mainnav('header .mainnav', '1', 991);
-	swiperSlider('#pdt__viewed');
+	swiperViewed();
 	lazyload()
 	remove.onClick()
 	quantityAddto.onAddto()

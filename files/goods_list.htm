@@ -105,7 +105,7 @@
 				<!-- Фильтры по характеристикам товаров (Например: Производитель, разрешение экрана, заряд аккомулятора) -->
 				<div class="filters-active__items flex">
 					<div class="filters__open">
-						<a class="filters__icon flex-center" href="javascript:;">
+						<a class="filters__icon flex-center">
 							<i class="icon-filter"></i>
 							<span>Фильтры</span>
 						</a>
@@ -236,19 +236,18 @@
 						<div class="product__ratings product__margin">
 							<div class="ratings">
 								{% IF goods.OPINION_RATING_VALUE %}
-								<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+								<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 									<meta itemprop="worstRating" content="1">
 									<meta itemprop="bestRating" content="10">
 									<meta itemprop="ratingValue" content="{goods.OPINION_RATING_VALUE}">
 									<meta itemprop="reviewCount" content="{goods.OPINION_RATING_CNT_ALL}">
-									<div class="rating" style="width:{goods.OPINION_RATING_VALUE}0%" alt="{goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
+									<div class="ratings__value" style="width:{goods.OPINION_RATING_VALUE}0%" alt="{goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
 								</span>
+								<div class="ratings__count">{goods.OPINION_RATING_CNT_ALL}</div>
 								{% ELSE %}
-								<div class="rating" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
+								<div class="ratings__value" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
 								{% ENDIF %}
 							</div>
-							<div class="product__ratings_count">({goods.OPINION_RATING_CNT_ALL})</div>
-							<div class="product__ratings_label">{% IF goods.OPINION_RATING_CNT_ALL > 0 %}{goods.OPINION_RATING_CNT_ALL} отзыв{goods.OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}{% ELSE %}Нет отзывов{% ENDIF %}</div>
 						</div>
 						{% ENDIF %}
 			
@@ -263,7 +262,6 @@
 									rel="nofollow"
 									data-fancybox
 									data-src="#fancybox__notify"
-									href="javascript:;"
 									data-name="{goods.NAME}"
 									data-art="{goods.ART_NUMBER}"
 								>
@@ -548,19 +546,18 @@
 							<div class="product__ratings product__margin">
 								<div class="ratings">
 									{% IF goods.OPINION_RATING_VALUE %}
-									<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+									<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 										<meta itemprop="worstRating" content="1">
 										<meta itemprop="bestRating" content="10">
 										<meta itemprop="ratingValue" content="{goods.OPINION_RATING_VALUE}">
 										<meta itemprop="reviewCount" content="{goods.OPINION_RATING_CNT_ALL}">
-										<div class="rating" style="width:{goods.OPINION_RATING_VALUE}0%" alt="{goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
-									</span>
+										<div class="ratings__value" style="width:{goods.OPINION_RATING_VALUE}0%" alt="{goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
+									</div>
+									<div class="ratings__count">{goods.OPINION_RATING_CNT_ALL}</div>
 									{% ELSE %}
-									<div class="rating" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
+									<div class="ratings__value" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
 									{% ENDIF %}
 								</div>
-								<div class="product__ratings_count">({goods.OPINION_RATING_CNT_ALL})</div>
-								<div class="product__ratings_label">{% IF goods.OPINION_RATING_CNT_ALL > 0 %}{goods.OPINION_RATING_CNT_ALL} отзыв{goods.OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}{% ELSE %}Нет отзывов{% ENDIF %}</div>
 							</div>
 							{% ENDIF %}
 				
@@ -575,7 +572,6 @@
 										rel="nofollow"
 										data-fancybox
 										data-src="#fancybox__notify"
-										href="javascript:;"
 										data-name="{goods.NAME}"
 										data-art="{goods.ART_NUMBER}"
 									>

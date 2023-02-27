@@ -97,19 +97,18 @@
 							<div class="product__ratings product__margin">
 								<div class="ratings">
 									{% IF favorites_goods.OPINION_RATING_VALUE %}
-									<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+									<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 										<meta itemprop="worstRating" content="1">
 										<meta itemprop="bestRating" content="10">
 										<meta itemprop="ratingValue" content="{favorites_goods.OPINION_RATING_VALUE}">
 										<meta itemprop="reviewCount" content="{favorites_goods.OPINION_RATING_CNT_ALL}">
-										<div class="rating" style="width:{favorites_goods.OPINION_RATING_VALUE}0%" alt="{favorites_goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
-									</span>
+										<div class="ratings__value" style="width:{favorites_goods.OPINION_RATING_VALUE}0%" alt="{favorites_goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
+									</div>
+									<div class="ratings__count">{favorites_goods.OPINION_RATING_CNT_ALL}</div>
 									{% ELSE %}
-									<div class="rating" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
+									<div class="ratings__value" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
 									{% ENDIF %}
 								</div>
-								<div class="product__ratings_count">({favorites_goods.OPINION_RATING_CNT_ALL})</div>
-								<div class="product__ratings_label">{% IF favorites_goods.OPINION_RATING_CNT_ALL > 0 %}{favorites_goods.OPINION_RATING_CNT_ALL} отзыв{favorites_goods.OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}{% ELSE %}Нет отзывов{% ENDIF %}</div>
 							</div>
 							{% ENDIF %}
 				
@@ -124,7 +123,6 @@
 										rel="nofollow"
 										data-fancybox
 										data-src="#fancybox__notify"
-										href="javascript:;"
 										data-name="{favorites_goods.NAME}"
 										data-art="{favorites_goods.ART_NUMBER}"
 									>

@@ -64,18 +64,18 @@
 				<div class="productView__ratings flex productView__margin">
 					<div class="ratings" title="Рейтинг товара">
 						{% IF GOODS_OPINION_RATING_VALUE_ROUND %}
-						<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+						<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 							<meta itemprop="worstRating" content="1">
 							<meta itemprop="bestRating" content="10">
 							<meta itemprop="ratingValue" content="{GOODS_OPINION_RATING_VALUE_ROUND}">
 							<meta itemprop="reviewCount" content="{GOODS_OPINION_RATING_CNT_ALL}">
-							<div class="rating" style="width:{GOODS_OPINION_RATING_VALUE_ROUND}0%" alt="{GOODS_OPINION_RATING_VALUE_ROUND}" title="Рейтинг товара"></div>
-						</span>
+							<div class="ratings__value" style="width:{GOODS_OPINION_RATING_VALUE_ROUND}0%" alt="{GOODS_OPINION_RATING_VALUE_ROUND}" title="Рейтинг товара"></div>
+						</div>
+						<div class="ratings__count">{GOODS_OPINION_RATING_CNT_ALL}</div>
 						{% ELSE %}
-						<div class="rating" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
+						<div class="ratings__value" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
 						{% ENDIF %}
 					</div>
-					<div class="product__ratings_label">{% IF GOODS_OPINION_RATING_CNT_ALL > 0 %}{GOODS_OPINION_RATING_CNT_ALL} отзыв{GOODS_OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}{% ELSE %}Нет отзывов{% ENDIF %}</div>
 				</div>
 				{% ENDIF %}
 
@@ -234,7 +234,6 @@
 							rel="nofollow"
 							data-fancybox
 							data-src="#fancybox__notify"
-							href="javascript:;"
 							data-name="{GOODS_NAME}"
 							data-art="{GOODS_MOD_ART_NUMBER}"
 						>
@@ -522,15 +521,15 @@
 						
 						<div class="opinion__score_ratings ratings" title="Рейтинг товара">
 							{% IF GOODS_OPINION_RATING_VALUE_ROUND %}
-							<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+							<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 								<meta itemprop="worstRating" content="1">
 								<meta itemprop="bestRating" content="10">
 								<meta itemprop="ratingValue" content="{GOODS_OPINION_RATING_VALUE_ROUND}">
 								<meta itemprop="reviewCount" content="{GOODS_OPINION_RATING_CNT_ALL}">
-								<div class="rating" style="width:{GOODS_OPINION_RATING_VALUE_ROUND}0%" alt="{GOODS_OPINION_RATING_VALUE_ROUND}" title="Рейтинг товара"></div>
-							</span>
+								<div class="ratings__value" style="width:{GOODS_OPINION_RATING_VALUE_ROUND}0%" alt="{GOODS_OPINION_RATING_VALUE_ROUND}" title="Рейтинг товара"></div>
+							</div>
 							{% ELSE %}
-							<div class="rating" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
+							<div class="ratings__value" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
 							{% ENDIF %}
 						</div>
 				
@@ -544,7 +543,7 @@
 					</div>
 
 					<div class="opinion__score_buttons">
-						<a class="opinion__score_button opinion__add button-secondary" href="javascript:;" title="Оставить отзыв">
+						<a class="opinion__score_button opinion__add button-secondary" title="Оставить отзыв">
 							<span>Оставить отзыв</span>
 						</a>
 					</div>
@@ -591,7 +590,7 @@
 												<meta itemprop="bestRating" content="10">
 												<meta itemprop="ratingValue" content="{opinion_list.RATING}">
 												<!-- <meta itemprop="reviewCount" content="{GOODS_OPINION_RATING_CNT_ALL}"> -->
-												<div class="rating" style="width:{opinion_list.RATING}0%" alt="{opinion_list.RATING}" title="Рейтинг товара"></div>
+												<div class="ratings__value" style="width:{opinion_list.RATING}0%" alt="{opinion_list.RATING}" title="Рейтинг товара"></div>
 											</div>
 										</div>
 										{% ENDIF %}
@@ -646,7 +645,7 @@
 
 							<!-- Кнопка Показать все отзывы -->
 							<div class="opinion__buttons">
-								<a class="button-rotate button-link opinion__buttons-showAll" href="javascript:;">
+								<a class="button-rotate button-link opinion__buttons-showAll">
 									<i class="icon-reload"></i>
 									<span slot="Скрыть">Показать все</span>
 								</a>
@@ -734,7 +733,7 @@
 									<div class="opinion__captcha">
 										<input class="captcha__input form__input" type="text" id="opinion_captcha_string" name="form[{ANTISPAM_FORM_FIELD_NAME_CAPTCHA_STRING}]" autocomplete="off" value="{FORM_}" placeholder="Введите капчу"/>
 										<img class="captcha__image" src="{CAPTCHA_URL}" alt="Код" title="Проверочный код, который нужно ввести в соседнее поле" />
-										<a class="captcha__refresh" href="javascript:;"><i class="icon-refresh"></i></a>
+										<a class="captcha__refresh"><i class="icon-reload"></i></a>
 									</div>
 								</div>
 								{% ENDIF %}
@@ -746,7 +745,7 @@
 									</button>
 									<div class="form__pp">
 										<span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь</span>
-										<a data-fancybox data-src="#fancybox__pp" href="javascript:;">с правилами обработки данных</a>
+										<a data-fancybox data-src="#fancybox__pp">с правилами обработки данных</a>
 									</div>
 								</div>
 
@@ -867,19 +866,18 @@
 						<div class="product__ratings product__margin">
 							<div class="ratings">
 								{% IF related_goods.OPINION_RATING_VALUE %}
-								<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+								<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 									<meta itemprop="worstRating" content="1">
 									<meta itemprop="bestRating" content="10">
 									<meta itemprop="ratingValue" content="{related_goods.OPINION_RATING_VALUE}">
 									<meta itemprop="reviewCount" content="{related_goods.OPINION_RATING_CNT_ALL}">
-									<div class="rating" style="width:{related_goods.OPINION_RATING_VALUE}0%" alt="{related_goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
-								</span>
+									<div class="ratings__value" style="width:{related_goods.OPINION_RATING_VALUE}0%" alt="{related_goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
+								</div>
+								<div class="ratings__count">{related_goods.OPINION_RATING_CNT_ALL}</div>
 								{% ELSE %}
-								<div class="rating" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
+								<div class="ratings__value" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
 								{% ENDIF %}
 							</div>
-							<div class="product__ratings_count">({related_goods.OPINION_RATING_CNT_ALL})</div>
-							<div class="product__ratings_label">{% IF related_goods.OPINION_RATING_CNT_ALL > 0 %}{related_goods.OPINION_RATING_CNT_ALL} отзыв{related_goods.OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}{% ELSE %}Нет отзывов{% ENDIF %}</div>
 						</div>
 						{% ENDIF %}
 			
@@ -894,7 +892,6 @@
 									rel="nofollow"
 									data-fancybox
 									data-src="#fancybox__notify"
-									href="javascript:;"
 									data-name="{related_goods.NAME}"
 									data-art="{related_goods.ART_NUMBER}"
 								>
@@ -1198,19 +1195,18 @@
 						<div class="product__ratings product__margin">
 							<div class="ratings">
 								{% IF related_views_goods.OPINION_RATING_VALUE %}
-								<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+								<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 									<meta itemprop="worstRating" content="1">
 									<meta itemprop="bestRating" content="10">
 									<meta itemprop="ratingValue" content="{related_views_goods.OPINION_RATING_VALUE}">
 									<meta itemprop="reviewCount" content="{related_views_goods.OPINION_RATING_CNT_ALL}">
-									<div class="rating" style="width:{related_views_goods.OPINION_RATING_VALUE}0%" alt="{related_views_goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
-								</span>
+									<div class="ratings__value" style="width:{related_views_goods.OPINION_RATING_VALUE}0%" alt="{related_views_goods.OPINION_RATING_VALUE}" title="Рейтинг товара"></div>
+								</div>
+								<div class="ratings__count">{related_views_goods.OPINION_RATING_CNT_ALL}</div>
 								{% ELSE %}
-								<div class="rating" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
+								<div class="ratings__value" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
 								{% ENDIF %}
 							</div>
-							<div class="product__ratings_count">({related_views_goods.OPINION_RATING_CNT_ALL})</div>
-							<div class="product__ratings_label">{% IF related_views_goods.OPINION_RATING_CNT_ALL > 0 %}{related_views_goods.OPINION_RATING_CNT_ALL} отзыв{related_views_goods.OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}{% ELSE %}Нет отзывов{% ENDIF %}</div>
 						</div>
 						{% ENDIF %}
 			
@@ -1225,7 +1221,6 @@
 									rel="nofollow"
 									data-fancybox
 									data-src="#fancybox__notify"
-									href="javascript:;"
 									data-name="{related_views_goods.NAME}"
 									data-art="{related_views_goods.ART_NUMBER}"
 								>
