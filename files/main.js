@@ -3121,6 +3121,19 @@ function openMenu() {
       $('[data-is-opened="'+ value +'"]').addClass('is-opened');
     }
   });
+	
+
+	// Открытие подвала
+	$('.footer__title').on('click', function(event){
+    event.preventDefault();
+		if (getClientWidth() < 480){
+			$(this).toggleClass('is-actived')
+			$(this).next().slideToggle();
+		}else{
+			$(this).next().attr('style', '')
+		}
+	});
+
 }
 
 // Функция удаления классов всех активных элементов
