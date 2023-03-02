@@ -1676,12 +1676,12 @@ class Catalog {
 		this.priceFilter = function () {
 
 			const
-				priceFilterMinAvailable = parseInt($('.goodsFilterPriceRangePointers .min').text()), // Минимальное значение цены для фильтра
-				priceFilterMaxAvailable = parseInt($('.goodsFilterPriceRangePointers .max').text()), // Максимальное значение цены для фильтра
+				priceFilterMinAvailable = parseInt($('.filters-price__range .min').text()), // Минимальное значение цены для фильтра
+				priceFilterMaxAvailable = parseInt($('.filters-price__range .max').text()), // Максимальное значение цены для фильтра
 				priceSliderBlock = $('#goods-filter-price-slider'), // Максимальное значение цены для фильтра
 				priceInputMin = $('#goods-filter-min-price'), // Поле ввода текущего значения цены "От"
 				priceInputMax = $('#goods-filter-max-price'), // Поле ввода текущего значения цены 'До'
-				priceSubmitButtonBlock = $('.goodsFilterPriceSubmit'); // Блок с кнопкой, которую есть смысл нажимать только тогда, когда изменялся диапазон цен.
+				priceSubmitButtonBlock = $('.filters-price__buttons'); // Блок с кнопкой, которую есть смысл нажимать только тогда, когда изменялся диапазон цен.
 
 
 			// Слайдер, который используется для удобства выбора цены
