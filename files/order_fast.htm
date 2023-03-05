@@ -1,11 +1,11 @@
 <div class="page-order-fast">
 	<div class="order-fast__conteiner">
 		{% IF FORM_NOTICE %}
-		<div class="notice {% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
+		<div class="notice-{% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
 		{% ENDIF %}
 
 		{% IF cart_count_empty %}
-		<div class="notice attention">Ваша корзина пуста, пожалуйста, выберите другой товар для оформления заказа</div>
+		<div class="notice-attention">Ваша корзина пуста, пожалуйста, выберите другой товар для оформления заказа</div>
 		{% ELSE %}
 		<div class="order-fast__content">
 			<form class="order-fast__form" action="{ORDER_STAGE_CONFIRM_WITHOUT_DOMAIN_URL}" method="post">

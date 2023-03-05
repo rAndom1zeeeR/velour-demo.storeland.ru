@@ -728,7 +728,7 @@
 						
 									<div class="product__addto flex">
 										<!-- Добавление товара в избранное и сравнение и в корзину -->
-										<div class="product__addtoCart">
+										<div class="product__cart">
 											<!-- Добавление в корзину -->
 											{% IF index_page_sale_goods.MAX_REST_VALUE=0 %}
 											<a class="product__add add-notify button-tertiary"
@@ -905,7 +905,7 @@
 
 									<!-- Наличие -->
 									<div class="product__available {% IF index_page_sale_goods.MAX_REST_VALUE = 0 %}rest-zero{% ELSEIF index_page_sale_goods.MAX_REST_VALUE > 9 %}rest-alot{% ELSE %}rest-few{% ENDIF %}">
-										<div class="goodsModRestValue" data-value="{index_page_sale_goods.MAX_REST_VALUE}">
+										<div class="productRestValue" data-value="{index_page_sale_goods.MAX_REST_VALUE}">
 											<b>
 												{% IF index_page_sale_goods.MAX_REST_VALUE = 0 %}
 													Нет
@@ -1051,7 +1051,7 @@
 					
 								<div class="product__addto">
 									<!-- Добавление товара в избранное и сравнение и в корзину -->
-									<div class="product__addtoCart">
+									<div class="product__cart">
 										<!-- Добавление в корзину -->
 										{% IF index_page_favorites_goods.MAX_REST_VALUE=0 %}
 										<a class="product__add add-notify button-tertiary"
@@ -1228,7 +1228,7 @@
 
 								<!-- Наличие -->
 								<div class="product__available {% IF index_page_favorites_goods.MAX_REST_VALUE = 0 %}rest-zero{% ELSEIF index_page_favorites_goods.MAX_REST_VALUE > 9 %}rest-alot{% ELSE %}rest-few{% ENDIF %}">
-									<div class="goodsModRestValue" data-value="{index_page_favorites_goods.MAX_REST_VALUE}">
+									<div class="productRestValue" data-value="{index_page_favorites_goods.MAX_REST_VALUE}">
 										<b>
 											{% IF index_page_favorites_goods.MAX_REST_VALUE = 0 %}
 												Нет
@@ -1405,7 +1405,7 @@
 					
 								<div class="product__addto flex">
 									<!-- Добавление товара в избранное и сравнение и в корзину -->
-									<div class="product__addtoCart">
+									<div class="product__cart">
 										<!-- Добавление в корзину -->
 										{% IF index_page_new_goods.MAX_REST_VALUE=0 %}
 										<a class="product__add add-notify button-tertiary"
@@ -1582,7 +1582,7 @@
 
 								<!-- Наличие -->
 								<div class="product__available {% IF index_page_new_goods.MAX_REST_VALUE = 0 %}rest-zero{% ELSEIF index_page_new_goods.MAX_REST_VALUE > 9 %}rest-alot{% ELSE %}rest-few{% ENDIF %}">
-									<div class="goodsModRestValue" data-value="{index_page_new_goods.MAX_REST_VALUE}">
+									<div class="productRestValue" data-value="{index_page_new_goods.MAX_REST_VALUE}">
 										<b>
 											{% IF index_page_new_goods.MAX_REST_VALUE = 0 %}
 												Нет
@@ -1784,7 +1784,7 @@
 				
 							<div class="product__addto flex">
 								<!-- Добавление товара в избранное и сравнение и в корзину -->
-								<div class="product__addtoCart">
+								<div class="product__cart">
 									<!-- Добавление в корзину -->
 									{% IF index_page_goods.MAX_REST_VALUE=0 %}
 									<a class="product__add add-notify button-tertiary"
@@ -1961,7 +1961,7 @@
 
 							<!-- Наличие -->
 							<div class="product__available {% IF index_page_goods.MAX_REST_VALUE = 0 %}rest-zero{% ELSEIF index_page_goods.MAX_REST_VALUE > 9 %}rest-alot{% ELSE %}rest-few{% ENDIF %}">
-								<div class="goodsModRestValue" data-value="{index_page_goods.MAX_REST_VALUE}">
+								<div class="productRestValue" data-value="{index_page_goods.MAX_REST_VALUE}">
 									<b>
 										{% IF index_page_goods.MAX_REST_VALUE = 0 %}
 											Нет
@@ -2379,171 +2379,10 @@
 						{% ENDIF %}
 					</div>
 				</div>
+				
+				<!-- Основное описание страницы -->
+				<div class="body">{BODY}</div>
 
-				<div class="main__inner flex-start">
-					<!-- Левая часть -->
-					{% IFNOT IS_FULL_CATALOG && MOD_LNAME = catalog || MOD_LNAME = search || MOD_LNAME = discount %}
-					<div class="main__left sidebar">
-						<!-- Каталог -->
-						<div class="sidebar__block sidebar__block-catalog">
-							<div class="sidebar__title flex">
-								<i class="icon-menu"></i>
-								<span>Каталог товаров</span>
-							</div>
-							<div class="sidebar__content">
-								<ul class="catalog__items unstyled">
-									{% FOR catalog_full %}
-										{% IFNOT catalog_full.LEVEL = 0 && catalog_full.FIRST %}
-										<ul class="catalog__sub" data-level="{catalog_full.LEVEL}">
-										{% ENDIF %}
-											<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-actived{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
-												<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
-													<span class="catalog__name">{catalog_full.NAME}</span>
-													{% IF catalog_full.ISSET_VISIBLE_SUB %}<span class="catalog__open"></span>{% ENDIF %}
-												</a>
-											{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
-										{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF out.LAST %}{% ENDFOR out %}{% ENDIF LAST %}
-									{% ENDFOR catalog_full %}
-							</div>
-						</div>
-						{% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}
-						<!-- Если в тарифном плане подключен модуль фильтров по товарам -->
-						<div id="filters" class="sidebar__block sidebar__block-filters">
-							<div class="sidebar__title flex">
-								<i class="icon-filter"></i>
-								<span>Фильтры</span>
-								<a class="sidebar__close" onclick="closeAll()"><i class="icon-close"></i></a>
-							</div>
-							<div class="sidebar__content {% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
-								<form action="" method="get" class="form__filters">
-									<!-- Если есть возможность фильтрации товаров по ценам -->
-									{% IF SHOW_GOODS_PRICE_FILTERS %}
-									<div class="filter__list filters-price filter__collapsible is-actived">
-										<a class="filter__title flex" title="Показать фильтры Цены">
-											<span class="filter__name">Цена</span>
-											<i class="icon-chevron_up"></i>
-										</a>
-										<!-- <a class="filter__clear" title="Очистить фильтры">
-											<span>Сбросить</span>
-										</a> -->
-
-										<div class="filter__content">
-											<input type="hidden" name="form[filter][available_price][min]" value="{GOODS_FILTER_MIN_AVAILABLE_PRICE}" />
-											<input type="hidden" name="form[filter][available_price][max]" value="{GOODS_FILTER_MAX_AVAILABLE_PRICE}" />
-											<!-- Ползунок фильтров по цене -->
-											<div id="goods-filter-price-slider"></div>
-											<!-- Фильтры по цене -->
-											<div class="filters-price__range flex justify-between">
-												<span class="min" style="display:none;">{GOODS_FILTER_MIN_AVAILABLE_PRICE}</span>
-												<span class="max" style="display:none;">{GOODS_FILTER_MAX_AVAILABLE_PRICE}</span>
-												<span>от</span>
-												<input id="goods-filter-min-price" class="form__input" type="text" name="form[filter][price][min]" value="{% IF GOODS_FILTER_MIN_PRICE %}{GOODS_FILTER_MIN_PRICE}{% ELSE %}{GOODS_FILTER_MIN_AVAILABLE_PRICE}{% ENDIF %}" min="1" onkeypress="return keyPress(this, event);" onpaste="return false;" />
-												<span>до</span>
-												<input id="goods-filter-max-price" class="form__input" type="text" name="form[filter][price][max]" value="{% IF GOODS_FILTER_MAX_PRICE %}{GOODS_FILTER_MAX_PRICE}{% ELSE %}{GOODS_FILTER_MAX_AVAILABLE_PRICE}{% ENDIF %}" min="1" onkeypress="return keyPress(this, event);" onpaste="return false;" />
-											</div>
-											<!-- Кнопки Фильтров -->
-											<div class="filters-price__buttons flex justify-between">
-												<a class="filters-price__button button-link" href="{PAGE_CANONICAL}" title="Очистить фильтры">
-													<span>Очистить</span>
-												</a>
-												<button class="filters-price__button button-link" type="submit" title="Показать">
-													<span>Применить</span>
-												</button>
-											</div>
-										</div>
-									</div>
-									{% ENDIF %}
-
-									<!-- Фильтры по характеристикам товаров (Например: Производитель, разрешение экрана, заряд аккомулятора) {% FOR values %}{% IF filter_attr_list.values.CHECKED %}is-actived {% ENDIF %}{% ENDFOR %} -->
-									{% FOR filter_attr_list %}
-									<div class="filter__list filter__collapsible {% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}">
-										<a class="filter__title flex" title="Показать фильтры {filter_attr_list.NAME}">
-											<span class="filter__name">{filter_attr_list.NAME}</span>
-											<i class="icon-chevron_up"></i>
-										</a>
-										<!-- <a class="filter__clear" title="Очистить фильтры">
-											<span>Сбросить</span>
-										</a> -->
-
-										<div class="filter__content">
-											<!-- <input class="filter__search" type="text" placeholder="Я ищу"> -->
-											<div class="filter__items">
-												{% FOR values %}
-												<div class="filter__item flex {% IF filter_attr_list.values.CHECKED %}is-checked{% ELSEIF filter_attr_list.values.NB_GOODS_FILTERED=0 %}is-disabled{% ENDIF %}">
-													<input class="square" 
-																type="checkbox" 
-																value="1" 
-																name="form[filter][attr][{filter_attr_list.ID}][{filter_attr_list.values.ID}]" 
-																id="filterAttrVal{filter_attr_list.values.ID}" 
-																{% IF filter_attr_list.values.CHECKED %}checked="checked" {% ELSEIF filter_attr_list.values.NB_GOODS_FILTERED=0 %}disabled="disabled"{% ENDIF %} 
-													/>
-													<label class="filter__label" for="filterAttrVal{filter_attr_list.values.ID}" data-name="{filter_attr_list.values.VALUE}">
-														<span class="filter__label-value">{filter_attr_list.values.VALUE}</span>
-														<span class="filter__label-count">{filter_attr_list.values.NB_GOODS_FILTERED}</span>
-													</label>
-												</div>
-												{% ENDFOR %}
-											</div>
-										</div>
-
-									</div>
-									{% ENDFOR %}
-
-									<!-- Фильтры по свойствам товарных модификаций (Например: Цвет, размер, модификация) {% FOR values %}{% IF filter_prop_list.values.CHECKED %}is-actived {% ENDIF %}{% ENDFOR %} -->
-									{% FOR filter_prop_list %}
-									<div class="filter__list filter__collapsible {% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}">
-										<a class="filter__title flex" title="Показать фильтры {filter_prop_list.NAME}">
-											<span class="filter__name">{filter_prop_list.NAME}</span>
-											<i class="icon-chevron_up"></i>
-										</a>
-										<!-- <a class="filter__clear" title="Очистить фильтры">
-											<span>Сбросить</span>
-										</a> -->
-
-										<div class="filter__content">
-											<!-- <input class="filter__search" type="text" placeholder="Я ищу"> -->
-											<div class="filter__items">
-												{% FOR values %}
-												<div class="filter__item flex {% IF filter_prop_list.values.CHECKED %}is-checked{% ELSEIF filter_prop_list.values.NB_GOODS_FILTERED=0 %}is-disabled{% ENDIF %}">
-													<input class="square" 
-																type="checkbox" 
-																value="1" 
-																name="form[filter][prop][{filter_prop_list.ID}][{filter_prop_list.values.ID}]" 
-																id="filterPropVal{filter_prop_list.values.ID}" 													
-																{% IF filter_prop_list.values.CHECKED %}checked="checked"{% ELSEIF filter_prop_list.values.NB_GOODS_FILTERED=0 %}disabled="disabled"{% ENDIF %} 
-													/>
-													<label class="filter__label" for="filterPropVal{filter_prop_list.values.ID}" data-name="{filter_prop_list.values.VALUE}">
-														<span class="filter__label-value">{filter_prop_list.values.VALUE}</span>
-														<span class="filter__label-count">{filter_prop_list.values.NB_GOODS_FILTERED}</span>
-													</label>
-												</div>
-												{% ENDFOR %}
-											</div>
-										</div>
-
-									</div>
-									{% ENDFOR %}
-								</form>
-								<div class="filters__buttons">
-									<a class="button-secondary" href="{PAGE_CANONICAL}" title="Очистить фильтры">
-										<span>Сбросить фильтры</span>
-									</a>
-								</div>
-							</div>
-						</div>
-						{% ENDIF filters %}
-
-					</div>
-					{% ENDIF %}
-
-					<!-- Правая часть -->
-					<div class="main__right {% IFNOT IS_FULL_CATALOG && MOD_LNAME = catalog || MOD_LNAME = search || MOD_LNAME = discount %}has-sidebar{% ENDIF %}">
-						<!-- Основное описание страницы -->
-						<div class="body">{BODY}</div>
-
-					</div>		
-
-				</div>
 			</div>
 		</main>
 
@@ -2551,7 +2390,7 @@
 
 		<!-- Вы смотрели -->
 		{% IFNOT recently_viewed_goods_empty %}
-		<section id="pdt__viewed" class="loading">
+		<section id="pdt__viewed" class="pdt__slider loading">
 			<div class="container">
 				<div class="block__title block__nav">
 					<div class="title"><span>Вы смотрели</span></div>
@@ -2672,7 +2511,7 @@
 						
 									<div class="product__addto flex">
 										<!-- Добавление товара в избранное и сравнение и в корзину -->
-										<div class="product__addtoCart">
+										<div class="product__cart">
 											<!-- Добавление в корзину -->
 											{% IF recently_viewed_goods.MAX_REST_VALUE=0 %}
 											<a class="product__add add-notify button-tertiary"
@@ -2849,7 +2688,7 @@
 
 									<!-- Наличие -->
 									<div class="product__available {% IF recently_viewed_goods.MAX_REST_VALUE = 0 %}rest-zero{% ELSEIF recently_viewed_goods.MAX_REST_VALUE > 9 %}rest-alot{% ELSE %}rest-few{% ENDIF %}">
-										<div class="goodsModRestValue" data-value="{recently_viewed_goods.MAX_REST_VALUE}">
+										<div class="productRestValue" data-value="{recently_viewed_goods.MAX_REST_VALUE}">
 											<b>
 												{% IF recently_viewed_goods.MAX_REST_VALUE = 0 %}
 													Нет

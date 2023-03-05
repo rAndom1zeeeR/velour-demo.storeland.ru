@@ -1,6 +1,6 @@
 <div class="page-сallback">
   {% IF FORM_NOTICE %}
-  <div class="notice {% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
+  <div class="notice-{% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
   {% ENDIF %}
 
   {% IFNOT FORM_NOTICE_IS_GOOD %}

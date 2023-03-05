@@ -11,7 +11,9 @@
 >
 
   <input type="hidden" name="hash" value="{HASH}" />
-  {% IF FORM_NOTICE %}<div class="notice {% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>{% ENDIF %}
+  {% IF FORM_NOTICE %}
+  <div class="notice-{% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
+  {% ENDIF %}
     
   <!-- Шаг 1. Контакты -->
   {% IF ORDER_STAGE_NUM=1 %}

@@ -1,6 +1,6 @@
 <div class="page-compare">
   {% IF compare_list_empty %}
-  <div class="notice attention">Ваш список сравнения пуст. Вы можете добавлять сюда товары из <a href="{CATALOG_URL}" title="Перейти в Каталог">каталога</a> и сравнивать их между собой.</div>
+  <div class="notice-attention">Ваш список сравнения пуст. Вы можете добавлять сюда товары из <a href="{CATALOG_URL}" title="Перейти в Каталог">каталога</a> и сравнивать их между собой.</div>
   <div class="page-buttons">
     <a class="button-primary" href="{CATALOG_URL}" title="Назад в Каталог"><span>Назад</span></a>
   </div>
@@ -74,7 +74,7 @@
               <input type="hidden" name="form[goods_mod_id]" value="{goods_mod_info.GOODS_MOD_ID}" class="goodsModificationId" />
               <input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
               <!-- Добавление товара в корзину -->
-              <div class="compare__addCart product__addtoCart">
+              <div class="compare__addCart product__cart">
                 {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE && goods_mod_info.REST_VALUE=0 %}
                   <a class="add-notify button-empty" 
                     title="Уведомить" 

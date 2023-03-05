@@ -1,6 +1,6 @@
 <div class="page-client">
 	{% IF favorites_goods_empty %}
-		<div class="notice attention">Ваш список избранных товаров пуст. Вы можете выбрать товары из <a href="{CATALOG_URL}" title="Перейти в каталог">Каталога</a>.</div>
+		<div class="notice-attention">Ваш список избранных товаров пуст. Вы можете выбрать товары из <a href="{CATALOG_URL}" title="Перейти в каталог">Каталога</a>.</div>
 	{% ELSE %}
 	<div class="products__container">
 		<div class="row">
@@ -114,7 +114,7 @@
 				
 							<div class="product__addto flex">
 								<!-- Добавление товара в избранное и сравнение и в корзину -->
-								<div class="product__addtoCart">
+								<div class="product__cart">
 									<!-- Добавление в корзину -->
 									{% IF favorites_goods.MAX_REST_VALUE=0 %}
 									<a class="product__add add-notify button-tertiary"
@@ -291,7 +291,7 @@
 
 							<!-- Наличие -->
 							<div class="product__available {% IF favorites_goods.MAX_REST_VALUE = 0 %}rest-zero{% ELSEIF favorites_goods.MAX_REST_VALUE > 9 %}rest-alot{% ELSE %}rest-few{% ENDIF %}">
-								<div class="goodsModRestValue" data-value="{favorites_goods.MAX_REST_VALUE}">
+								<div class="productRestValue" data-value="{favorites_goods.MAX_REST_VALUE}">
 									<b>
 										{% IF favorites_goods.MAX_REST_VALUE = 0 %}
 											Нет

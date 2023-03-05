@@ -1,12 +1,12 @@
 <!-- Для полного отображения страницы товаров оторазим элементы навигации и обёрточные блоки -->
 {% IF FORM_NOTICE %}
-<div class="notice {% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
+<div class="notice-{% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
 {% ENDIF %}
 
 <!-- Если товаров в акции нет, то выдаем простое сообщение, мол нет ничего -->
 {% IF goods_empty %}
 <div class="page-search">
-	<div class="notice warning">К сожалению, по Вашему запросу ничего не найдено.</div>
+	<div class="notice-warning">К сожалению, по Вашему запросу ничего не найдено.</div>
 	<h4 class="title">Рекомендации:</h4>
 	<ul class="disc">
 		<li>Убедитесь, что все слова написаны без ошибок.</li>
@@ -17,7 +17,7 @@
 
 <!-- Если ничего и не искали -->
 {% ELSEIF search_query_empty %}
-<div class="notice attention">Задан пустой поисковый запрос. </div>
+<div class="notice-attention">Задан пустой поисковый запрос. </div>
 
 <!-- Если есть товары -->
 {% ELSE %}
@@ -202,7 +202,7 @@
 			
 						<div class="product__addto flex">
 							<!-- Добавление товара в избранное и сравнение и в корзину -->
-							<div class="product__addtoCart">
+							<div class="product__cart">
 								<!-- Добавление в корзину -->
 								{% IF goods.MAX_REST_VALUE=0 %}
 								<a class="product__add add-notify button-tertiary"
@@ -379,7 +379,7 @@
 
 						<!-- Наличие -->
 						<div class="product__available {% IF goods.MAX_REST_VALUE = 0 %}rest-zero{% ELSEIF goods.MAX_REST_VALUE > 9 %}rest-alot{% ELSE %}rest-few{% ENDIF %}">
-							<div class="goodsModRestValue" data-value="{goods.MAX_REST_VALUE}">
+							<div class="productRestValue" data-value="{goods.MAX_REST_VALUE}">
 								<b>
 									{% IF goods.MAX_REST_VALUE = 0 %}
 										Нет
@@ -512,7 +512,7 @@
 				
 							<div class="product__addto flex">
 								<!-- Добавление товара в избранное и сравнение и в корзину -->
-								<div class="product__addtoCart">
+								<div class="product__cart">
 									<!-- Добавление в корзину -->
 									{% IF goods.MAX_REST_VALUE=0 %}
 									<a class="product__add add-notify button-tertiary"
@@ -689,7 +689,7 @@
 
 							<!-- Наличие -->
 							<div class="product__available {% IF goods.MAX_REST_VALUE = 0 %}rest-zero{% ELSEIF goods.MAX_REST_VALUE > 9 %}rest-alot{% ELSE %}rest-few{% ENDIF %}">
-								<div class="goodsModRestValue" data-value="{goods.MAX_REST_VALUE}">
+								<div class="productRestValue" data-value="{goods.MAX_REST_VALUE}">
 									<b>
 										{% IF goods.MAX_REST_VALUE = 0 %}
 											Нет

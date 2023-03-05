@@ -1801,20 +1801,13 @@ class Goods {
 				$('.goodsOpinionRating').rating();
 			}
 
-			// Показать/скрыть отзывы если больше 4
-			if ($('.opinion__item').length > 4) {
-				$('.opinion__buttons').show();
-			} else {
-				$('.opinion__buttons').hide();
-			}
-
 			// Выбор модификации
 			$('.modifications-props').each(function () {
 				const val = $(this).find('select option:selected').attr('value');
-				$(this).find('.modifications__value[data-value="' + val + '"]').addClass('is-actived');
+				$(this).find('.modifications-values__value[data-id="' + val + '"]').addClass('is-actived');
 				$(this).find('select option:disabled').each(function () {
 					const dis = $(this).attr('value');
-					$('.modifications__value[data-value="' + dis + '"]').addClass('is-disabled');
+					$('.modifications-values__value[data-id="' + dis + '"]').addClass('is-disabled');
 				});
 
 			});
@@ -1825,14 +1818,14 @@ class Goods {
 
 		// Скрываем отзывы если их много
 		this.hideOpinion = function () {
-			$('.opinion__item').each(function (index) {
-				if (index > 3) {
-					$(this).addClass('is-hide');
-				} else {
-					$(this).addClass('is-show');
-				}
+			// $('.opinion__item').each(function (index) {
+			// 	if (index > 3) {
+			// 		$(this).addClass('is-hide');
+			// 	} else {
+			// 		$(this).addClass('is-show');
+			// 	}
 
-			})
+			// })
 		}
 
 		// Действия при клике
@@ -1853,8 +1846,8 @@ class Goods {
 				const opinionAdd = event.target.closest('.opinion__add');
 				const opinionFormButton = event.target.closest('.opinion__form button');
 				const opinionCaptcha = event.target.closest('.captcha__refresh');
-				const opinionMoreButton = event.target.closest('.opinion__buttons-showAll');
-				const modValue = event.target.closest('.modifications__value');
+				const opinionMoreButton = event.target.closest('.opinion__showAll');
+				const modValue = event.target.closest('.modifications-values__value');
 
 				// Переключение для Положительный и Отрицательный отзыв
 				if (generally) {
@@ -2077,9 +2070,9 @@ class Goods {
 						goodsAvailableQty = goodsModView.find('.productView__qty'), 
 						goodsModQty = goodsModView.find('.qty__input'), 
 						goodsArtNumberBlock = goodsModView.find('.productView__articles'), 
-						goodsArtNumber = goodsModView.find('.goodsModArtNumber'), 
+						goodsArtNumber = goodsModView.find('.productView__article'), 
 						goodsModDescription = goodsModView.find('.modifications__description'), 
-						goodsModRestValue = goodsModView.find('.goodsModRestValue');
+						productRestValue = goodsModView.find('.productRestValue');
 
 					// Изменяем данные товара для выбранных параметров. Если нашлась выбранная модификация
 					if (modificationBlock.length) {
@@ -2099,11 +2092,11 @@ class Goods {
 						// Есть ли товар есть в наличии. Много Мало Отсутствует 
 						if (modificationRestValue > 0) {
 							goodsModView.removeClass('productView__empty');
-							goodsModRestValue.parent().removeClass('rest-alot').removeClass('rest-zero').addClass('rest-few');
+							productRestValue.parent().removeClass('rest-alot').removeClass('rest-zero').addClass('rest-few');
 
 							// Если остаток больше 9
 							if (modificationRestValue > 9) {
-								goodsModRestValue.parent().removeClass('rest-few').removeClass('rest-zero').addClass('rest-alot');
+								productRestValue.parent().removeClass('rest-few').removeClass('rest-zero').addClass('rest-alot');
 							}
 
 							// Если включено в настройках 'Отключить возможность класть в корзину больше товара, чем есть в наличии'
@@ -2114,14 +2107,14 @@ class Goods {
 							}
 
 							// Обновляем кол-во и меру 
-							goodsModRestValue.find('b').text(modificationRestValue + ' ' + modificationMeasure);
+							productRestValue.find('b').text(modificationRestValue + ' ' + modificationMeasure);
 
 						} else {
 							// Нет в наличии
 							goodsModView.addClass('productView__empty');
-							goodsModRestValue.parent().removeClass('rest-few').removeClass('rest-zero').addClass('rest-zero');
-							goodsModRestValue.attr('data-value', modificationRestValue);
-							goodsModRestValue.find('b').text('Нет');
+							productRestValue.parent().removeClass('rest-few').removeClass('rest-zero').addClass('rest-zero');
+							productRestValue.attr('data-value', modificationRestValue);
+							productRestValue.find('b').text('Нет');
 							goodsModQty.val('1').attr('max', 1);
 						}
 
@@ -2190,11 +2183,9 @@ class Goods {
 		// Кнопки для модификаций
 		this.newModification = function ($obj) {
 
-			if ($obj.hasClass('is-disabled')) {
-				return false;
-			}
+			if ($obj.hasClass('is-disabled')) {return false;}
 
-			$obj.parents().find('.modifications__value').removeClass('is-disabled is-actived');
+			$obj.parents().find('.modifications-values__value').removeClass('is-disabled is-actived');
 			$obj.addClass('is-actived');
 			const val = $obj.data('value');
 			$obj.parents().find('.modifications-props__select option[value="' + val + '"]').prop('selected', true);
@@ -3314,8 +3305,7 @@ function swiperSales(){
 }
 
 // Функции стандартного слайдера
-function swiperViewed(){
-	const id = '#pdt__viewed'
+function swiperSlider(id){
 	// Слайдер товаров
 	const swiper = new Swiper(id + ' .swiper', {
 		loop: false,
@@ -3491,7 +3481,7 @@ $(document).ready(function () {
 	openMenu();
 	toTop();
   mainnav('header .mainnav', '1', 991);
-	swiperViewed();
+	swiperSlider('#pdt__viewed');
 	lazyload()
 	remove.onClick()
 	quantityAddto.onAddto()
