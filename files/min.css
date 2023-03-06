@@ -324,11 +324,11 @@ h6 {font-size: 14px;}
 /**************************************/
 /*** Показать пароль ***/
 /**************************************/
-/* .password {position: relative;}
-.password__icon {position: absolute;bottom: 8px;right: 8px;cursor: pointer;z-index: 2;}
+.password {position: relative;}
+.password__icon {position: absolute;bottom: 10px;right: 16px;cursor: pointer;z-index: 2;}
 .password__icon:before {content: '\e911';font-size: 24px;font-family: 'icomoon';vertical-align: middle;}
 .password__icon.is-actived:before {content: '\e912';}
-.password__input {padding-right: 40px;} */
+.password__input {padding-right: 40px;}
 
 /*** Капслок ***/
 #capslock {margin-top: 16px;display: none;}

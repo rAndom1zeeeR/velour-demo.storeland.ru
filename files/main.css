@@ -942,7 +942,7 @@ main {margin: 16px 0 48px;position: relative;display: block;}
 .form__label {display: none;}
 .form__fields-duo {gap: 16px;}
 .form__fields-duo .form__field {width: calc(50% - 8px);flex-grow: 1;}
-.form__list {gap: 16px;}
+.form__list {gap: 16px;display: flex;flex-wrap: wrap;}
 .form__registration {gap: 8px;}
 .form__input {border-color: var(--color-tertiary);}
 .form__select {border-color: var(--color-tertiary);}
@@ -1012,16 +1012,15 @@ main {margin: 16px 0 48px;position: relative;display: block;}
 .client__block .contacts__block {gap: 12px;flex-direction: column;display: flex;}
 .client__block .form__fields {gap: 16px;}
 .client__block .form__field {width: 100%;}
+.client__buttons {gap: 16px;}
 @media all and (min-width: 640px) {
-	.client__block .form__field:nth-child(2), .client__block .form__field:nth-child(3) {width: calc(50% - 8px);}
+	.client__block.feedback .form__field:nth-child(2), .client__block.feedback .form__field:nth-child(3) {width: calc(50% - 8px);}
 }
 @media all and (min-width: 1024px) {
-	.client__block .form__list {gap: 16px 32px;}
-	.client__block .form__left {width: calc(100% - 368px - 32px);}
+	.client__block .form__left {width: calc(100% - 368px - 16px);}
 	.client__block .form__right {width: 368px;}
 }
 @media all and (max-width: 1023px) {
-	.client__block .form__list {gap: 16px;}
 	.client__block .form__left {width: calc(100% - 190px - 16px);}
 	.client__block .form__right {width: 190px;}
 }
@@ -1187,7 +1186,7 @@ header {padding: 24px 0;}
 }
 
 /*** Добавить в ... ***/
-.header-addto {gap: 24px;position: relative;}
+.header-addto {gap: 24px;justify-content: flex-end;position: relative;}
 .header-addto__phone {display: none;}
 .addto__link {gap: 8px;color: var(--color-gray);font-size: 14px;font-weight: 500;flex-direction: column;position: relative;}
 .addto__link i {font-size: 24px;}
@@ -1195,7 +1194,7 @@ header {padding: 24px 0;}
 .has-items .addto__count {opacity: 1;}
 @media all and (max-width: 1023px) {
 	.addto__block.login {display: none;}
-	.header-addto {gap: 20px;justify-content: flex-end;}
+	.header-addto {gap: 20px;}
 	.header-addto__phone {display: block;}
 }
 @media all and (max-width: 767px) {
