@@ -154,7 +154,26 @@
 		</div>
 
 		<!-- Изображение товара  {% IF GOODS_IMAGE_ID = goods_images.ID %}style="display: none;"{% ENDIF %} -->
-		<div class="productView__images" data-id="{GOODS_IMAGE_ID}">
+		<div class="productView__images flex-start" data-id="{GOODS_IMAGE_ID}">
+
+			<!-- Дополнительные изображения -->
+			{% IFNOT goods_images_empty %}
+			<div class="swiper thumblist">
+				<div class="swiper-wrapper thumblist__items flex">
+					{% FOR goods_images %}
+					{% IF goods_images.ID = GOODS_IMAGE_ID %}{continue}{% ENDIF %}
+					<div class="swiper-slide thumblist__item" data-index="{goods_images.index}" data-count="">
+						<a class="thumblist__image flex-center" href="{goods_images.LARGE}" data-fancybox="images">
+							<noscript>
+								<img class="noscript-lozad" src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
+							</noscript>
+							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
+						</a>
+					</div>
+					{% ENDFOR %}
+				</div>
+			</div>
+			{% ENDIF %}
 			
 			<!-- Главное изображение -->
 			<a class="productView__image flex-center" href="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_LARGE}{% ENDIF %}" data-fancybox="images">
@@ -176,27 +195,6 @@
 					{% ENDIF %}
 				</div>
 			</a>
-
-			<!-- Дополнительные изображения -->
-			{% IFNOT goods_images_empty %}
-			<div class="thumblist">
-				<div class="swiper">
-					<div class="swiper-wrapper thumblist__items">
-						{% FOR goods_images %}
-						{% IF goods_images.ID = GOODS_IMAGE_ID %}{continue}{% ENDIF %}
-						<div class="swiper-slide thumblist__item" data-index="{goods_images.index}" data-count="">
-							<a class="thumblist__image flex-center" href="{goods_images.LARGE}" data-fancybox="images">
-								<noscript>
-									<img class="noscript-lozad" src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
-								</noscript>
-								<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
-							</a>
-						</div>
-						{% ENDFOR %}
-					</div>
-				</div>
-			</div>
-			{% ENDIF %}
 
 			<!-- Изображение для смены модификаций -->
 			{% FOR goods_images %}
@@ -351,7 +349,9 @@
 			<div class="productView__desc">
 				<div class="desc__label">Коротко о товаре</div>
 				<div class="desc__text" itemprop="description">{GOODS_DESCRIPTION_SHORT}</div>
-				<div class="desc__more"><span>Полное описание</span></div>
+				<a class="desc__more" href="#tab_1">
+					<span>Полное описание</span>
+				</a>
 			</div>
 			{% ENDIF %}
 
@@ -368,9 +368,9 @@
 					</div>
 					{% ENDFOR %}
 				</div>
-				<div class="features__more">
+				<a class="features__more" href="#tab_2">
 					<span>Все характеристики</span>
-				</div>
+				</a>
 			</div>
 			{% ENDIF %}
 

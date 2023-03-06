@@ -331,6 +331,6 @@ h6 {font-size: 14px;}
 .password__input {padding-right: 40px;} */
 
 /*** Капслок ***/
-/* #capslock {margin-top: 16px;display: none;}
+#capslock {margin-top: 16px;display: none;}
 .capslock__icon i {margin-right: 8px;font-size: 24px;color: var(--color-red);}
-.capslock__text {margin-top: 8px;} */
+.capslock__text {margin-top: 8px;}

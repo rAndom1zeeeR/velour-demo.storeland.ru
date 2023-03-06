@@ -1748,49 +1748,7 @@ class Goods {
 		this.swiperTumbs = function () {
 			const id = '.thumblist';
 			// Слайдер товаров
-			const swiper = new Swiper(id + ' .swiper', {
-				loop: false,
-				autoplay: false,
-				watchSlidesVisibility: true,
-				simulateTouch: true,
-				grabCursor: true,
-				slidesPerView: '3',
-				spaceBetween: 16,
-				nested: true,
-				preloadImages: false,
-				lazy: {
-					enabled: true,
-					loadPrevNext: true,
-					loadOnTransitionStart: true,
-				},
-				navigation: {
-					nextEl: '.swiper-button-next',
-					prevEl: '.swiper-button-prev',
-				},
-				breakpoints: {
-					0: {
-						slidesPerView: '1',
-					},
-					320: {
-						slidesPerView: '2',
-					},
-					480: {
-						slidesPerView: '3',
-					},
-					640: {
-						slidesPerView: '4',
-					},
-					768: {
-						slidesPerView: '5',
-					},
-					1024: {
-						slidesPerView: '3',
-					},
-					1200: {
-						slidesPerView: '3',
-					}
-				}
-			});
+			
 		};
 
 		// Функции при инициализации товара
@@ -2078,12 +2036,12 @@ class Goods {
 					if (modificationBlock.length) {
 						// Цена товара
 						goodsPriceNow.html(modificationPriceNowFormated);
-						goodsPriceNow.attr('data-price', modificationPriceNow).attr('data-price', modificationPriceNow);
+						goodsPriceNow.attr('data-price', modificationPriceNow);
 
 						// Старая цена товара
 						if (modificationPriceOld > modificationPriceNow) {
-							goodsPriceOld.css({ 'display': 'inline-block' });
 							goodsPriceOld.html(modificationPriceOldFormated);
+							goodsPriceOld.attr('data-price', modificationPriceOld);
 						} else {
 							goodsPriceOld.hide();
 							goodsPriceOld.html('');
@@ -2523,8 +2481,8 @@ class Order {
 				$('.order-payment').addClass('is-hide').removeClass('is-show');
 				$('.order-payment[rel="' + selectedDelId + '"]').addClass('is-show').removeClass('is-hide');
 				const startInputId = $('.order-delivery__radio:checked').attr('value');
-				$('.order-payments_items .order-payment input').attr('checked', false);
-				$('.order-payments_items .order-payment[rel="' + startInputId + '"] input').each(function () {
+				$('.order-payments__items .order-payment input').attr('checked', false);
+				$('.order-payments__items .order-payment[rel="' + startInputId + '"] input').each(function () {
 					$(this).click();
 					return false;
 				});
@@ -2542,7 +2500,7 @@ class Order {
 				}
 
 				// Вывод описания оплаты
-				const paymentDescription = $('.order-payments_items .order-payment__radio:checked').parent().find('.order-delivery__desc').html();
+				const paymentDescription = $('.order-payment__radio:checked').parent().find('.order-delivery__desc').html();
 				const payDesc = $('.order-payment__desc')
 				payDesc.html(paymentDescription)
 				if (paymentDescription == undefined) {
@@ -2565,8 +2523,8 @@ class Order {
 			// Выбор оплаты
 			$('.order-payment__select').on('change', function () {
 				const selectedDelId = $(this).find('option:selected').attr('value')
-				$('.order-payments_items .order-payment__radio[value="' + selectedDelId + '"]').click()
-				const paymentDescription = $('.order-payments_items .order-payment__radio:checked').parent().find('.order-payment__desc').html()
+				$('.order-payment__radio[value="' + selectedDelId + '"]').click()
+				const paymentDescription = $('.order-payment__radio:checked').parent().find('.order-payment__desc').html()
 				const payDesc = $('.order-payment__desc')
 				payDesc.html(paymentDescription)
 				if (paymentDescription == undefined) {
