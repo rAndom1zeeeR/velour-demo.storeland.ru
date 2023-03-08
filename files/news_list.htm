@@ -3,15 +3,15 @@
     <div class="notice-attention">Пока нет, но обязательно будут</div>
   {% ELSE %}
     <!-- Список новостей -->
-    <div class="news__list">
+    <div class="news-list">
       {% FOR news_list %}
-      <article class="news__list_item">
-        <a class="news__list_title" href="{news_list.URL}" title="Перейти к странице новости"><span>{news_list.TITLE}</span></a>
+      <article class="news-list__item">
+        <a class="news-list__title" href="{news_list.URL}" title="Перейти к странице новости"><span>{news_list.TITLE}</span></a>
         {% IF news_list.TEXT_SHORT %}
-        <p class="news__list_text">{news_list.TEXT_SHORT}</p>
+        <p class="news-list__text">{news_list.TEXT_SHORT}</p>
         {% ENDIF %}
         {% IF news_list.SHOW_TIME %}
-        <time class="news__list_date" datetime="{news_list.TIME | date('d M Y')}">{news_list.TIME | date('d M Y')}</time>
+        <time class="news-list__date" datetime="{news_list.TIME | date('d M Y')}">{news_list.TIME | date('d M Y')}</time>
         {% ENDIF %}
       </article>
       {% ENDFOR news_list %}

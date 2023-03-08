@@ -30,9 +30,9 @@ function userAgent(){
 	document.body.classList.add(agent)
 }
 
-// Добавляет пробел 1000 -> 1 000  /  10000 -> 10 000. /JS/
-function addSpaces(nStr){
-	return String(nStr).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')
+// Добавляет пробел 1000 -> 1 000  /  10000 -> 10 000. /JS/JEST/
+function addSpaces(str){
+	return String(str).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')
 }
 
 // Предзагрузчик. /JS/
@@ -107,15 +107,15 @@ function notyStart($content, $type) {
 
 
 ///////////////////////////////////////
-// Изменение текста в объкте. /JS/
+// Изменение текста в объкте. /JS/JEST/
 ///////////////////////////////////////
 function changeTxt(obj) {
 	const slot = obj.querySelector('[slot]')
-	const hideTxt = slot.getAttribute('slot')
-	const showTxt = slot.innerHTML
+	const hideText = slot.getAttribute('slot')
+	const showText = slot.textContent.trim()
 	// Обновляем данные
-	slot.innerHTML = hideTxt
-	slot.setAttribute('slot', showTxt)
+	slot.textContent = hideText
+	slot.setAttribute('slot', showText)
 }
 
 
@@ -142,12 +142,12 @@ class Password {
 	};
 
 	// Превращает поле пароля в текстовое поле и обратно. /JS/
-	showPass($btn, $input) {
-		// Добавляем активный класс
-		$btn.classList.toggle('is-actived')
-		
+	showPass($btn, $input) {		
 		// Если не ввели пароль
 		if ($input.value.length < 1) {return false}
+
+		// Добавляем активный класс
+		$btn.classList.toggle('is-actived')
 
 		// Изменяем тип input поля с password на text
 		$input.type == 'text' ? $input.type = 'password' : $input.type = 'text'
@@ -176,13 +176,18 @@ class Password {
 	// Определения capslock в поле пароля. /JS/
 	capsWarning() {
 		const pass = document.querySelector('#sites_client_pass');
-		pass.addEventListener('keyup', event => password.checkCapsWarning(event))
+		if (!pass) return false
+		
+		pass.addEventListener('keyup', event => {
+			const caps = event.getModifierState && event.getModifierState('CapsLock')
+			password.checkCapsWarning(caps)
+		})
 		pass.addEventListener('focusout', () => password.removeCapsWarning())		
 	};
 
 	// Показать ошибку. /JS/
-	checkCapsWarning(event) {
-		document.querySelector('#capslock').style.display = event.getModifierState('CapsLock') ? 'block' : 'none'
+	checkCapsWarning(caps) {
+		document.querySelector('#capslock').style.display = caps ? 'block' : 'none'
 	};
 
 	// Скрыть ошибку. /JS/
@@ -1655,7 +1660,6 @@ class Catalog {
 					filterIcon.classList.toggle('is-opened');
 					document.querySelector('#filters').classList.toggle('is-opened');
 					document.querySelector('#overlay').classList.toggle('is-opened');
-					document.querySelector('#overlay').classList.toggle('transparent');
 				}
 
 				// Сборосить категорию фильтра
@@ -3049,7 +3053,7 @@ function openMenu() {
     event.preventDefault();
 		$(this).toggleClass('is-opened');
 		$('#mobmenu').toggleClass('is-opened');
-		$('#overlay').toggleClass('is-opened transparent');
+		$('#overlay').toggleClass('is-opened');
 		$('.mobmenu__menu').addClass('is-opened')
 		$('.mobmenu__nav-item[data-open="menu"]').addClass('is-opened')
   });
@@ -3106,7 +3110,8 @@ function closeAll() {
 ///////////////////////////////////////
 function ajaxForms(id,flag,successMessage,errorMessage){
   flag = false;
-  //console.log('ajaxForms loaded ', id)
+  console.log('ajaxForms loaded ', id)
+	if(!id) { return false}
   const form = $(id).find('.form__callback');
   form.on('submit',function(event){
     event.preventDefault();
@@ -3151,15 +3156,15 @@ function ajaxForms(id,flag,successMessage,errorMessage){
 }
 
 // 'Обратный звонок' в модальном окне.
-ajaxForms('#fancybox__callback','fancyCallbackFlag','Запрос обратного звонка успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
-// 'Обратная связь' в модальном окне.
-ajaxForms('#fancybox__feedback','fancyFeedbackFlag','Запрос обратной связи успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте.')
-// 'Уведомить' в модальном окне.
-ajaxForms('#fancybox__notify','notifyFlag','Вы будете уведомлены о поступлении товара','Вы уже отправляли запрос. Пожалуйста ожидайте.')
-// 'Обратная связь'.
-ajaxForms('.form__feedback','feedbackFlag','Спасибо за обращение! Мы свяжемся с вами в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте.')
-// Страница 'Обратный звонок'.
-ajaxForms('.page-сallback','pageCallbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
+// ajaxForms('#fancybox__callback','fancyCallbackFlag','Запрос обратного звонка успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
+// // 'Обратная связь' в модальном окне.
+// ajaxForms('#fancybox__feedback','fancyFeedbackFlag','Запрос обратной связи успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте.')
+// // 'Уведомить' в модальном окне.
+// ajaxForms('#fancybox__notify','notifyFlag','Вы будете уведомлены о поступлении товара','Вы уже отправляли запрос. Пожалуйста ожидайте.')
+// // 'Обратная связь'.
+// ajaxForms('.form__feedback','feedbackFlag','Спасибо за обращение! Мы свяжемся с вами в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте.')
+// // Страница 'Обратный звонок'.
+// ajaxForms('.page-сallback','pageCallbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // 'Обратный звонок'.
 // ajaxForms('#callback','callbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // 'Подписаться'.
@@ -3434,7 +3439,7 @@ function swiperSlider(id){
 ///////////////////////////////////////
 // Загрузка основных функций шаблона
 ///////////////////////////////////////
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
 	userAgent();
 	openMenu();
 	toTop();
@@ -3466,7 +3471,7 @@ $(document).ready(function () {
 });
 
 // Запуск функций при изменении экрана
-$(window).resize(function () {
+document.addEventListener('resize', function () {
   if(getClientWidth() > 481 && window.outerHeight < 630){
     $('body').addClass('landscape');
   }else{
@@ -3474,5 +3479,6 @@ $(window).resize(function () {
   }
   mainnav('header .mainnav', '1', 991);
 });
+
 
 console.timeEnd('time test');
