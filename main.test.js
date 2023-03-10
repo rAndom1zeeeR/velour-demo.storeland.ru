@@ -99,6 +99,52 @@ describe("changeTxt object", () => {
 
 
 ///////////////////////////////////////
+// Функция проверки активного класса у объекта
+function isActived(obj, act = 'is-actived'){
+	obj.matches('.'+act) ? obj.classList.remove(act) : obj.classList.add(act)
+}
+
+// TEST. Add class is-actived in object. /JS/
+describe("Add class object", () => {
+  // HTML content
+  document.body.innerHTML = `
+    <div class="products__buttons">
+      <a class="button-primary">
+        <i class="icon-reload"></i>
+        <span>Показать все</span>
+      </a>
+    </div>
+  `;
+    
+  // Object from content
+  const button = document.querySelector('.button-primary')
+  const act = 'is-actived'
+
+  // Test first click
+  test('add class is-actived first click', () => {
+    button.addEventListener('click', isActived(button, act))
+    const matches = button.matches('.'+act)
+    expect(matches).toBe(true);
+  });
+
+  // Test second click
+  test('remove class is-actived second click', () => {
+    button.addEventListener('click', isActived(button, act))
+    const matches = button.matches('.'+act)
+    expect(matches).toBe(false);
+  });
+
+  // Test third click
+  test('add class is-actived third click', () => {
+    button.addEventListener('click', isActived(button, act))
+    const matches = button.matches('.'+act)
+    expect(matches).toBe(true);
+  });
+
+});
+
+
+///////////////////////////////////////
 ///////////////////////////////////////
 ///////////////////////////////////////
 ///////////////////////////////////////

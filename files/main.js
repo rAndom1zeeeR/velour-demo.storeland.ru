@@ -9,7 +9,10 @@ try{$(document).ajaxSuccess(function(i,l,h){try{if(-1<h.data.indexOf("ajax_q=1")
 // Установка cookie файлов на основном домене магазина, в случае если покупатель зашёл на другой домен магазина, например по старой ссылке
 try{$(document).ajaxSuccess(function(i,l,h){try{if(typeof(h.data)!="undefined"&&-1<h.data.indexOf("ajax_q=1")){var d=$.parseJSON(l.responseText);if(null!=d&&typeof(d.setcookie)=="object"){for(var g in d.setcookie){var c=document.createElement("script");c.type="text/javascript";c.async=typeof(d.status)=="undefined"||d.status=="reload"?true:false;c.src=d.setcookie[g];var f=document.getElementsByTagName("script")[0];f.parentNode.insertBefore(c,f);}}}}catch(j){}});}catch(e){}
 
+
+///////////////////////////////////////
 // Отправляет ошибку на сервер, для того чтобы служба тех поддержки могла разобраться в проблеме как можно быстрее.
+///////////////////////////////////////
 function sendError(desc, page, line) {
   let img = document.createElement('img');
   img.src = 'https://storeland.ru/error/js?desc='+encodeURIComponent(desc)+'&page='+encodeURIComponent(window.location)+'&line=0';
@@ -19,23 +22,35 @@ function sendError(desc, page, line) {
   return false;
 }
 
+
+///////////////////////////////////////
 // Функция определения ширины экрана пользователя. /JS/
+///////////////////////////////////////
 function getClientWidth() {
   return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
 }
 
+
+///////////////////////////////////////
 // Функция определения браузера. /JS/
+///////////////////////////////////////
 function userAgent(){
   const agent = detect.parse(navigator.userAgent).browser.family.replace(/\s+/g, '-');
 	document.body.classList.add(agent)
 }
 
+
+///////////////////////////////////////
 // Добавляет пробел 1000 -> 1 000  /  10000 -> 10 000. /JS/JEST/
+///////////////////////////////////////
 function addSpaces(str){
 	return String(str).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')
 }
 
+
+///////////////////////////////////////
 // Предзагрузчик. /JS/
+///////////////////////////////////////
 function preload() {
 	document.querySelectorAll('.preloader').forEach((el) => {
 		el.firstElementChild.style.opacity = '0'
@@ -48,10 +63,41 @@ function createLoader(position = '') {
 	return `<div class="preloader ${position}"><div class="preloading"></div></div>`
 }
 
+
+///////////////////////////////////////
 // Ленивая загрузка. /JS/
+///////////////////////////////////////
 function lazyload(){
 	const observer = lozad()
 	observer.observe()
+}
+
+
+///////////////////////////////////////
+// Уведомления
+///////////////////////////////////////
+function notyStart($content, $type) {
+  new Noty({
+    text: $content,
+    layout: 'bottomRight',
+    type: $type,
+    theme: '',
+    textAlign: 'center',
+    animation: {
+      open: 'animated fadeInUp',
+      close: 'animated fadeOutDown',
+      easing: 'swing',
+      speed: 400
+    },
+    timeout: '2000',
+    progressBar: false,
+    closable: true,
+    closeOnSelfClick: true,
+    modal: false,
+    dismissQueue: false,
+    onClose: true,
+    killer: false
+  }).show();
 }
 
 
@@ -79,34 +125,6 @@ function toTop() {
 
 
 ///////////////////////////////////////
-// Уведомления
-///////////////////////////////////////
-function notyStart($content, $type) {
-  new Noty({
-    text: $content,
-    layout: 'bottomRight',
-    type: $type,
-    theme: '',
-    textAlign: 'center',
-    animation: {
-      open: 'animated fadeInUp',
-      close: 'animated fadeOutDown',
-      easing: 'swing',
-      speed: 400
-    },
-    timeout: '2000',
-    progressBar: true,
-    closable: true,
-    closeOnSelfClick: true,
-    modal: false,
-    dismissQueue: false,
-    onClose: true,
-    killer: false
-  }).show();
-}
-
-
-///////////////////////////////////////
 // Изменение текста в объкте. /JS/JEST/
 ///////////////////////////////////////
 function changeTxt(obj) {
@@ -120,9 +138,51 @@ function changeTxt(obj) {
 
 
 ///////////////////////////////////////
-// Конструктор функции пароля
+// Функция показать все на главной. /JS/
 ///////////////////////////////////////
-class Password {	
+function pdtVisible(id){
+	const content = document.querySelector(id);
+	const button = content.querySelector('.pdt__visible-button');
+	const items = content.querySelectorAll('.product__item');
+	const visible = 8;
+	
+	// Скрываем кнопку показать все если мало товаров
+	button.parentElement.style.display = items.length < visible ? 'none' : 'block';
+
+	// Функция открытия скрытых товаров
+	button.addEventListener('click', function(event){
+		event.preventDefault();
+		changeTxt(this)
+		isActived(this)
+		isActived(content)
+		setTimeout(() => {
+			pdtVisibleScroll(content, this)			
+		}, 100);
+	})
+}
+
+// Переход к контенту
+function pdtVisibleScroll(content, obj){
+	// Верхний отступ до контента + высота контента - высота окна + отступ снизу
+	const contentBottom = content.offsetTop + content.clientHeight - window.innerHeight + 16;
+	// Переход
+	scrollTop(obj.matches('.is-actived') ? contentBottom : content.offsetTop)
+}
+
+// Переход к контенту сверху
+function scrollTop(content){
+	window.scrollTo({
+		top: content,
+		left: 0,
+		behavior: 'smooth'
+	})
+}
+
+
+///////////////////////////////////////
+// Конструктор функции пароля. /JS/
+///////////////////////////////////////
+class Password {
 	// Нажатие иконки Показать пароль. /JS/
 	onClick() {
 		const btnPass = document.querySelector('.password__icon')
@@ -382,7 +442,7 @@ class Quantity {
 			obj.previousElementSibling.classList.add('qty__disable');
 			obj.nextElementSibling.classList.add('qty__disable');
 			// Сообщение пользователю
-			const message = quantity.notyMessage('Внимание! Вы пытаетесь положить в корзину товар которого нет в наличии');
+			const message = quantity.notyMessage('Вы пытаетесь положить в корзину товар которого нет в наличии');
 			notyStart(message, 'warning');
 			return false;
 		}
@@ -393,7 +453,7 @@ class Quantity {
 			val = max;
 			obj.nextElementSibling.classList.add('qty__disable');
 			// Сообщение пользователю
-			const message = quantity.notyMessage('Внимание! Вы пытаетесь положить в корзину товара больше, чем есть в наличии');
+			const message = quantity.notyMessage('Вы пытаетесь положить в корзину товара больше, чем есть в наличии');
 			notyStart(message, 'warning');
 			return false;
 		} else {
@@ -403,7 +463,12 @@ class Quantity {
 
 	// Сообщение пользователю
 	notyMessage(message) {
-		return `<div class="noty__addto"><div class="noty__message">${message}</div></div>`;
+		return `
+			<div class="noty__addto flex">
+				<div class="noty__title">Внимание!</div>
+				<div class="noty__content">${message}</div>
+			</div>
+		`;
 	};
 
 }
@@ -703,6 +768,78 @@ class QuantityCart extends Quantity {
 
 }
 
+// Кол-во продуктов
+class QuantityProduct extends Quantity {
+	constructor () {
+		super()
+		// console.log('QuantityProduct');
+	}
+
+	// Действия в выпадающей корзине
+	onProduct() {
+		const elements = document.querySelectorAll('.product__qty');
+		// Если нет элемента
+		if (elements == null) return false;
+
+		elements.forEach((el) => {
+			const qtyMinus = el.querySelector('.qty__select-minus')
+			const qtyPlus = el.querySelector('.qty__select-plus')
+			const qtyInput = el.querySelector('.qty__input')
+
+			// Минус
+			qtyMinus.addEventListener('click', function () {
+				quantityProduct.minus(qtyInput)
+			})
+
+			// Плюс
+			qtyPlus.addEventListener('click', function () {
+				quantityProduct.plus(qtyInput)
+			})
+
+			// Изменение
+			qtyInput.addEventListener('input', function () {
+				quantityProduct.check(this)
+				// quantityProduct.updAddtoValue(this)
+			})
+
+		})
+	};
+	
+	// Обновить кол-во выпадающей корзины
+	updAddtoValue(obj) {
+		const val = obj.value
+		const id = obj.closest('[data-id]').getAttribute('data-id')
+		const mod = obj.getAttribute('name')
+		const item = document.querySelector('.addto__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
+		
+		if (!item) {return false}
+		item.value = val
+		item.dispatchEvent(new Event('input'));
+		// console.log('updAddtoValue obj', obj);
+		// console.log('updAddtoValue val', val);
+		// console.log('updAddtoValue id', id);
+		// console.log('updAddtoValue mod', mod);
+		// console.log('updAddtoValue items', item);
+	}
+
+	// Обновить кол-во всех товаров
+	updProdValue(obj) {
+		const val = obj.value
+		const id = obj.closest('[data-id]').getAttribute('data-id')
+		const mod = obj.getAttribute('name')
+		const items = document.querySelectorAll('.product__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
+
+		if (!items) {return false}
+		items.forEach((el) => el.value = val)
+		// console.log('updProdValue obj', obj);
+		// console.log('updProdValue val', val);
+		// console.log('updProdValue id', id);
+		// console.log('updProdValue mod', mod);
+		// console.log('updProdValue items', items);
+	}
+	
+}
+
 
 ///////////////////////////////////////
 // Конструктор функции Товара
@@ -717,14 +854,17 @@ class Product {
 			})
 		}
 
-		// Запуск функции активного класса товара в других категориях
-		this.inCartAll = function (id, val) {
-			$('.product__item').filter('[data-id="' + id + '"]').each(function () {
-				const count = $(this).find('.inCart__count')
-				const newCount = parseInt(count.text()) + parseInt(val)
+		// Запуск функции активного класса товара в других категориях. /JS/
+		this.inCartAll = function (id, mod){
+			const items = document.querySelectorAll('.product__item[data-id="' + id + '"]')
+			items.forEach((e) => {
+				const qty = e.querySelector('.qty__input')
+				const count = e.querySelector('.inCart__count')
+				const addtoItem = document.querySelector('.addto__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
 				// Обновление данных
-				$(this).addClass('product__inCart')
-				count.text(newCount)
+				e.classList.add('product__inCart');
+				qty.value = addtoItem.value
+				count.textContent = addtoItem.value
 			})
 		}
 
@@ -733,17 +873,18 @@ class Product {
 			// если есть старая цена
 			const sales = obj.querySelector('.sticker__sales')
 			const old = obj.querySelector('.price__old')
+			const now = obj.querySelector('.price__now')
 
 			if (old) {
-				const priceOld = parseFloat(obj.querySelector('.price__old').getAttribute('data-price'))
-				const priceNow = parseFloat(obj.querySelector('.price__now').getAttribute('data-price'))
+				const priceOld = parseFloat(old.getAttribute('data-price'))
+				const priceNow = parseFloat(now.getAttribute('data-price'))
 				let diff = 0;
 				if (type == 'percent') {
 					const diffPercent = (((priceOld - priceNow) / priceOld) * 100).toFixed()
-					sales.innerHTML = `- ${diffPercent} %`
+					sales.innerHTML = `-${diffPercent}%`
 				} else {
 					diff = (priceOld - priceNow).toFixed()
-					sales.innerHTML = `- ${addSpaces(diff)}`
+					sales.innerHTML = `-${addSpaces(diff)}`
 				}
 			} else {
 				if (!sales) return false
@@ -799,13 +940,14 @@ class Product {
 			}
 
 			// Создать сообщение действия
-			function createNoty(title, message, status, link, link_name) {
+			function createNoty(title, message, image, prod_link, prod_name, status, link, link_name) {
 				return `
 					<div class="noty__addto ${status} flex">
-						<div class="noty__content">
-							<div class="noty__title">${title}</div>
-							<div class="noty__message">${message}</div>
-						</div>
+						<div class="noty__title">${title}</div>
+						<a class="noty__image flex-center" href="${prod_link}" title="${prod_name}">
+							<img src="${image}" alt="${prod_name}" />
+						</a>
+						<div class="noty__content">${message}</div>
 						<div class="noty__buttons">
 							<a class="button-primary" href="${link}" title="${link_name}"><span>${link_name}</span></a>
 						</div>
@@ -952,7 +1094,7 @@ class Product {
 								}
 
 								// Сообщение уведомления
-								const content = createNoty(checkMessage(data.message), data.message, 'noty_good', '/compare', 'Перейти в Сравнение');
+								const content = createNoty(checkMessage(data.message), data.message, pImg, pUrl, pName, 'noty_good', '/compare', 'Перейти в Сравнение');
 								
 								// Если есть функция, которая отображает сообщения пользователю
 								if (typeof (Noty) == 'function') {
@@ -960,7 +1102,7 @@ class Product {
 								}
 							} else if ('error' == data.status) {
 								// Сообщение уведомления
-								const content = createNoty('Не удалось добавить!', data.message, 'noty_bad', '/compare', 'Перейти в Сравнение');
+								const content = createNoty('Не удалось добавить!', data.message, pImg, pUrl, pName, 'noty_bad', '/compare', 'Перейти в Сравнение');
 								
 								// Если есть функция, которая отображает сообщения пользователю
 								if (typeof (Noty) == 'function') {
@@ -1091,7 +1233,7 @@ class Product {
 								}
 
 								// Сообщение уведомления
-								const content = createNoty(checkMessage(data.message), data.message, 'noty_good', '/user/favorites', 'Перейти в Избранное');
+								const content = createNoty(checkMessage(data.message), data.message, pImg, pUrl, pName, 'noty_good', '/user/favorites', 'Перейти в Избранное');
 
 								// Если есть функция, которая отображает сообщения пользователю
 								if (typeof (Noty) == 'function') {
@@ -1099,7 +1241,7 @@ class Product {
 								}
 							} else if ('error' == data.status) {
 								// Сообщение уведомления
-								const content = createNoty('Не удалось добавить!', data.message, 'noty_bad', '/user/login', 'Войти');
+								const content = createNoty('Не удалось добавить!', data.message, pImg, pUrl, pName, 'noty_bad', '/user/login', 'Войти');
 								
 								// Если есть функция, которая отображает сообщения пользователю
 								if (typeof (Noty) == 'function') {
@@ -1136,6 +1278,7 @@ class Product {
 				const t = $(this);
 				const id = t.find('input[name="form[goods_id]"]').val();
 				const val = t.find('.qty__input').val();
+				const mod = t.find('.qty__input').attr('name');
 
 				// Проверка на существование формы отправки запроса на добавление товара в корзину
 				if (1 > formBlock.length || formBlock.get(0).tagName != 'FORM') {
@@ -1170,7 +1313,9 @@ class Product {
 							}
 
 							// Проверяем все товары в других категориях
-							val ? product.inCartAll(id, val) : product.inCartAll(id, 1)
+							setTimeout(() => {
+								product.inCartAll(id, mod)
+							}, 100);
 
 						}
 						// Скрытое обновление корзины
@@ -2749,11 +2894,11 @@ const quantityGoods = new QuantityGoods();
 const quantityAddto = new QuantityAddto();
 // Объявляем конструктор Счетчиков Корзины
 const quantityCart = new QuantityCart();
+// Объявляем конструктор Счетчиков товаров
+const quantityProduct = new QuantityProduct();
 
 
 console.timeEnd('start test');
-
-
 
 
 
@@ -2873,110 +3018,6 @@ function mainnav(id,rows,media){
 	}
 }
 
-
-///////////////////////////////////////
-// Функция показать все на главной
-///////////////////////////////////////
-function pdtVisible(id){
-	const item = $(id).find('.product__item');
-	const visible = $(id).find('.product__item:visible').length;
-
-	// Кнопка показать все
-	const button = $(id).find('.pdt__visible-button');
-	
-	// Скрываем кнопку показать все если мало товаров
-	item.length > visible ? button.parent().show() : button.parent().hide()
-
-	// Функция открытия скрытых товаров
-	button.on('click', function (event){
-		event.preventDefault();
-		changeTxt(this)
-		scrollContent(id, this)
-		if($(this).hasClass('is-actived')){
-			$(this, id).removeClass('is-actived')
-			item.removeClass('is-show')
-		}else{
-			$(this, id).addClass('is-actived')
-			item.addClass('is-show')
-		}
-	});
-}
-
-
-// Переход к контенту
-function scrollContent($content, $obj){
-	// const scrollTop = $content.offset().top + $content.height() - window.innerHeight;
-	const scrollTop = document.querySelector($content).innerHeight
-	console.log('scrollTop', scrollTop);
-	if ($obj.matches('is-actived')) {
-		console.log('matches');
-		window.scrollTo({
-			top: scrollTop,
-			left: 0,
-			behavior: 'smooth'
-		})
-	} else {
-		console.log('not matches');
-		window.scrollTo({
-			top: scrollTop,
-			left: 0,
-			behavior: 'smooth'
-		})
-	}
-}
-
-
-///////////////////////////////////////
-// Новости
-///////////////////////////////////////
-function swiperNews() {
-	const id = '#news'
-	// Свайпер слайдер новостей
-	const swiper = new Swiper(id + ' .swiper', {
-		loop: false,
-		autoplay: false,
-		watchSlidesVisibility: true,
-		simulateTouch: true,
-		grabCursor: true,
-		slidesPerView: '4',
-		spaceBetween: 32,
-		nested: true,
-		preloadImages: false,
-		autoHeight: false,
-		lazy: {
-			enabled: false,
-			loadPrevNext: true,
-			loadOnTransitionStart: true,
-		},
-		navigation: {
-			nextEl: id + ' .swiper-button-next',
-			prevEl: id + ' .swiper-button-prev',
-		},
-		breakpoints: {
-			0: {
-				slidesPerView: '1',
-			},
-			320: {
-				slidesPerView: '1',
-			},
-			480: {
-				slidesPerView: '2',
-			},
-			640: {
-				slidesPerView: '2',
-			},
-			768: {
-				slidesPerView: '3',
-			},
-			1024: {
-				slidesPerView: '4',
-			},
-			1200: {
-				slidesPerView: '4',
-			}
-		}
-	});
-}
 
 ///////////////////////////////////////
 // Отсчет даты до окончания акции
@@ -3133,7 +3174,12 @@ function ajaxForms(id,flag,successMessage,errorMessage){
 							$.fancybox.close();
 						},2000);
 						// Функция, которая отображает сообщения пользователю
-						const content = '<div class="noty__addto"><div class="noty__message">' + successMessage + '</div></div>';
+						const content = `
+							<div class="noty__addto flex">
+								<div class="noty__title">Успешно!</div>
+								<div class="noty__content">${successMessage}</div>
+							</div>
+						`;
 						notyStart(content, 'success');
             flag = true;
           }
@@ -3150,31 +3196,86 @@ function ajaxForms(id,flag,successMessage,errorMessage){
 	function callbackError() {
 		$(id).addClass('error')
 		// Функция, которая отображает сообщения пользователю
-		const content = '<div class="noty__addto"><div class="noty__message">' + errorMessage + '</div></div>';
+		const content = `
+			<div class="noty__addto flex">
+				<div class="noty__title">Ошибка!</div>
+				<div class="noty__content">${errorMessage}</div>
+			</div>
+		`;
 		notyStart(content, 'warning');
 	}
 }
 
 // 'Обратный звонок' в модальном окне.
-// ajaxForms('#fancybox__callback','fancyCallbackFlag','Запрос обратного звонка успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
+ajaxForms('#fancybox__callback','fancyCallbackFlag','Запрос обратного звонка успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // // 'Обратная связь' в модальном окне.
-// ajaxForms('#fancybox__feedback','fancyFeedbackFlag','Запрос обратной связи успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте.')
+ajaxForms('#fancybox__feedback','fancyFeedbackFlag','Запрос обратной связи успешно отправлен администрации магазина','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // // 'Уведомить' в модальном окне.
-// ajaxForms('#fancybox__notify','notifyFlag','Вы будете уведомлены о поступлении товара','Вы уже отправляли запрос. Пожалуйста ожидайте.')
+ajaxForms('#fancybox__notify','notifyFlag','Вы будете уведомлены о поступлении товара','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // // 'Обратная связь'.
 // ajaxForms('.form__feedback','feedbackFlag','Спасибо за обращение! Мы свяжемся с вами в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // // Страница 'Обратный звонок'.
-// ajaxForms('.page-сallback','pageCallbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
-// 'Обратный звонок'.
-// ajaxForms('#callback','callbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
+ajaxForms('.page-сallback','pageCallbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
+// 'Обратный звонок в подвале'.
+ajaxForms('footer .form__callback','footerCallbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // 'Подписаться'.
 //ajaxForms('#subscribe','subscribeFlag','Спасибо за обращение! Вы подписались на наши уведомления','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 
 
+///////////////////////////////////////
+// Слайдер Новостей
+function swiperNews() {
+	const id = '#news'
+	// Свайпер слайдер новостей
+	const swiper = new Swiper(id + ' .swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '4',
+		spaceBetween: 32,
+		nested: true,
+		preloadImages: false,
+		autoHeight: false,
+		lazy: {
+			enabled: false,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '2',
+			},
+			768: {
+				slidesPerView: '3',
+			},
+			1024: {
+				slidesPerView: '4',
+			},
+			1200: {
+				slidesPerView: '4',
+			}
+		}
+	});
+}
+
 // Слайдер на главной
 function swiperShow(){
 	const id = '#slideshow'
-
 	const swiper = new Swiper(id + ' .swiper', {
 		loop: false,
 		preloadImages: false,
@@ -3315,6 +3416,8 @@ function swiperSlider(id){
 	});
 
 }
+
+///////////////////////////////////////
 
 
 
@@ -3480,5 +3583,10 @@ document.addEventListener('resize', function () {
   mainnav('header .mainnav', '1', 991);
 });
 
+
+// Функция проверки активного класса у объекта
+function isActived(obj, act = 'is-actived'){
+	obj.matches('.'+act) ? obj.classList.remove(act) : obj.classList.add(act)
+}
 
 console.timeEnd('time test');

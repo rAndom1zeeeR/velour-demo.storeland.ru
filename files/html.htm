@@ -2992,7 +2992,7 @@
 
 			<!-- Мобильное меню -->
 			<!-- TODO Переделать все. Проверить дата опен и контент -->
-			<div id="mobmenu">
+			<div id="mobmenu" style="display: none;">
 				<div class="mobmenu__nav">
 					<div class="mobmenu__nav-item button-primary" data-open="catalog"><span>Каталог товаров</span></div>
 					<div class="mobmenu__nav-item button-primary is-opened is-actived" data-open="menu"><span>Меню сайта</span></div>
@@ -3031,8 +3031,8 @@
 
 			<!-- Обратный звонок в модальном окне -->
 			<div id="fancybox__callback" class="modal" style="display:none">
-				<div class="modal__title block__title">
-					<h2 class="title">Обратный звонок</h2>
+				<div class="modal__title">
+					<span>Обратный звонок</span>
 				</div>
 				<div class="modal__content">
 					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
@@ -3040,18 +3040,18 @@
 						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
-						<div class="form__fields">
+						<div class="form__field">
 							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
 						</div>
-						<div class="form__fields">
+						<div class="form__field">
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 						</div>
 						<div class="form__buttons">
-							<button class="button-primary form__button" type="submit" title="Заказать звонок"><span>Заказать звонок</span></button>
 							<div class="form__pp">
-								<span>Нажимая на кнопку &laquo;Заказать звонок&raquo;, Вы соглашаетесь с</span>
+								<span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
 								<span data-fancybox data-src="#fancybox__pp">правилами обработки данных</span>
 							</div>
+							<button class="form__button button-secondary" type="submit" title="Заказать звонок"><span>Отправить</span></button>
 						</div>
 					</form>
 				</div>
@@ -3059,30 +3059,30 @@
 
 			<!-- Обратный звонок в модальном окне -->
 			<div id="fancybox__feedback" class="modal" style="display:none">
-				<div class="modal__title block__title">
-					<h2 class="title">Обратная связь</h2>
+				<div class="modal__title">
+					<span>Обратная связь</span>
 				</div>
 				<div class="modal__content">
-					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
+					<form class="form__callback" method="post" action="{CALLBACK_URL}" enctype="multipart/form-data">
 						<input type="hidden" name="hash" value="{HASH}" />
 						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
-						<div class="form__fields">
+						<div class="form__field">
 							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
 						</div>
-						<div class="form__fields">
+						<div class="form__field">
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 						</div>
-						<div class="form__fields">
+						<div class="form__field">
 							<textarea class="textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
 						</div>
 						<div class="form__buttons">
-							<button class="button-primary form__button" type="submit" title="Отправить"><span>Отправить</span></button>
 							<div class="form__pp">
 								<span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
 								<span data-fancybox data-src="#fancybox__pp">правилами обработки данных</span>
 							</div>
+							<button class="form__button button-secondary" type="submit" title="Отправить"><span>Отправить</span></button>
 						</div>
 					</form>
 				</div>
@@ -3090,8 +3090,8 @@
 
 			<!-- Уведомить о поступлении в модальном окне -->
 			<div id="fancybox__notify" class="modal" style="display:none">
-				<div class="modal__title block__title">
-					<h2 class="title">Уведомить</h2>
+				<div class="modal__title">
+					<span>Уведомить</span>
 				</div>
 				<div class="modal__content">
 					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
@@ -3102,22 +3102,22 @@
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
 						<!-- Для использования почты для уведомлений необходимо удалить блок с телефоном -->
-						<div class="form__fields">
+						<div class="form__field">
 							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
 						</div>
-						<div class="form__fields">
+						<div class="form__field">
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="+7 (987) 654-3210" autocomplete="off" required />
 						</div>
 						<!-- Для использования почты для уведомлений необходимо удалить ниже style="display: none;" -->
-						<div class="form__fields" style="display: none;">
+						<div class="form__field" style="display: none;">
 							<input class="form__input form__email" type="email" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_EMAIL}]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
 						</div>
 						<div class="form__buttons">
-							<button class="button-primary form__button" type="submit" title="Уведомить"><span>Уведомить</span></button>
 							<div class="form__pp">
 								<span>Нажимая на кнопку &laquo;Уведомить&raquo;, Вы соглашаетесь с</span>
 								<span data-fancybox data-src="#fancybox__pp">правилами обработки данных</span>
 							</div>
+							<button class="form__button button-secondary" type="submit" title="Уведомить"><span>Уведомить</span></button>
 						</div>
 					</form>
 				</div>
@@ -3125,8 +3125,8 @@
 
 			<!-- Политика конфиденциальности в модальном окне -->
 			<div id="fancybox__pp" style="display:none">
-				<div class="modal__title block__title">
-					<h2 class="title">Политика приватности</h2>
+				<div class="modal__title">
+					<span>Политика приватности</span>
 				</div>
 				<div class="modal__content">
 					<div>
@@ -3190,7 +3190,7 @@
 	<script async type="text/javascript">
 		// Модальное окно уведомления при отправке сообщения
 		var type = '{% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}';
-		var text = '<div class="noty__addto"><div class="noty__message">{FORM_NOTICE | nl2br}</div></div>'
+		var text = '<div class="noty__addto"><div class="noty__content">{FORM_NOTICE | nl2br}</div></div>'
 		setTimeout(function(){
 			notyStart(text, type)
 		}, 1000);
@@ -3207,6 +3207,7 @@
 			product.quickViewMod();
 			product.onCart();
 			product.onNotify();
+			quantityProduct.onProduct();
 		});
 	</script>
 	{% ENDIF %}
