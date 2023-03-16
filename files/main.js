@@ -1548,9 +1548,9 @@ class Product {
 					$.fancybox.open(data);
 					// Удаляем табы
 					document.querySelector('.productView__tabs').remove();
-					// Замена основного изображения
-					const lozadImg = document.querySelector('.productView__image .lozad');
-					lozadImg.setAttribute('src', lozadImg.getAttribute('data-src'));
+					// // Замена основного изображения
+					// const lozadImg = document.querySelector('.productView__image .lozad');
+					// lozadImg.setAttribute('src', lozadImg.getAttribute('data-src'));
 					// Замена ссылки в описании
 					const desc = document.querySelector('.desc__more');
 					desc.setAttribute('href', desc.getAttribute('data-href'));
@@ -1561,7 +1561,8 @@ class Product {
 						product.addTo();
 						goods.goodsModification(document.querySelector('.productViewBlock'));
 						goods.onClick();
-						quantityGoods.onGoods();						
+						goods.swiperTumbs();
+						quantityGoods.onGoods();
 					}, 1000);
 				}
 
@@ -1995,13 +1996,24 @@ class Goods {
 				loop: true,
 				slidesPerView: '1',
 				spaceBetween: 16,
-				autoHeight: true,
+				autoHeight: false,
 				navigation: {
 					nextEl: ".swiper-button-next",
 					prevEl: ".swiper-button-prev",
 				},
 				thumbs: {
 					swiper: swiper,
+				},
+				breakpoints: {
+					320: {
+						autoHeight: true,
+					},
+					480: {
+						autoHeight: true,
+					},
+					640: {
+						autoHeight: false,
+					},
 				},
 				on: {
 					init: function () {
@@ -3113,12 +3125,12 @@ function mainnav(id,rows,media){
 						$(this).removeClass('is-opened');
 						mainNav.removeClass('is-opened');
 						mainNavOverflow.removeClass('is-opened');
-						$('#overlay').removeClass('is-opened');
+						$('#overlay').removeClass('is-opened transparent');
 					} else{
 						$(this).addClass('is-opened');
 						mainNav.addClass('is-opened');
 						mainNavOverflow.addClass('is-opened');
-						$('#overlay').addClass('is-opened')
+						$('#overlay').addClass('is-opened transparent')
 					}
 					// Определение положения кнопки еще
 					positionMore()
@@ -3697,13 +3709,14 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 // Запуск функций при изменении экрана
-document.addEventListener('resize', function(){
+window.addEventListener('resize', function(){
   if(getClientWidth() > 481 && window.outerHeight < 630){
     $('body').addClass('landscape');
   }else{
     $('body').removeClass('landscape');
   }
   mainnav('header .mainnav', '1', 991);
+	console.log('getClientWidth()', getClientWidth());
 });
 
 
