@@ -1954,7 +1954,66 @@ class Goods {
 		this.swiperTumbs = function(){
 			const id = '.thumblist';
 			// Слайдер товаров
-			
+			const swiper = new Swiper('.thumblist.swiper', {
+				loop: true,
+				slidesPerView: '4',
+				spaceBetween: 16,
+				freeMode: true,
+				breakpoints: {
+					0: {
+						slidesPerView: '1',
+					},
+					320: {
+						slidesPerView: '3',
+						direction: 'horizontal',
+					},
+					480: {
+						slidesPerView: '4',
+						direction: 'horizontal',
+					},
+					640: {
+						slidesPerView: '3',
+						direction: 'horizontal',
+					},
+					768: {
+						slidesPerView: '4',
+						direction: 'vertical',
+					},
+					1024: {
+						slidesPerView: '4',
+						direction: 'vertical',
+					},
+					1200: {
+						slidesPerView: '4',
+						direction: 'vertical',
+					}
+				},
+			});
+
+			// Слайдер товаров
+			const swiper2 = new Swiper('.productView__images-swiper', {
+				loop: true,
+				slidesPerView: '1',
+				spaceBetween: 16,
+				autoHeight: true,
+				navigation: {
+					nextEl: ".swiper-button-next",
+					prevEl: ".swiper-button-prev",
+				},
+				thumbs: {
+					swiper: swiper,
+				},
+				on: {
+					init: function () {
+						if (this.slides.length < 2) {
+							document.querySelector('.productView__images').classList.add('no-thumb')
+							swiper.destroy()
+						} else {
+							document.querySelector('.productView__images').classList.remove('no-thumb')
+						}
+					},
+				},
+			});
 		};
 
 		// Функции при инициализации товара
@@ -1985,7 +2044,9 @@ class Goods {
 			const items = document.querySelectorAll('.opinion__item')
 			const button = document.querySelector('.opinion__buttons')
 			// Если меньше 3 отзывов
-			items.length > 3 ? button.classList.remove('is-hide') : button.classList.add('is-hide');
+			if (button){
+				items.length > 3 ? button.classList.remove('is-hide') : button.classList.add('is-hide');
+			}
 		}
 
 		// Навигация фильтров отзывов. /JS/

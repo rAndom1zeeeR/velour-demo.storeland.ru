@@ -154,33 +154,34 @@
 		</div>
 
 		<!-- Изображение товара  {% IF GOODS_IMAGE_ID = goods_images.ID %}style="display: none;"{% ENDIF %} -->
-		<div class="productView__images flex-start" data-id="{GOODS_IMAGE_ID}">
-
-			<!-- Дополнительные изображения -->
+		<div class="productView__images no-thumb flex-start" data-id="{GOODS_IMAGE_ID}">
 			{% IFNOT goods_images_empty %}
-			<div class="swiper thumblist">
-				<div class="swiper-wrapper thumblist__items flex">
+			<!-- Дополнительные изображения -->
+			<div class="thumblist swiper">
+				<div class="thumblist__items swiper-wrapper">
 					{% FOR goods_images %}
-					{% IF goods_images.ID = GOODS_IMAGE_ID %}{continue}{% ENDIF %}
-					<div class="swiper-slide thumblist__item" data-index="{goods_images.index}" data-count="">
-						<a class="thumblist__image flex-center" href="{goods_images.LARGE}" data-fancybox="images">
-							<noscript>
-								<img class="noscript-lozad" src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
-							</noscript>
-							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
+					<div class="thumblist__item swiper-slide" data-index="{goods_images.index}">
+						<a class="thumblist__image flex-center">
+							<img src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
 						</a>
 					</div>
 					{% ENDFOR %}
 				</div>
 			</div>
-			{% ENDIF %}
-			
+
 			<!-- Главное изображение -->
-			<a class="productView__image flex-center" href="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_LARGE}{% ENDIF %}" data-fancybox="images">
-				<noscript>
-					<img class="noscript-lozad" src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" alt="{GOODS_NAME}" itemprop="image" />
-				</noscript>
-				<img class="lozad" data-src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" alt="{GOODS_NAME}" itemprop="image" />
+			<div class="productView__images-swiper swiper">
+				<div class="productView__images-wrapper swiper-wrapper">
+					{% FOR goods_images %}
+					<div class="productView__images-slide swiper-slide" data-index="{goods_images.index}">
+						<!-- Изображение для смены модификаций -->
+						<input type="hidden" data-id="{goods_images.ID}" data-href="{goods_images.LARGE}" />
+						<a class="productView__images-image flex-center" href="{goods_images.LARGE}" data-fancybox="images">
+							<img src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
+						</a>
+					</div>
+					{% ENDFOR %}
+				</div>
 
 				<!-- Стикеры -->
 				<div class="productView__sticker flex">
@@ -194,12 +195,9 @@
 					<span class="sticker__sale"></span>
 					{% ENDIF %}
 				</div>
-			</a>
 
-			<!-- Изображение для смены модификаций -->
-			{% FOR goods_images %}
-			<input type="hidden" data-id="{goods_images.ID}" data-href="{goods_images.LARGE}" />
-			{% ENDFOR %}
+			</div>
+			{% ENDIF %}
 		</div>		
 		
 		<!-- Основная информация о товаре -->
