@@ -113,7 +113,7 @@
 							<ul class="catalog__sub" data-level="{catalog_full.LEVEL}">
 							{% ENDIF %}
 								<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-actived{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
-									<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+									<a class="catalog__link flex {% IF catalog_full.CURRENT || catalog_full.CURRENT_PARENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
 										<span class="catalog__name">{catalog_full.NAME}</span>
 										{% IF catalog_full.ISSET_VISIBLE_SUB %}<span class="catalog__open"></span>{% ENDIF %}
 									</a>

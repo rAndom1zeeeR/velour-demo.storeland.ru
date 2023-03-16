@@ -349,7 +349,7 @@
 			<div class="productView__desc">
 				<div class="desc__label">Коротко о товаре</div>
 				<div class="desc__text" itemprop="description">{GOODS_DESCRIPTION_SHORT}</div>
-				<a class="desc__more" href="#tab_1">
+				<a class="desc__more" href="#tab_1" data-href="{GOODS_URL}#tab_1">
 					<span>Полное описание</span>
 				</a>
 			</div>
@@ -368,7 +368,7 @@
 					</div>
 					{% ENDFOR %}
 				</div>
-				<a class="features__more" href="#tab_2">
+				<a class="features__more" href="#tab_2" data-href="{GOODS_URL}#tab_2">
 					<span>Все характеристики</span>
 				</a>
 			</div>
@@ -576,8 +576,7 @@
 						<!-- Список отзывов о товарах -->
 						<div class="opinion__items" itemprop="review" itemscope itemtype="https://schema.org/Review">
 							{% FOR opinion_list %}
-							<div class="opinion__item {% IF opinion_list.index > 3 %}is-hide{% ENDIF %}" data-index="{opinion_list.index}" data-nav-content="{% IF opinion_list.GENERALLY_IS_GOOD %}good{% ELSE %}bad{% ENDIF %}" data-rating='{opinion_list.RATING | divide("2")}'>
-
+							<div class="opinion__item" data-index="{opinion_list.index}" data-nav-content="{% IF opinion_list.GENERALLY_IS_GOOD %}good{% ELSE %}bad{% ENDIF %}" data-rating='{opinion_list.RATING | divide("2")}'>
 								<div class="opinion__inner flex">
 									{% IF opinion_list.NAME %}
 									<div class="opinion__name" itemprop="author" itemscope itemtype="https://schema.org/Person">
@@ -638,7 +637,7 @@
 								{% IF opinion_list.ANSWER %}
 								<div class="opinion__answer">
 									<div class="opinion__answer-button">Ответ администратора</div>
-									<div class="opinion__answer-content">{opinion_list.ANSWER | nl2br}</div>
+									<div class="opinion__answer-content is-hide">{opinion_list.ANSWER | nl2br}</div>
 								</div>
 								{% ENDIF %}
 								
@@ -705,17 +704,17 @@
 
 							<div class="opinion__block" style="display: none;">
 								<label for="goods_opinion_accomplishments">Достоинства:</label>
-								<textarea id="goods_opinion_accomplishments" class="textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_ACCOMPLISHMENTS}]" cols="100" rows="3" placeholder="Достоинства">{FORM_GOODS_OPINION_ACCOMPLISHMENTS}</textarea>
+								<textarea id="goods_opinion_accomplishments" class="form__textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_ACCOMPLISHMENTS}]" cols="100" rows="3" placeholder="Достоинства">{FORM_GOODS_OPINION_ACCOMPLISHMENTS}</textarea>
 							</div>
 
 							<div class="opinion__block" style="display: none;">
 								<label for="goods_opinion_limitations">Недостатки:</label>
-								<textarea id="goods_opinion_limitations" class="textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_LIMITATIONS}]" cols="100" rows="3" placeholder="Недостатки">{FORM_GOODS_OPINION_LIMITATIONS}</textarea>
+								<textarea id="goods_opinion_limitations" class="form__textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_LIMITATIONS}]" cols="100" rows="3" placeholder="Недостатки">{FORM_GOODS_OPINION_LIMITATIONS}</textarea>
 							</div>
 
 							<div class="opinion__block">
 								<label for="goods_opinion_comment" class="required"><span>Ваш отзыв:</span><em>*</em></label>
-								<textarea id="goods_opinion_comment" class="textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_COMMENT}]" cols="100" rows="5" placeholder="Ваш отзыв" required>{FORM_GOODS_OPINION_COMMENT}</textarea>
+								<textarea id="goods_opinion_comment" class="form__textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_COMMENT}]" cols="100" rows="5" placeholder="Ваш отзыв" required>{FORM_GOODS_OPINION_COMMENT}</textarea>
 							</div>
 
 							<div class="opinion__block rating flex">
@@ -745,20 +744,20 @@
 								<div class="opinion__captcha">
 									<input class="captcha__input form__input" type="text" id="opinion_captcha_string" name="form[{ANTISPAM_FORM_FIELD_NAME_CAPTCHA_STRING}]" autocomplete="off" value="{FORM_}" placeholder="Введите капчу"/>
 									<img class="captcha__image" src="{CAPTCHA_URL}" alt="Код" title="Проверочный код, который нужно ввести в соседнее поле" />
-									<a class="captcha__refresh"><i class="icon-reload"></i></a>
+									<a class="captcha__refresh button-rotate button-link"><i class="icon-reload"></i></a>
 								</div>
 							</div>
 							{% ENDIF %}
 							
 							<!-- Кнопка отправки формы -->
-							<div class="opinion__block">
-								<button class="button-primary" type="submit" title="Добавить отзыв о &laquo;{GOODS_NAME}&raquo;">
-									<span>Добавить отзыв</span>
-								</button>
+							<div class="opinion__block opinion__block-buttons flex-start">
 								<div class="form__pp">
-									<span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь</span>
+									<span>Нажимая на кнопку &laquo;Добавить отзыв&raquo;, Вы соглашаетесь</span>
 									<a data-fancybox data-src="#fancybox__pp">с правилами обработки данных</a>
 								</div>
+								<button class="button-secondary" type="submit" title="Добавить отзыв о &laquo;{GOODS_NAME}&raquo;">
+									<span>Добавить отзыв</span>
+								</button>
 							</div>
 
 						</form>

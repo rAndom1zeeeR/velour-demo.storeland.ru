@@ -378,7 +378,7 @@
 						<!-- Личный кабинет -->
 						<div class="addto__block login">
 							<a class="button-tertiary" href="{USER_LOGIN_URL}" title="Личный кабинет">
-								<span>Войти</span>
+								<span>{% IF CLIENT_IS_LOGIN %}Профиль{% ELSE %}Войти{% ENDIF %}</span>
 							</a>
 						</div>
 
@@ -3017,8 +3017,8 @@
 						<div class="catalog__items">
 							{% FOR catalog_full %}
 								{% IFNOT catalog_full.LEVEL = 0 && catalog_full.FIRST %}<div class="catalog__sub" data-level="{catalog_full.LEVEL}">{% ENDIF %}
-									<div class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
-										<a class="catalog__link flex {% IF catalog_full.CURRENT || catalog_full.CURRENT_PARENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+									<div class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-actived{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
+										<a class="catalog__link flex {% IF catalog_full.CURRENT || catalog_full.CURRENT_PARENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
 											<span class="catalog__name">{catalog_full.NAME}</span>
 											{% IF catalog_full.ISSET_VISIBLE_SUB %}<span class="catalog__open"></span>{% ENDIF %}
 										</a>
@@ -3075,7 +3075,7 @@
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 						</div>
 						<div class="form__field">
-							<textarea class="textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
+							<textarea class="form__textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
 						</div>
 						<div class="form__buttons">
 							<div class="form__pp">
@@ -3200,11 +3200,12 @@
 	<!-- Функции товара -->
 	{% IF index_page || MOD_LNAME = catalog || MOD_LNAME = discount || MOD_LNAME = search || MOD_LNAME = goods || MOD_LNAME = compare || MOD_LNAME = user && ACT=favorites %}
 	<script async type="text/javascript">
-		$(document).ready(function(){
+		document.addEventListener('DOMContentLoaded', function(){
 			product.init();
 			product.addTo();
 			product.addCart();
 			product.quickViewMod();
+			product.quickView();
 			product.onCart();
 			product.onNotify();
 			quantityProduct.onProduct();
@@ -3215,7 +3216,7 @@
 	<!-- Страница: Акции -->
 	{% IF MOD_LNAME = discount %}
 	<script async type="text/javascript">
-		$(document).ready(function(){
+		document.addEventListener('DOMContentLoaded', function(){
 			counterDate();
 		});
 	</script>
@@ -3224,7 +3225,7 @@
 	<!-- Страница: ЛК, Заказ -->
 	{% IF MOD_LNAME = user || MOD_LNAME = order %}
 	<script async type="text/javascript">
-		$(document).ready(function(){
+		document.addEventListener('DOMContentLoaded', function(){
 			password.onClick();
 			password.capsWarning();
 		});
@@ -3234,7 +3235,7 @@
 	<!-- Страница: Сравнение -->
 	{% IF MOD_LNAME = compare %}
 	<script async type="text/javascript">
-		$(document).ready(function(){
+		document.addEventListener('DOMContentLoaded', function(){
 			compare.onSlider()
 			compare.onClick()
 		});
@@ -3244,7 +3245,7 @@
 	{% IF MOD_LNAME = catalog %}
 	<script type="text/javascript">	
 	// Загрузка основных функций шаблона Товары
-	$(document).ready(function(){
+	document.addEventListener('DOMContentLoaded', function(){
 		catalog.onClick();
 		catalog.priceFilter();
 	});
@@ -3255,7 +3256,7 @@
 	<!-- Страница: Товар -->
 	{% IF MOD_LNAME = goods %}
 	<script async type="text/javascript">
-		$(document).ready(function(){
+		document.addEventListener('DOMContentLoaded', function(){
 			goods.goodsModification()
 			goods.initTabs()
 			goods.onInit()
@@ -3274,7 +3275,7 @@
 	{% IF MOD_LNAME = cart || MOD_LNAME = order %}
 	<script type="text/javascript">
 	// Загрузка основных функций шаблона
-	$(document).ready(function(){
+	document.addEventListener('DOMContentLoaded', function(){
 		cart.onClick();
 		cart.minSum();
 		quantityCart.onCart();
@@ -3287,7 +3288,7 @@
 	{% IF MOD_LNAME = order %}
 	<script type="text/javascript">
 	// Загрузка основных функций шаблона
-	$(document).ready(function(){
+	document.addEventListener('DOMContentLoaded', function(){
 		order.onInit();
 	});
 	</script>
@@ -3296,7 +3297,7 @@
 	<!-- Страница: Товар -->
 	{% IF index_page %}
 	<script async type="text/javascript">
-		$(document).ready(function(){
+		document.addEventListener('DOMContentLoaded', function(){
 			pdtVisible('#pdt__sale');
 			pdtVisible('#pdt__best');
 			pdtVisible('#pdt__new');
@@ -3311,6 +3312,7 @@
 	<!-- Слайдер. Карусель -->
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}swiper-bundle.min.js?design=THEMENAME"></script>
 	<!-- Модальные окна -->
+	<script defer type="text/javascript" src="{ASSETS_JS_PATH}fslightbox.js?design=THEMENAME"></script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}jquery.fancybox.min.js?design=THEMENAME"></script>
 	<link rel="stylesheet" type="text/css" href="{ASSETS_STYLES_PATH}jquery.fancybox.min.css?design=THEMENAME" />
 	<!-- Уведомления -->

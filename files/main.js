@@ -13,7 +13,7 @@ try{$(document).ajaxSuccess(function(i,l,h){try{if(typeof(h.data)!="undefined"&&
 ///////////////////////////////////////
 // Отправляет ошибку на сервер, для того чтобы служба тех поддержки могла разобраться в проблеме как можно быстрее.
 ///////////////////////////////////////
-function sendError(desc, page, line) {
+function sendError(desc, page, line){
   let img = document.createElement('img');
   img.src = 'https://storeland.ru/error/js?desc='+encodeURIComponent(desc)+'&page='+encodeURIComponent(window.location)+'&line=0';
   img.style.position = 'absolute';
@@ -26,7 +26,7 @@ function sendError(desc, page, line) {
 ///////////////////////////////////////
 // Функция определения ширины экрана пользователя. /JS/
 ///////////////////////////////////////
-function getClientWidth() {
+function getClientWidth(){
   return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
 }
 
@@ -51,7 +51,7 @@ function addSpaces(str){
 ///////////////////////////////////////
 // Предзагрузчик. /JS/
 ///////////////////////////////////////
-function preload() {
+function preload(){
 	document.querySelectorAll('.preloader').forEach((el) => {
 		el.firstElementChild.style.opacity = '0'
 		setTimeout(() => { el.style.display = 'none' }, 100);
@@ -59,7 +59,7 @@ function preload() {
 }
 
 // Создать предзагрузчик. /JS/
-function createLoader(position = '') {
+function createLoader(position = ''){
 	return `<div class="preloader ${position}"><div class="preloading"></div></div>`
 }
 
@@ -76,7 +76,7 @@ function lazyload(){
 ///////////////////////////////////////
 // Уведомления
 ///////////////////////////////////////
-function notyStart($content, $type) {
+function notyStart($content, $type){
   new Noty({
     text: $content,
     layout: 'bottomRight',
@@ -104,22 +104,16 @@ function notyStart($content, $type) {
 ///////////////////////////////////////
 // Функция Наверх. /JS/
 ///////////////////////////////////////
-function toTop() {
+function toTop(){
 	const goto = document.getElementById('toTop')
 	// Показать при скроле
-  window.addEventListener('scroll', function () {
+  window.addEventListener('scroll', function(){
 		window.pageYOffset > 99 ? goto.classList.remove('is-hidden') : goto.classList.add('is-hidden');
   })
 
 	// Действие наверх
-  goto.addEventListener('click', function () {
-    window.scrollTo({
-			top: 0,
-			left: 0,
-			behavior: 'smooth'
-		})
-
-    return false;
+  goto.addEventListener('click', function(){
+    scrollTop(0)
   })
 }
 
@@ -127,7 +121,7 @@ function toTop() {
 ///////////////////////////////////////
 // Изменение текста в объкте. /JS/JEST/
 ///////////////////////////////////////
-function changeTxt(obj) {
+function changeTxt(obj){
 	const slot = obj.querySelector('[slot]')
 	const hideText = slot.getAttribute('slot')
 	const showText = slot.textContent.trim()
@@ -170,9 +164,9 @@ function pdtVisibleScroll(content, obj){
 }
 
 // Переход к контенту сверху
-function scrollTop(content){
+function scrollTop(offsetTop){
 	window.scrollTo({
-		top: content,
+		top: offsetTop,
 		left: 0,
 		behavior: 'smooth'
 	})
@@ -184,7 +178,7 @@ function scrollTop(content){
 ///////////////////////////////////////
 class Password {
 	// Нажатие иконки Показать пароль. /JS/
-	onClick() {
+	onClick(){
 		const btnPass = document.querySelector('.password__icon')
 		const btnReg = document.querySelector('#registration')
 
@@ -202,7 +196,7 @@ class Password {
 	};
 
 	// Превращает поле пароля в текстовое поле и обратно. /JS/
-	showPass($btn, $input) {		
+	showPass($btn, $input){		
 		// Если не ввели пароль
 		if ($input.value.length < 1) {return false}
 
@@ -214,11 +208,11 @@ class Password {
 	};
 		
 	// Регистрация. /JS/
-	registration(obj) {
+	registration(obj){
 		// console.log('registration', obj.checked)
 		const email = document.querySelector('#sites_client_email')
 		const pass = document.querySelector('.password')
-		if (obj.checked) {
+		if (obj.checked){
 			obj.checked = true
 			email.setAttribute('required', true)
 			email.classList.add('required')
@@ -234,7 +228,7 @@ class Password {
 	};
 
 	// Определения capslock в поле пароля. /JS/
-	capsWarning() {
+	capsWarning(){
 		const pass = document.querySelector('#sites_client_pass');
 		if (!pass) return false
 		
@@ -246,12 +240,12 @@ class Password {
 	};
 
 	// Показать ошибку. /JS/
-	checkCapsWarning(caps) {
+	checkCapsWarning(caps){
 		document.querySelector('#capslock').style.display = caps ? 'block' : 'none'
 	};
 
 	// Скрыть ошибку. /JS/
-	removeCapsWarning() {
+	removeCapsWarning(){
 		document.querySelector('#capslock').style.display = 'none'
 	};
 
@@ -262,12 +256,12 @@ class Password {
 // Конструктор функции Сравнения товаров
 ///////////////////////////////////////
 class Compare {
-	constructor() {
+	constructor(){
 		console.log('Compare start')
 	}
 
 	// Функции при клике
-	onClick() {
+	onClick(){
 		console.log('Compare onClick')
 		const element = document.querySelector('.compare__table')
 		// Если нет контента
@@ -282,19 +276,19 @@ class Compare {
 			const btnShow = event.target.closest('.compare__showAll')
 
 			// Сравнение товаров. Отображение всех и различающихся характеристик товара
-			if (btnSwitch) {
+			if (btnSwitch){
 				compare.onSwitch(btnSwitch)
 			}
 			// Скрытие характеристик товара, которые выделил пользователь
-			else if (btnSelected) {
+			else if (btnSelected){
 				compare.onSelected()
 			}
 			// Отображение скрытых характеристик товара
-			else if (btnShow) {
+			else if (btnShow){
 				compare.onShow(btnShow)
 			}
 			// Отобразить скрытые при клике
-			else if (btnInput) {
+			else if (btnInput){
 				document.querySelector('.compare__selected').classList.remove('is-hide')
 			}
 			// Выход из функции
@@ -307,21 +301,21 @@ class Compare {
 	};
 
 	// Скрытие характеристик товара, которые выделил пользователь
-	onSelected() {
+	onSelected(){
 		// console.log('Compare onSelected')
 		document.querySelector('.compare__showAll').classList.remove('is-hide')
 		document.querySelectorAll('.compare__line').forEach((el) => {
 			const сhecked = el.querySelector('.compare__input:checked')
-			if (сhecked) { el.style.display = 'none' }
+			if (сhecked) {el.style.display = 'none'}
 		})
 	};
 
 	// Показать отличия
-	onSwitch(obj) {
+	onSwitch(obj){
 		console.log('Compare onSwitch')
 		// Обновляем текст
 		changeTxt(obj)
-		if (obj.classList.contains('switch-on')) {
+		if (obj.classList.contains('switch-on')){
 			obj.classList.remove('switch-on')
 			document.querySelector('.compare__showAll').classList.add('is-hide')
 			document.querySelectorAll('.compare__line').forEach((el) => el.style.display = '')
@@ -333,14 +327,14 @@ class Compare {
 	}
 
 	// Отображение скрытых характеристик товара
-	onShow(obj) {
+	onShow(obj){
 		obj.classList.add('is-hide')
 		document.querySelector('.compare__switch').classList.remove('switch-on')
 		document.querySelectorAll('.compare__line').forEach((el) => el.style.display = '')
 	}
 
 	// Слайдер сравнения
-	onSlider() {
+	onSlider(){
 		// console.log('Compare onSlider')
 		const swiper = new Swiper('.compare__line', {
 			loop: false,
@@ -391,7 +385,7 @@ class Compare {
 
 	
 // Проверка вводимых значений в количестве товара
-function keyPress(oToCheckField, oKeyEvent) {
+function keyPress(oToCheckField, oKeyEvent){
 	return oKeyEvent.charCode === 0 || /\d/.test(String.fromCharCode(oKeyEvent.charCode));
 }
 
@@ -401,7 +395,7 @@ function keyPress(oToCheckField, oKeyEvent) {
 ///////////////////////////////////////
 class Quantity {
 	// Функция Плюс + для товара. //JS
-	plus(obj) {
+	plus(obj){
 		// console.log('plus obj', obj)
 		obj.value = parseInt(obj.value) + 1
 		obj.setAttribute('value', obj.value)
@@ -410,7 +404,7 @@ class Quantity {
 	};
 
 	// Функция Минус - для товара. //JS
-	minus(obj) {
+	minus(obj){
 		// console.log('minus obj', obj)
 		obj.value = parseInt(obj.value) - 1
 		obj.setAttribute('value', obj.value)
@@ -419,7 +413,7 @@ class Quantity {
 	};
 
 	// Проверка кол-ва. //JS
-	check(obj) {
+	check(obj){
 		// console.log('check obj', obj);
 		// Количество
 		let val = parseInt(obj.value);
@@ -427,7 +421,7 @@ class Quantity {
 		const max = parseInt(obj.getAttribute('max'));
 
 		// Если вводят 0 то заменяем на 1
-		if (!val || val < 1) {
+		if (!val || val < 1){
 			obj.value = 1;
 			val = 1;
 			obj.previousElementSibling.classList.add('qty__disable');
@@ -437,7 +431,7 @@ class Quantity {
 		}
 
 		// Если товара нет в наличии
-		if (max == 0) {
+		if (max == 0){
 			obj.value = 1;
 			obj.previousElementSibling.classList.add('qty__disable');
 			obj.nextElementSibling.classList.add('qty__disable');
@@ -448,7 +442,7 @@ class Quantity {
 		}
 
 		// Если добавляют больше
-		if (val > max) {
+		if (val > max){
 			obj.value = max;
 			val = max;
 			obj.nextElementSibling.classList.add('qty__disable');
@@ -462,7 +456,7 @@ class Quantity {
 	};
 
 	// Сообщение пользователю
-	notyMessage(message) {
+	notyMessage(message){
 		return `
 			<div class="noty__addto flex">
 				<div class="noty__title">Внимание!</div>
@@ -478,13 +472,13 @@ class QuantityGoods extends Quantity {
 	// Статус запуска функции
 	once = false;
 
-	constructor () {
+	constructor(){
 		super()
 		console.log('QuantityGoods');
 	};
 
 	// Действия в карточке товара
-	onGoods() {
+	onGoods(){
 		const qty = document.querySelector('.productView__qty')
 		const qtyMinus = qty.querySelector('.qty__select-minus')
 		const qtyPlus = qty.querySelector('.qty__select-plus')
@@ -503,9 +497,10 @@ class QuantityGoods extends Quantity {
 		qtyPlus.addEventListener('click', () => quantityGoods.plus(qtyInput))
 
 		// Изменение
-		qtyInput.addEventListener('input', function () {
+		qtyInput.addEventListener('input', function(){
 			quantityGoods.check(qtyInput)
 			quantityGoods.updGoods(qtyInput)
+			console.log('qtyInput', qtyInput);
 		})
 
 		// Статус запуска функции
@@ -514,9 +509,10 @@ class QuantityGoods extends Quantity {
 	};
 
 	// Изменение кол-ва в карточке. //JS
-	updGoods(obj) {
-		// console.log('goods obj', obj);
+	updGoods(obj){
+		console.log('goods obj', obj);
 		const block = obj.closest('.productViewBlock');
+		console.log('block', block);
 		// Если не карточка товара
 		if (block == null) return false;
 
@@ -532,30 +528,30 @@ class QuantityGoods extends Quantity {
 
 		// Обновление старой цены
 		const blockOld = block.querySelector('.price__old');
-		if (blockOld) {
+		if (blockOld){
 			const priceOld = blockOld.getAttribute('data-price');
 			const multiOld = parseInt(val * priceOld);
 			blockOld.querySelector('.num').innerHTML = addSpaces(multiOld);
 		}
 
-		// console.log('goods val', val)
-		// console.log('goods priceNow', priceNow)
-		// console.log('goods priceOld', priceOld)
-		// console.log('goods multiNow', multiNow)
-		// console.log('goods multiOld', multiOld)
+		console.log('goods val', val)
+		console.log('goods priceNow', priceNow)
+		console.log('goods priceOld', priceOld)
+		console.log('goods multiNow', multiNow)
+		console.log('goods multiOld', multiOld)
 	};
 
 }
 
 // Кол-во в выпадающей корзине
 class QuantityAddto extends Quantity {
-	constructor () {
+	constructor(){
 		super()
 		console.log('QuantityAddto');
 	}
 
 	// Действия в выпадающей корзине
-	onAddto() {
+	onAddto(){
 		const elements = document.querySelectorAll('.addto__qty');
 		// Если нет элементов
 		if (elements == null) return false;
@@ -572,7 +568,7 @@ class QuantityAddto extends Quantity {
 			qtyPlus.addEventListener('click', () => quantityAddto.plus(qtyInput))
 
 			// Изменение
-			qtyInput.addEventListener('input', function () {
+			qtyInput.addEventListener('input', function(){
 				quantityAddto.check(this);
 				quantityAddto.updAddto(this);
 			})
@@ -581,7 +577,7 @@ class QuantityAddto extends Quantity {
 	};
 
 	// Выпадающая корзина
-	updAddto(obj) {
+	updAddto(obj){
 		// console.log('updAddto obj', obj);
 		const item = obj.closest('.addto__item');
 		const mod = item.getAttribute('data-mod-id');
@@ -598,7 +594,7 @@ class QuantityAddto extends Quantity {
 	};
 
 	// Обновление выпадающей корзины
-	async getAddtoCart($data, $mod, $priceNow) {
+	async getAddtoCart($data, $mod, $priceNow){
 		await fetch('/cart', {
 			method: "POST",
 			body: $data
@@ -611,13 +607,12 @@ class QuantityAddto extends Quantity {
 			const parser = new DOMParser();
 			const doc = parser.parseFromString(html, 'text/html');
 			quantityAddto.updAddtoContent(doc, $mod, $priceNow)
-
 		})
 		.catch((error) => console.error(error));
 	};
 
 	// Обновление выпадающей корзины
-	updAddtoContent($doc, $mod, $priceNow) {
+	updAddtoContent($doc, $mod, $priceNow){
 		// Обновить цену
 		const price = $doc.querySelector('.cartTable__item[data-mod-id="' + $mod + '"] .cartTable__price');
 		$priceNow.innerHTML = price.innerHTML;
@@ -643,7 +638,7 @@ class QuantityAddto extends Quantity {
 	};
 
 	// Обновление счетчика кол-ва корзины
-	updAddtoCount($count) {
+	updAddtoCount($count){
 		const elements = document.querySelectorAll('.cart-count');
 		elements.forEach((el) => {
 			el.innerHTML = $count;
@@ -652,19 +647,19 @@ class QuantityAddto extends Quantity {
 	};
 
 	// Обновление итоговой цены
-	updAddtoSum($sum) {
+	updAddtoSum($sum){
 		const elements = document.querySelectorAll('.cartSumNowDiscount');
 		elements.forEach((el) => el.innerHTML = $sum)
 	};
 
 	// Обновление итоговой скидки
-	updAddtoDiscount($sum) {
+	updAddtoDiscount($sum){
 		const element = document.querySelector('.addto__total-discount .addto__total-price');
 		element.innerHTML = $sum;
 	};
 	
 	// Отображаем скидку 
-	updAddtoSale() {
+	updAddtoSale(){
 		// console.log('updAddtoSale');
 		const value = document.querySelector('.discountValue')
 		// Если корзина пуста
@@ -678,13 +673,13 @@ class QuantityAddto extends Quantity {
 
 // Кол-во в корзине
 class QuantityCart extends Quantity {
-	constructor () {
+	constructor(){
 		super()
 		console.log('QuantityCart');
 	}
 
 	// Действия в выпадающей корзине
-	onCart() {
+	onCart(){
 		const elements = document.querySelectorAll('.cartTable__qty');
 		// Если не карточка товара
 		if (elements == null) return false;
@@ -701,7 +696,7 @@ class QuantityCart extends Quantity {
 			qtyPlus.addEventListener('click', () => quantityCart.plus(qtyInput))
 
 			// Изменение
-			qtyInput.addEventListener('input', function () {
+			qtyInput.addEventListener('input', function(){
 				quantityCart.check(this);
 				quantityCart.updCart(this);
 			})
@@ -710,7 +705,7 @@ class QuantityCart extends Quantity {
 	}
 
 	// Корзина
-	updCart(obj) {
+	updCart(obj){
 		const item = obj.closest('.cartTable__item');
 		const mod = item.getAttribute('data-mod-id');
 		const priceNow = item.querySelector('.cartTable__price');
@@ -726,7 +721,7 @@ class QuantityCart extends Quantity {
 	};
 
 	// Обновление в корзине
-	async getCart($data, $mod, $priceNow) {
+	async getCart($data, $mod, $priceNow){
 		await fetch('/cart', {
 			method: "POST",
 			body: $data
@@ -746,7 +741,7 @@ class QuantityCart extends Quantity {
 	};
 
 	// Обновление в корзине
-	updCartContent($doc, $mod, $priceNow) {
+	updCartContent($doc, $mod, $priceNow){
 		// console.log('doc2', $doc);
 		// console.log('mod2', $mod);
 		// console.log('priceNow2', $priceNow);
@@ -770,13 +765,13 @@ class QuantityCart extends Quantity {
 
 // Кол-во продуктов
 class QuantityProduct extends Quantity {
-	constructor () {
+	constructor(){
 		super()
 		// console.log('QuantityProduct');
 	}
 
 	// Действия в выпадающей корзине
-	onProduct() {
+	onProduct(){
 		const elements = document.querySelectorAll('.product__qty');
 		// Если нет элемента
 		if (elements == null) return false;
@@ -787,17 +782,17 @@ class QuantityProduct extends Quantity {
 			const qtyInput = el.querySelector('.qty__input')
 
 			// Минус
-			qtyMinus.addEventListener('click', function () {
+			qtyMinus.addEventListener('click', function(){
 				quantityProduct.minus(qtyInput)
 			})
 
 			// Плюс
-			qtyPlus.addEventListener('click', function () {
+			qtyPlus.addEventListener('click', function(){
 				quantityProduct.plus(qtyInput)
 			})
 
 			// Изменение
-			qtyInput.addEventListener('input', function () {
+			qtyInput.addEventListener('input', function(){
 				quantityProduct.check(this)
 				// quantityProduct.updAddtoValue(this)
 			})
@@ -806,7 +801,7 @@ class QuantityProduct extends Quantity {
 	};
 	
 	// Обновить кол-во выпадающей корзины
-	updAddtoValue(obj) {
+	updAddtoValue(obj){
 		const val = obj.value
 		const id = obj.closest('[data-id]').getAttribute('data-id')
 		const mod = obj.getAttribute('name')
@@ -823,7 +818,7 @@ class QuantityProduct extends Quantity {
 	}
 
 	// Обновить кол-во всех товаров
-	updProdValue(obj) {
+	updProdValue(obj){
 		const val = obj.value
 		const id = obj.closest('[data-id]').getAttribute('data-id')
 		const mod = obj.getAttribute('name')
@@ -845,22 +840,26 @@ class QuantityProduct extends Quantity {
 // Конструктор функции Товара
 ///////////////////////////////////////
 class Product {
-	constructor() {
+	constructor(){
 
-		this.init = function () {
-			$('.product__item').each(function () {
+		this.init = function(){
+			$('.product__item').each(function(){
 				product.hoverImage($(this))
 				product.priceDiff(this)
 			})
 		}
 
 		// Запуск функции активного класса товара в других категориях. /JS/
-		this.inCartAll = function (id, mod){
+		this.inCartAll = function(id, mod){
 			const items = document.querySelectorAll('.product__item[data-id="' + id + '"]')
 			items.forEach((e) => {
 				const qty = e.querySelector('.qty__input')
 				const count = e.querySelector('.inCart__count')
 				const addtoItem = document.querySelector('.addto__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
+				console.log('qty1', qty);
+				console.log('count1', count);
+				console.log('addtoItem1', addtoItem);
+				console.log('addtoItem2', addtoItem.value);
 				// Обновление данных
 				e.classList.add('product__inCart');
 				qty.value = addtoItem.value
@@ -869,17 +868,17 @@ class Product {
 		}
 
 		// Разница цены в процентах. /JS/
-		this.priceDiff = function (obj, type = 'percent') {
+		this.priceDiff = function(obj, type = 'percent'){
 			// если есть старая цена
 			const sales = obj.querySelector('.sticker__sales')
 			const old = obj.querySelector('.price__old')
 			const now = obj.querySelector('.price__now')
 
-			if (old) {
+			if (old){
 				const priceOld = parseFloat(old.getAttribute('data-price'))
 				const priceNow = parseFloat(now.getAttribute('data-price'))
 				let diff = 0;
-				if (type == 'percent') {
+				if (type == 'percent'){
 					const diffPercent = (((priceOld - priceNow) / priceOld) * 100).toFixed()
 					sales.innerHTML = `-${diffPercent}%`
 				} else {
@@ -894,25 +893,25 @@ class Product {
 		}
 
 		// Смена изображений при наведении
-		this.hoverImage = function (obj) {
+		this.hoverImage = function(obj){
 			const imagesLen = obj.find('.product__imgID').length
 			// если больше 2 изображений товара
-			if (imagesLen > 2) {
+			if (imagesLen > 2){
 				// Создаем элементы при наведении на которые будут меняться изображения
-				obj.find('.product__imgID').each(function () {
+				obj.find('.product__imgID').each(function(){
 					const image = $(this).attr('data-image')
 					const id = $(this).attr('data-id')
 					// Создаем элементы
 					obj.find('.product__image-hover').append('<div class="product__hoverImage" data-image="' + image + '" data-id="' + id + '"></div>')
 					// Добавляем активный класс на элемент навигации
-					if (id == obj.find('.product__img').data('id')) {
+					if (id == obj.find('.product__img').data('id')){
 						obj.find('.product__hoverImage').removeClass('is-actived')
 						obj.find('.product__hoverImage[data-id="' + id + '"]').addClass('is-actived')
 					}
 				})
 
 				// Ховер эффект изменения изображения
-				obj.find('.product__hoverImage').hover($.debounce(50, function () {
+				obj.find('.product__hoverImage').hover($.debounce(50, function(){
 					const image = $(this).attr('data-image')
 					const id = $(this).attr('data-id')
 					obj.find('.product__img').attr({
@@ -933,14 +932,14 @@ class Product {
 		};
 
 		// Добавление в Сравнение и Избранное
-		this.addTo = function () {
+		this.addTo = function(){
 			// Определяем заголовок уведомления
 			function checkMessage(str){
 				return str.indexOf('добавлен') != -1 ? 'Успешно добавлен!' : 'Успешно удалён!'				
 			}
 
 			// Создать сообщение действия
-			function createNoty(title, message, image, prod_link, prod_name, status, link, link_name) {
+			function createNoty(title, message, image, prod_link, prod_name, status, link, link_name){
 				return `
 					<div class="noty__addto ${status} flex">
 						<div class="noty__title">${title}</div>
@@ -956,7 +955,7 @@ class Product {
 			}
 
 			// Создать товара в списке
-			function createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, delUrl) {
+			function createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, delUrl){
 				return `
 					<div class="addto__item flex" data-id="${pDataid}">
 						<a class="addto__image flex-center" href="${pUrl}" title="${pName}"><img src="${pImg}" alt="${pName}" /></a>
@@ -984,7 +983,7 @@ class Product {
 			const addCompare = '.add-compare'
 			const addtoComapre = '.addto__compare'
 
-			$(addCompare).off('click').on('click', function () {
+			$(addCompare).off('click').on('click', function(){
 				// Объект ссылки, по которой кликнули
 				const 
 					a = $(this),
@@ -1009,12 +1008,12 @@ class Product {
 				let flag = 0;
 
 				// Проверка элемента в объекте
-				$(addtoComapre).find('.addto__item').each(function () {
-					if ($(this).attr('data-id') == pDataid) {
+				$(addtoComapre).find('.addto__item').each(function(){
+					if ($(this).attr('data-id') == pDataid){
 						flag = 1
 					}
 					
-					if (flag == 1) {
+					if (flag == 1){
 						$(this).remove()
 						return false
 					}
@@ -1023,7 +1022,7 @@ class Product {
 				})
 
 				// Если есть информация о том какие URL адреса будут изменены, то можено не перегружать страницу и сделать запрос через ajax
-				if (addUrl && delUrl) {
+				if (addUrl && delUrl){
 					$.ajax({
 						url: requestUrl,
 						type: 'POST',
@@ -1032,24 +1031,24 @@ class Product {
 						data: {
 							'ajax_q': 1
 						},
-						success: function (data) {							
-							if ('ok' == data.status) {
+						success: function(data){							
+							if ('ok' == data.status){
 								// Рендер элементов в список
-								if (flag == 0) {
-									if ($(addtoComapre).length) {
+								if (flag == 0){
+									if ($(addtoComapre).length){
 										$(addtoComapre).find('.addto__items').prepend(createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, delUrl));
 									}
 								}
 
 								// Если указано, что изменилось число товаров на сравнении
 								const countCompare = data.compare_goods_count;
-								if (typeof (countCompare) != 'undefined') {
+								if (typeof (countCompare) != 'undefined'){
 									// Блок информации о том, что есть товары на сравнении
 									const sidecount = $(blockCompare).find('[data-count]')
 									// Указываем информацию о новом количестве товаров на сравнении
-									sidecount.animate({ opacity: 0, display: 'none' }, 500, function () {
+									sidecount.animate({ opacity: 0, display: 'none' }, 500, function(){
 										sidecount.text(countCompare).attr('data-count', countCompare)
-										if (countCompare > 0) {
+										if (countCompare > 0){
 											$(blockCompare).addClass('has-items')
 										} else {
 											$(blockCompare).removeClass('has-items')
@@ -1060,14 +1059,14 @@ class Product {
 								}
 								
 								// Проверка статуса добавления товара
-								if (isAdd == 1) {
+								if (isAdd == 1){
 									// Обновляем ссылку, на которую будет уходить запрос и информацию о ней
 									updateLink(a,addUrl,delUrl,0,delTitle ? delTitle : '')
 									a.addClass('is-added').parent().addClass('is-added')
 									
 									// Обновляем ссылку у всех товаров на странице
-									$(addCompare).each(function () {
-										if ($(this).attr('data-id') == pDataid) {
+									$(addCompare).each(function(){
+										if ($(this).attr('data-id') == pDataid){
 											$(this).addClass('is-added')
 											updateLink($(this),addUrl,delUrl,0,delTitle ? delTitle : '')
 										}
@@ -1079,8 +1078,8 @@ class Product {
 									a.removeClass('is-added').parent().removeClass('is-added')
 									
 									// Обновляем ссылку у всех товаров на странице
-									$(addCompare).each(function () {
-										if ($(this).attr('data-id') == pDataid) {
+									$(addCompare).each(function(){
+										if ($(this).attr('data-id') == pDataid){
 											$(this).removeClass('is-added')
 											updateLink($(this),delUrl,addUrl,1,addTitle ? addTitle : '')
 										}
@@ -1089,7 +1088,7 @@ class Product {
 								}
 
 								// Обновление текстовой надписи с описанием действия
-								if (aText.length) {
+								if (aText.length){
 									aText.text(a.attr(isAdd == 1 ? 'data-del-tooltip' : 'data-add-tooltip'))
 								}
 
@@ -1097,20 +1096,20 @@ class Product {
 								const content = createNoty(checkMessage(data.message), data.message, pImg, pUrl, pName, 'noty_good', '/compare', 'Перейти в Сравнение');
 								
 								// Если есть функция, которая отображает сообщения пользователю
-								if (typeof (Noty) == 'function') {
+								if (typeof (Noty) == 'function'){
 									notyStart(content, 'success')
 								}
-							} else if ('error' == data.status) {
+							} else if ('error' == data.status){
 								// Сообщение уведомления
 								const content = createNoty('Не удалось добавить!', data.message, pImg, pUrl, pName, 'noty_bad', '/compare', 'Перейти в Сравнение');
 								
 								// Если есть функция, которая отображает сообщения пользователю
-								if (typeof (Noty) == 'function') {
+								if (typeof (Noty) == 'function'){
 									notyStart(content, 'warning')
 								}
 							}
 						},
-						error: function () {
+						error: function(){
 							console.log('Error Ajax add-compare')
 							notyStart('Error Ajax add-compare', 'warning')
 						}
@@ -1125,7 +1124,7 @@ class Product {
 			const addFavorites = '.add-favorites'
 			const addtoFavorites = '.addto__favorites'
 
-			$(addFavorites).off('click').on('click', function () {
+			$(addFavorites).off('click').on('click', function(){
 				// Объект ссылки, по которой кликнули
 				const 
 					a = $(this),
@@ -1150,12 +1149,12 @@ class Product {
 				let flag = 0;
 
 				// Проверка элемента в объекте
-				$(addtoFavorites).find('.addto__item').each(function () {
-					if ($(this).attr('data-id') == pDataid) {
+				$(addtoFavorites).find('.addto__item').each(function(){
+					if ($(this).attr('data-id') == pDataid){
 						flag = 1;
 					}
 
-					if (flag == 1) {
+					if (flag == 1){
 						$(this).remove();
 						return false;
 					}
@@ -1164,7 +1163,7 @@ class Product {
 				});
 
 				// Если есть информация о том какие URL адреса будут изменены, то можено не перегружать страницу и сделать запрос через ajax
-				if (addUrl && delUrl) {
+				if (addUrl && delUrl){
 					$.ajax({
 						url: requestUrl,
 						type: 'POST',
@@ -1173,24 +1172,24 @@ class Product {
 						data: {
 							'ajax_q': 1
 						},
-						success: function (data) {							
-							if ('ok' == data.status) {
+						success: function(data){							
+							if ('ok' == data.status){
 								// Рендер элементов в список
-								if (flag == 0) {
-									if ($(addtoFavorites).length) {
+								if (flag == 0){
+									if ($(addtoFavorites).length){
 										$(addtoFavorites).find('.addto__items').prepend(createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, delUrl));
 									}
 								}
 
 								// Если указано, что изменилось число товаров в избранном
 								const countFavorites = data.favorites_goods_count;
-								if (typeof (countFavorites) != 'undefined') {
+								if (typeof (countFavorites) != 'undefined'){
 									// Блок информации о том, что есть товары в избранном
 									const sidecount = $(blockFavorites).find('[data-count]')
 									// Указываем информацию о новом количестве товаров в избранном
-									sidecount.animate({ opacity: 0, display: 'none' }, 500, function () {
+									sidecount.animate({ opacity: 0, display: 'none' }, 500, function(){
 										sidecount.text(countFavorites).attr('data-count', countFavorites)
-										if (countFavorites > 0) {
+										if (countFavorites > 0){
 											$(blockFavorites).addClass('has-items');
 										} else {
 											$(blockFavorites).removeClass('has-items');
@@ -1201,14 +1200,14 @@ class Product {
 								}
 
 								// Проверка статуса добавления товара
-								if (isAdd == 1) {
+								if (isAdd == 1){
 									// Обновляем ссылку, на которую будет уходить запрос и информацию о ней
 									updateLink(a, addUrl,delUrl,0,delTitle ? delTitle : '')
 									a.addClass('is-added').parent().addClass('is-added')
 									
 									// Обновляем ссылку у всех товаров на странице
-									$(addFavorites).each(function () {
-										if ($(this).attr('data-id') == pDataid) {
+									$(addFavorites).each(function(){
+										if ($(this).attr('data-id') == pDataid){
 											$(this).addClass('is-added')
 											updateLink($(this),addUrl,delUrl,0,delTitle ? delTitle : '')
 										}
@@ -1219,8 +1218,8 @@ class Product {
 									a.removeClass('is-added').parent().removeClass('is-added')
 									
 									// Обновляем ссылку у всех товаров на странице
-									$(addFavorites).each(function () {
-										if ($(this).attr('data-id') == pDataid) {
+									$(addFavorites).each(function(){
+										if ($(this).attr('data-id') == pDataid){
 											$(this).removeClass('is-added')
 											updateLink($(this),delUrl,addUrl,1,addTitle ? addTitle : '')
 										}
@@ -1228,7 +1227,7 @@ class Product {
 								}
 
 								// Обновление текстовой надписи с описанием действия
-								if (aText.length) {
+								if (aText.length){
 									aText.text(a.attr(isAdd == 1 ? 'data-del-tooltip' : 'data-add-tooltip'));
 								}
 
@@ -1236,20 +1235,20 @@ class Product {
 								const content = createNoty(checkMessage(data.message), data.message, pImg, pUrl, pName, 'noty_good', '/user/favorites', 'Перейти в Избранное');
 
 								// Если есть функция, которая отображает сообщения пользователю
-								if (typeof (Noty) == 'function') {
+								if (typeof (Noty) == 'function'){
 									notyStart(content, 'success');
 								}
-							} else if ('error' == data.status) {
+							} else if ('error' == data.status){
 								// Сообщение уведомления
 								const content = createNoty('Не удалось добавить!', data.message, pImg, pUrl, pName, 'noty_bad', '/user/login', 'Войти');
 								
 								// Если есть функция, которая отображает сообщения пользователю
-								if (typeof (Noty) == 'function') {
+								if (typeof (Noty) == 'function'){
 									notyStart(content, 'warning');
 								}
 							}
 						},
-						error: function () {
+						error: function(){
 							console.log('Error Ajax add-favorites');
 							notyStart('Error Ajax add-favorites', 'warning');
 						}
@@ -1261,13 +1260,13 @@ class Product {
 		};
 
 		// Добавление товара в корзину
-		this.addCart = function () {
-			$('.product__form').off('submit').on('submit', function () {
+		this.addCart = function(){
+			$('.product__form').off('submit').on('submit', function(){
 				// Добавляем активные классы и обновлем счетчик товаров
 				$('.cart').addClass('has-items');
 
 				// Быстрый заказ
-				if ($(this).attr('rel') === 'quick') {
+				if ($(this).attr('rel') === 'quick'){
 					product.quickOrder(this);
 					return false;
 				}
@@ -1281,7 +1280,7 @@ class Product {
 				const mod = t.find('.qty__input').attr('name');
 
 				// Проверка на существование формы отправки запроса на добавление товара в корзину
-				if (1 > formBlock.length || formBlock.get(0).tagName != 'FORM') {
+				if (1 > formBlock.length || formBlock.get(0).tagName != 'FORM'){
 					alert('Не удалось найти форму добавления товара в корзину');
 					return false;
 				}
@@ -1297,18 +1296,18 @@ class Product {
 					cache: false,
 					url: formBlock.attr('action'),
 					data: formData,
-					success: function (data) {
+					success: function(data){
 						// Анализ системного сообщения в коризне
 						const content = $(data).html();
 						// Проверяем текст сообщения на наличие ошибки
-						if (content.indexOf('Не удалось') != -1) {
+						if (content.indexOf('Не удалось') != -1){
 							// Сообщение с ошибкой
-							if (typeof (Noty) == 'function') {
+							if (typeof (Noty) == 'function'){
 								notyStart(content, 'warning')
 							}
 						} else {
 							// Сообщение с успешным добавлением
-							if (typeof (Noty) == 'function') {
+							if (typeof (Noty) == 'function'){
 								notyStart(content, 'success')
 							}
 
@@ -1328,13 +1327,13 @@ class Product {
 		}
 
 		// Функция выбора модификаций
-		this.quickViewMod = function () {
+		this.quickViewMod = function(){
 			// Получение центральной разметки страницы (для быстрого просмотра)
-			$(document).ready(function () {
-				$.fn.getColumnContent = function () {
+			$(document).ready(function(){
+				$.fn.getColumnContent = function(){
 					const block = ($(this).length && $(this).hasClass('productViewBlock') ? $(this).filter('.productViewBlock') : $('.productViewBlock:eq(0)'));
 					// Удаляем все блоки, которые не отображаются в быстром просмотре.
-					block.each(function () {
+					block.each(function(){
 						$(this).children().not('.productView').remove();
 					});
 					block.removeClass('productViewQuick');
@@ -1344,15 +1343,15 @@ class Product {
 				};
 
 				// При наведении на блок товара загружаем контент этого товара, который будет использоваться для быстрого просмотра, чтобы загрузка происходила быстрее.
-				$('.product__has-mod').mouseover(function () {
+				$('.product__has-mod').mouseover(function(){
 					// Если в блоке нет ссылки на быстрый просмотр, то не подгружаем никаких данных
 					const link = $(this).find('.add-mod');
-					if (link.length < 1) {
+					if (link.length < 1){
 						return true;
 					}
 
 					// Если массив с подгруженными заранее карточками товара для быстрого просмотра ещё не создан - создадим его.
-					if (typeof (document.quickviewPreload) == 'undefined') {
+					if (typeof (document.quickviewPreload) == 'undefined'){
 						document.quickviewPreload = [];
 					}
 
@@ -1360,23 +1359,23 @@ class Product {
 					href += (false !== href.indexOf('?') ? '&' : '?') + 'only_body=1';
 					
 					// Если контент по данной ссылке ещё не загружен
-					if (typeof (document.quickviewPreload[href]) == 'undefined') {
+					if (typeof (document.quickviewPreload[href]) == 'undefined'){
 						// Ставим отметку о том, что мы начали загрузку страницы товара
 						document.quickviewPreload[href] = 1;
 						// Делаем запрос на загрузку страницы товара
-						$.get(href, function (content) {
+						$.get(href, function(content){
 							// Сохраняем контент, необходимый для быстрого просмотра в специально созданный для этого массив
 							document.quickviewPreload[href] = $(content).getColumnContent();
 						})
 						// Если загрузить страницу не удалось, удаляем отметку о том, что мы подгрузили эту страницу
-						.fail(function () {
+						.fail(function(){
 							delete document.quickviewPreload[href];
 						});
 					}
 				});
 
 				// Действие при нажатии на кнопку быстрого просмотра.
-				$('.add-mod').on('click', function () {
+				$('.add-mod').on('click', function(){
 					let href = $(this).attr('href');
 					href += (false !== href.indexOf('?') ? '&' : '?') + 'only_body=1';
 					product.quickViewShowMod(href);
@@ -1389,19 +1388,19 @@ class Product {
 		};
 
 		// Быстрый просмотр модификаций
-		this.quickViewShowMod = function (href, atempt) {
+		this.quickViewShowMod = function(href, atempt){
 			// Если данные по быстрому просмотру уже подгружены
-			if (typeof (document.quickviewPreload[href]) != 'undefined') {
+			if (typeof (document.quickviewPreload[href]) != 'undefined'){
 				// Если мы в режиме загрузки страницы и ждём результата от другой функции, то тоже подождём, когда тот контент загрузится и будет доступен в этом массиве.
-				if (1 == document.quickviewPreload[href]) {
+				if (1 == document.quickviewPreload[href]){
 					// Если попытки ещё не указывались, ставим 0 - первая попытка
-					if (typeof (atempt) == 'undefined') {
+					if (typeof (atempt) == 'undefined'){
 						atempt = 0;
 						// Иначе прибавляем счётчик попыток
 					} else {
 						atempt += 1;
 						// Если больше 500 попыток, то уже прошло 25 секунд и похоже, что быстрый просмотр не подгрузится, отменяем информацию о том, что контент загружен
-						if (atempt > 500) {
+						if (atempt > 500){
 							delete document.quickviewPreload[href];
 							// TODO сделать вывод красивой таблички
 							alert('Не удалось загрузить страницу товара. Пожалуйста, повторите попытку позже.');
@@ -1425,7 +1424,7 @@ class Product {
 					quantityGoods.onGoods();
 				}
 			} else {
-				$.get(href, function (content) {
+				$.get(href, function(content){
 					$.fancybox.close();
 					$.fancybox.open({
 						src: $(content).getColumnContent(),
@@ -1442,14 +1441,14 @@ class Product {
 		};
 
 		// Добавление товара в корзину
-		this.onCart = function () {
-			$('.add-cart').on('click', function () {
+		this.onCart = function(){
+			$('.add-cart').on('click', function(){
 				const form = $(this).closest('form');
-				if ($(this).hasClass('quick')) {
+				if ($(this).hasClass('quick')){
 					form.attr('rel', 'quick');
 				} else {
 					const rel = form.attr('rel');
-					if (rel) {
+					if (rel){
 						form.attr('rel', rel.replace('quick', ''));
 					}
 				}
@@ -1459,8 +1458,8 @@ class Product {
 		};
 
 		// Уведомить при отсутствии товара
-		this.onNotify = function () {
-			$('.add-notify').on('click', function () {
+		this.onNotify = function(){
+			$('.add-notify').on('click', function(){
 				const formBlock = $(this).closest('.product__form');
 				const goodsMod = formBlock.find('[name="form[goods_mod_id]"]').val();
 				$('#fancy-notify-goods-mod').val(goodsMod);
@@ -1468,11 +1467,11 @@ class Product {
 		};
 
 		// Быстрый заказ
-		this.quickOrder = function (formSelector) {
+		this.quickOrder = function(formSelector){
 			// Находим форму, которую отправляем на сервер, для добавления товара в корзину
 			const formBlock = $($(formSelector).get(0));
 			// Проверка на существование формы отправки запроса на добавление товара в корзину
-			if (1 > formBlock.length || formBlock.get(0).tagName != 'FORM') {
+			if (1 > formBlock.length || formBlock.get(0).tagName != 'FORM'){
 				alert('Не удалось найти форму добавления товара в корзину');
 				return false;
 			}
@@ -1488,11 +1487,11 @@ class Product {
 				cache: false,
 				url: formBlock.attr('action'),
 				data: formData,
-				success: function (data) {
+				success: function(data){
 					$.fancybox.open(data, {
 						keyboard: false,
 						baseClass: 'fastOrder',
-						afterShow: function () {
+						afterShow: function(){
 							password.onClick();
 							password.capsWarning();
 							order.onInit();
@@ -1511,6 +1510,64 @@ class Product {
 			return false;
 		};
 
+		// Быстрый просмотр
+		// Нажимая кнопку Быстрый просмотр открывается окно с карточкой товара
+		this.quickView = function(){
+			const elements = document.querySelectorAll('.product__quickview')
+			elements.forEach((e) => {
+				e.addEventListener('click', onClick)
+
+				function onClick(event){
+					event.preventDefault()
+					let url = e.getAttribute('href')
+					url += (false !== url.indexOf('?') ? '&' : '?') + 'only_body=1';
+					console.log('event', event)
+					console.log('href', url)
+					getContent(url)
+				}
+
+				async function getContent(url){
+					await fetch(url, {
+						method: "POST"
+					})
+					// Получаем ответ
+					.then((response) => response.text())
+					// Преобразуем в html
+					.then((html) => {
+						// Convert the HTML string into a document object
+						const parser = new DOMParser();
+						const doc = parser.parseFromString(html, 'text/html');
+						// console.log('doc', doc)
+						showContent(doc.querySelector('.productViewBlock'))
+					})
+					.catch((error) => console.error(error));
+				}
+
+				function showContent(data){
+					console.log('data', data);
+					$.fancybox.open(data);
+					// Удаляем табы
+					document.querySelector('.productView__tabs').remove();
+					// Замена основного изображения
+					const lozadImg = document.querySelector('.productView__image .lozad');
+					lozadImg.setAttribute('src', lozadImg.getAttribute('data-src'));
+					// Замена ссылки в описании
+					const desc = document.querySelector('.desc__more');
+					desc.setAttribute('href', desc.getAttribute('data-href'));
+					// Функции карточки товара
+					setTimeout(() => {
+						console.log('start func');
+						product.addCart();
+						product.addTo();
+						goods.goodsModification(document.querySelector('.productViewBlock'));
+						goods.onClick();
+						quantityGoods.onGoods();						
+					}, 1000);
+				}
+
+			})
+		}
+
 	}
 }
 
@@ -1519,16 +1576,16 @@ class Product {
 /*** Действия удаления из ... ***/
 ///////////////////////////////////////
 class Remove {
-	constructor() {
+	constructor(){
 		console.log('Remove start');
 
 		// Действия при клике
-		this.onClick = function () {
+		this.onClick = function(){
 			const content = document.querySelector('.addto')
 			// Если нет контента
-			if (!content) { return false }
+			if (!content) {return false}
 			// Действия
-			content.parentElement.addEventListener('click', function (event) {
+			content.parentElement.addEventListener('click', function(event){
 				// Объявление переменных
 				const removeCart = event.target.closest('.cart .addto__remove')
 				const removeCartAll = event.target.closest('.cart .addto__removeAll')
@@ -1538,31 +1595,31 @@ class Remove {
 				const removeFavoritesAll = event.target.closest('.favorites .addto__removeAll')
 
 				// Удалить из корзины
-				if (removeCart) {
+				if (removeCart){
 					console.log('removeCart', event)
 					event.preventDefault();
 					remove.fromCart(removeCart)
 				// Удалить из сравнения
-				} else if (removeCartAll) {
+				} else if (removeCartAll){
 					console.log('removeCartAll', event)
 					event.preventDefault();
 					remove.fromCartAll(removeCartAll)
 				// Удалить все из сравнения
-				} else if (removeCompare) {
+				} else if (removeCompare){
 					console.log('removeCompare', event)
 					event.preventDefault();
 					remove.fromCompare(removeCompare)
 				// Удалить все из сравнения
-				} else if (removeCompareAll) {
+				} else if (removeCompareAll){
 					console.log('removeCompareAll', event)
 					event.preventDefault();
 					remove.fromCompareAll(removeCompareAll)
 				// Удалить из избранного
-				} else if (removeFavorites) {
+				} else if (removeFavorites){
 					event.preventDefault();
 					remove.fromFavorites(removeFavorites)
 				// Удалить все из избранного
-				} else if (removeFavoritesAll) {
+				} else if (removeFavoritesAll){
 					console.log('fromFavoritesAll', event)
 					event.preventDefault();
 					remove.fromFavoritesAll(removeFavoritesAll)
@@ -1575,9 +1632,9 @@ class Remove {
 		}
 
 		// Удаление товара из корзины без обновлении страницы
-		this.fromCart = function (obj) {
+		this.fromCart = function(obj){
 			console.log('Remove fromCart', obj);
-			if (confirm('Вы точно хотите удалить товар из корзины?')) {
+			if (confirm('Вы точно хотите удалить товар из корзины?')){
 				const href = $(obj).attr('href');
 				const qty = $(obj).data('qty');
 				const id = $(obj).data('id');
@@ -1585,16 +1642,16 @@ class Remove {
 				$.ajax({
 					cache: false,
 					url: href,
-					success: function (data) {
+					success: function(data){
 						const newCount = oldCount - qty;
 						$('.cart-count').attr('data-cart-count', newCount).text(newCount);
 						$('.cart-wordend').html($(data).find('.cart-wordend').html());
 						$('.cartSumNow').attr('data-price', $(data).find('.cartSumNow').attr('data-price')).find('.num').text(addSpaces($(data).find('.cartSumNow').attr('data-price')));
 						let flag = 0;
-						if (newCount != 0) {
-							$('.addto__cart .addto__item').each(function () {
-								if (flag == 0) {
-									if ($(this).css('display') == 'none') {
+						if (newCount != 0){
+							$('.addto__cart .addto__item').each(function(){
+								if (flag == 0){
+									if ($(this).css('display') == 'none'){
 										$(this).css('display', 'flex');
 										flag++;
 									}
@@ -1616,18 +1673,18 @@ class Remove {
 		};
 
 		// Удаление ВСЕХ товаров из Корзины без обновлении страницы
-		this.fromCartAll = function (obj) {
+		this.fromCartAll = function(obj){
 			console.log('Remove fromCartAll');
-			if (confirm('Вы точно хотите очистить корзину?')) {
+			if (confirm('Вы точно хотите очистить корзину?')){
 				$.ajax({
 					cache: false,
 					url: $(obj).attr('href'),
-					success: function (data) {
+					success: function(data){
 						$('.totalSum').html($(data).find('.totalSum').html());
 						$('.cart').removeClass('has-items');
 						$('.cart-count').attr('data-cart-count', '0').text('0');
 						$('.addto__cart .addto__item').remove();
-						$('.product__item').each(function () {
+						$('.product__item').each(function(){
 							$(this).removeClass('product__inCart').find('.inCart__count').text('0');
 						});
 					}
@@ -1636,9 +1693,9 @@ class Remove {
 		};
 
 		// Удаление товара из Сравнения без обновлении страницы
-		this.fromCompare = function (obj) {
+		this.fromCompare = function(obj){
 			console.log('fromCompare', obj)
-			if (confirm('Вы точно хотите удалить товар из сравнения?')) {
+			if (confirm('Вы точно хотите удалить товар из сравнения?')){
 				const href = $(obj).attr('href');
 				const id = $(obj).attr('data-id');
 				const oldCount = $('.compare-count').attr('data-count');
@@ -1648,14 +1705,14 @@ class Remove {
 				$.ajax({
 					cache: false,
 					url: href,
-					success: function (data) {
+					success: function(data){
 						const newCount = oldCount - 1;
 						$('.compare-count').attr('data-count', newCount).text(newCount);
 						let flag = 0;
-						if (newCount != 0) {
-							$('.addto__compare .addto__item').each(function () {
-								if (flag == 0) {
-									if ($(this).css('display') == 'none') {
+						if (newCount != 0){
+							$('.addto__compare .addto__item').each(function(){
+								if (flag == 0){
+									if ($(this).css('display') == 'none'){
 										$(this).css('display', 'flex');
 										flag++;
 									}
@@ -1667,7 +1724,7 @@ class Remove {
 						}
 
 						const elem = $('.add-compare[data-id="' + id + '"]');
-						if (elem.length) {
+						if (elem.length){
 							elem.attr('data-action-is-add', '1')
 								.removeAttr('title')
 								.removeClass('is-added')
@@ -1679,13 +1736,13 @@ class Remove {
 		};
 
 		// Удаление ВСЕХ товаров из Сравнения без обновлении страницы
-		this.fromCompareAll = function (obj) {
+		this.fromCompareAll = function(obj){
 			console.log('fromCompareAll', obj)
-			if (confirm('Вы точно хотите очистить сравнение?')) {
+			if (confirm('Вы точно хотите очистить сравнение?')){
 				$.ajax({
 					cache: false,
 					url: $(obj).attr('href'),
-					success: function (data) {
+					success: function(data){
 						$('.compare').removeClass('has-items');
 						$('.compare-count').attr('data-count', '0').text('0');
 						$('.addto__compare .addto__item').remove();
@@ -1696,9 +1753,9 @@ class Remove {
 		};
 
 		// Удаление товара из Избранного без обновлении страницы
-		this.fromFavorites = function (obj) {
+		this.fromFavorites = function(obj){
 			console.log('fromFavorites', obj)
-			if (confirm('Вы точно хотите удалить товар из Избранного?')) {
+			if (confirm('Вы точно хотите удалить товар из Избранного?')){
 				const href = $(obj).attr('href');
 				const id = $(obj).attr('data-id');
 				const oldCount = $('.favorites-count').attr('data-count');
@@ -1708,14 +1765,14 @@ class Remove {
 				$.ajax({
 					cache: false,
 					url: href,
-					success: function (data) {
+					success: function(){
 						const newCount = oldCount - 1;
 						$('.favorites-count').attr('data-count', newCount).text(newCount);
 						let flag = 0;
-						if (newCount != 0) {
-							$('.addto__favorites .addto__item').each(function () {
-								if (flag == 0) {
-									if ($(this).css('display') == 'none') {
+						if (newCount != 0){
+							$('.addto__favorites .addto__item').each(function(){
+								if (flag == 0){
+									if ($(this).css('display') == 'none'){
 										$(this).css('display', 'flex');
 										flag++;
 									}
@@ -1727,7 +1784,7 @@ class Remove {
 						}
 
 						const elem = $('.add-favorites[data-id="' + id + '"]');
-						if (elem.length) {
+						if (elem.length){
 							elem.attr('data-action-is-add', '1')
 								.removeAttr('title')
 								.removeClass('is-added')
@@ -1740,13 +1797,13 @@ class Remove {
 		};
 
 		// Удаление ВСЕХ товаров из Избранного без обновлении страницы
-		this.fromFavoritesAll = function (obj) {
+		this.fromFavoritesAll = function(obj){
 			console.log('fromFavoritesAll', obj)
-			if (confirm('Вы точно хотите очистить Избранное?')) {
+			if (confirm('Вы точно хотите очистить Избранное?')){
 				$.ajax({
 					cache: false,
 					url: $(obj).attr('href'),
-					success: function (d) {
+					success: function(d){
 						$('.favorites').removeClass('has-items');
 						$('.favorites-count').attr('data-count', '0').text('0');
 						$('.addto__favorites .addto__item').remove();
@@ -1764,17 +1821,17 @@ class Remove {
 /*** Скрипты для Товары, Категории ***/
 ///////////////////////////////////////
 class Catalog {
-	constructor() {
+	constructor(){
 		console.time('Catalog test');
 
 		const content = document.querySelector('#main');
 
 		// Функции при клике на фильтры
-		this.onClick = function () {
+		this.onClick = function(){
 			// Если нет контента
 			if (!content) {return false;}
 
-			content.addEventListener('click', function (event) {
+			content.addEventListener('click', function(event){
 				// Объявление переменных
 				const filterInput = event.target.closest('.filter__item input');
 				const filterTitle = event.target.closest('.filter__collapsible .filter__title');
@@ -1782,14 +1839,14 @@ class Catalog {
 				const filterIcon = event.target.closest('.filters__icon');
 
 				// Фильтры по товарам. При нажании на какую либо характеристику или свойство товара происходит фильтрация товаров
-				if (filterInput) {
+				if (filterInput){
 					event.target.form.submit();
 				}
 
 				// Открытие/Скрытие фильтров в сайдбаре
-				else if (filterTitle) {
+				else if (filterTitle){
 					event.preventDefault();
-					if (filterTitle.classList.contains('is-actived')) {
+					if (filterTitle.classList.contains('is-actived')){
 						filterTitle.classList.remove('is-actived');
 						$(filterTitle).next().slideDown(600);
 					} else {
@@ -1800,7 +1857,7 @@ class Catalog {
 				}
 
 				// Открыть фильтры по иконке
-				else if (filterIcon) {
+				else if (filterIcon){
 					event.preventDefault();
 					filterIcon.classList.toggle('is-opened');
 					document.querySelector('#filters').classList.toggle('is-opened');
@@ -1808,7 +1865,7 @@ class Catalog {
 				}
 
 				// Сборосить категорию фильтра
-				// else if (filterClear) {
+				// else if (filterClear){
 				// 	event.preventDefault();
 				// 	const parent = event.target.closest('.filter__list')
 				// 	const checkboxes = parent.querySelectorAll('[type="checkbox"]')
@@ -1822,7 +1879,7 @@ class Catalog {
 		};
 
 		// Фильтр по ценам
-		this.priceFilter = function () {
+		this.priceFilter = function(){
 
 			const
 				priceFilterMinAvailable = parseInt($('.filters-price__range .min').text()), // Минимальное значение цены для фильтра
@@ -1842,7 +1899,7 @@ class Catalog {
 					parseInt($('#goods-filter-min-price').val()),
 					parseInt($('#goods-filter-max-price').val())
 				],
-				slide: function (event, ui) {
+				slide: function(event, ui){
 					priceInputMin.val(ui.values[0]);
 					priceInputMax.val(ui.values[1]);
 					priceSubmitButtonBlock.css('display', 'flex');
@@ -1850,9 +1907,9 @@ class Catalog {
 			});
 
 			// При изменении минимального значения цены
-			priceInputMin.keyup(function () {
+			priceInputMin.keyup(function(){
 				let newVal = parseInt($(this).val());
-				if (newVal < priceFilterMinAvailable) {
+				if (newVal < priceFilterMinAvailable){
 					newVal = priceFilterMinAvailable;
 				}
 				priceSliderBlock.slider('values', 0, newVal);
@@ -1860,9 +1917,9 @@ class Catalog {
 			});
 
 			// При изменении максимального значения цены
-			priceInputMax.keyup(function () {
+			priceInputMax.keyup(function(){
 				let newVal = parseInt($(this).val());
-				if (newVal > priceFilterMaxAvailable) {
+				if (newVal > priceFilterMaxAvailable){
 					newVal = priceFilterMaxAvailable;
 				}
 				priceSliderBlock.slider('values', 1, newVal);
@@ -1870,7 +1927,7 @@ class Catalog {
 			});
 
 			// Активный фильтр цены
-			if (priceInputMin.val() > priceFilterMinAvailable || priceInputMax.val() < priceFilterMaxAvailable) {
+			if (priceInputMin.val() > priceFilterMinAvailable || priceInputMax.val() < priceFilterMaxAvailable){
 				$('.filters-price').addClass('has-filters');
 				$('.toolbar').addClass('has-filters');
 				$('#filters').addClass('has-filters');
@@ -1892,151 +1949,156 @@ class Catalog {
 // Товар. Карточка товара
 ///////////////////////////////////////
 class Goods {
-	constructor() {
+	constructor(){
 		// Слайдер доп. изображений
-		this.swiperTumbs = function () {
+		this.swiperTumbs = function(){
 			const id = '.thumblist';
 			// Слайдер товаров
 			
 		};
 
 		// Функции при инициализации товара
-		this.onInit = function () {
+		this.onInit = function(){
 
 			// Добавление отзыва о товаре. Рейтинг
-			if ($('.goodsOpinionRating').length) {
+			if ($('.goodsOpinionRating').length){
 				$('.goodsOpinionRating').rating();
 			}
 
 			// Выбор модификации
-			$('.modifications-props').each(function () {
+			$('.modifications-props').each(function(){
 				const val = $(this).find('select option:selected').attr('value');
 				$(this).find('.modifications-values__value[data-id="' + val + '"]').addClass('is-actived');
-				$(this).find('select option:disabled').each(function () {
+				$(this).find('select option:disabled').each(function(){
 					const dis = $(this).attr('value');
 					$('.modifications-values__value[data-id="' + dis + '"]').addClass('is-disabled');
 				});
 
 			});
 
-			goods.hideOpinion();
+			goods.opinionButtons();
 
 		};
 
-		// Скрываем отзывы если их много
-		this.hideOpinion = function () {
-			// $('.opinion__item').each(function (index) {
-			// 	if (index > 3) {
-			// 		$(this).addClass('is-hide');
-			// 	} else {
-			// 		$(this).addClass('is-show');
-			// 	}
+		// Скрываем кнопки Показать все. /JS/
+		this.opinionButtons = function(){
+			const items = document.querySelectorAll('.opinion__item')
+			const button = document.querySelector('.opinion__buttons')
+			// Если меньше 3 отзывов
+			items.length > 3 ? button.classList.remove('is-hide') : button.classList.add('is-hide');
+		}
 
-			// })
+		// Навигация фильтров отзывов. /JS/
+		this.opinionNavigates = function(nav, navs){
+			// Удаляем активный класс
+			navs.forEach(e => e.classList.remove('is-actived'))
+			// Добавляем активный класс
+			nav.classList.add('is-actived')
 		}
 
 		// Действия при клике
-		this.onClick = function () {
-
+		this.onClick = function(){
 			const content = document.querySelector('.productViewBlock');
+			console.log('productView', content);
 			// Если нет контента
-			if (!content) {
-				return false;
-			}
+			if (!content) {return false;}
 
-			content.addEventListener('click', function (event) {
+			content.addEventListener('click', function(event){
 				// console.log('event1', event)
 				// console.log('event1.target', event.target)
 				// Объявление переменных
-				const generally = event.target.closest('.generally label');
-				const opinionNav = event.target.closest('.opinion__nav');
-				const opinionAdd = event.target.closest('.opinion__add');
-				const opinionFormButton = event.target.closest('.opinion__form button');
-				const opinionCaptcha = event.target.closest('.captcha__refresh');
-				const opinionMoreButton = event.target.closest('.opinion__showAll');
-				const modValue = event.target.closest('.modifications-values__value');
+				const targetNav = event.target.closest('.opinion__nav');
+				const targetAdd = event.target.closest('.opinion__add');
+				const targetFormButton = event.target.closest('.opinion__form button');
+				const targetCaptcha = event.target.closest('.captcha__refresh');
+				const targetShowAll = event.target.closest('.opinion__showAll');
+				const targetMod = event.target.closest('.modifications-values__value');
+				const targetAnswer = event.target.closest('.opinion__answer-button');
+				const opinionBlock = document.querySelector('.productView__opinion');
+				const parentButton = opinionBlock.querySelector('.opinion__buttons');
+				const parentItems = opinionBlock.querySelector('.opinion__items');
+				const items = opinionBlock.querySelectorAll('.opinion__item');
+				const navs = opinionBlock.querySelectorAll('.opinion__nav');
 
-				// Переключение для Положительный и Отрицательный отзыв
-				if (generally) {
-					event.preventDefault();
-					const id = $(event.target.parentElement).attr('for');
-					const parents = $(event.target.offsetParent);
+				// Функции навигации отзывов. /JS/
+				if (targetNav){
+					const nav = targetNav.getAttribute('data-nav');
+					const count = targetNav.getAttribute('data-count');
 
-					parents.find('.generally input').prop('checked', false);
-					parents.find('.generally input#' + id).prop('checked', true);
+					// Если нет отзывов по фильтру
+					if (count == 0){return false}
+
+					// Все
+					if (nav == 'all'){
+						items.forEach(item => item.style.display = '')
+						parentButton.style.display = ''
+					}
+
+					// Положительные
+					if (nav == 'good'){
+						items.forEach(item => item.style.display = item.matches('[data-nav-content="good"]') ? 'block' : 'none')
+						parentButton.style.display = 'none'
+					}
+
+					// Отрицательные
+					if (nav == 'bad'){
+						items.forEach(item => item.style.display = item.matches('[data-nav-content="bad"]') ? 'block' : 'none')
+						parentButton.style.display = 'none'
+					}
+
+					// Запуск функции навигации отзывов
+					goods.opinionNavigates(targetNav, navs)
 
 				}
 
-				// Переключение для Положительный и Отрицательный отзыв
-				else if (opinionNav) {
-					const id = $(opinionNav).attr('data-nav');
-					const parents = $(event.target.offsetParent);
+				// Функция показать больше для Отзывов. /JS/
+				else if (targetShowAll){
+					// Изменить текст кнопки
+					changeTxt(event.target.parentElement);
 
-					parents.find('[data-nav]').removeClass('is-actived');
-					parents.find('[data-nav=' + id + ']').addClass('is-actived');
-					parents.find('[data-nav-content]').removeClass('is-show').addClass('is-hide');
-					parents.find('[data-nav-content=' + id + ']').removeClass('is-hide').addClass('is-show');
-					parents.find('.opinion__buttons').addClass('is-hide');
+					// Активный класс кнопки
+					isActived(targetShowAll);
 
-					if (id == 'all') {
-						parents.find('[data-nav-content]').removeClass('is-hide').addClass('is-show');
-						parents.find('.opinion__buttons').removeClass('is-hide').addClass('is-show');
-						goods.hideOpinion();
-					}
+					// Переход к контенту
+					scrollTop(opinionBlock.offsetTop + 100);
+
+					// Показать все отзывы
+					targetShowAll.matches('.is-actived') ? parentItems.classList.add('is-actived') : parentItems.classList.remove('is-actived');
 
 				}
 
 				// Ссылка на отображение формы для добавление отзыва о товаре
-				else if (opinionAdd) {
+				else if (targetAdd){
 					event.preventDefault();
-					if ($(opinionAdd).hasClass('is-actived')) {
-						$(opinionAdd).removeClass('is-actived');
-						$('.opinion__addForm').slideUp(600);
-					} else {
-						$(opinionAdd).addClass('is-actived');
-						$('.opinion__addForm').slideDown(600);
-						$('html, body').animate({ scrollTop: $('.opinion__addForm').offset().top }, 500);
-					}
-
+					const form = document.querySelector('.opinion__addForm');
+					$.fancybox.open(form)
 				}
 
 				// Валидация формы на странице оформления заказа, а так же формы на страницы связи с администрацией
-				else if (opinionFormButton) {
-					const form = $('.opinion__form');
-					form.validate({
-						errorPlacement: function (error, element) { }
-					});
-					form.submit();
-
+				else if (targetFormButton){
+					const form = targetFormButton.closest('.opinion__form');
+					$(form).validate();
+					$(form).submit();
 				}
 
 				// Иконка для обновления изображение капчи
-				else if (opinionCaptcha) {
+				else if (targetCaptcha){
 					goods.RefreshImageAction(event.target,1,1);
 					$('.captcha__image').attr('src',$('.captcha__image').attr('src')+'&rand'+Math.random(0,10000));
-
-				}
-
-				// Функция показать больше для Отзывов
-				else if (opinionMoreButton) {
-					const button = $(opinionMoreButton);
-					changeTxt(event.target.parentElement);
-					if (button.hasClass('is-actived')) {
-						button.removeClass('is-actived');
-						$('.opinion__item').removeClass('is-show').addClass('is-hide');
-						$('.opinion__item:nth-child(-n+3)').removeClass('is-hide').addClass('is-show');
-						$('html, body').animate({ scrollTop: $('.productView__opinion').offset().top - 64 }, 500);
-					} else {
-						button.addClass('is-actived');
-						$('.opinion__item').removeClass('is-hide').addClass('is-show');
-					}
-
 				}
 
 				// Новый модификации
-				else if (modValue) {
+				else if (targetMod){
 					event.preventDefault();
 					goods.newModification($(event.target.parentElement));
+				}
+
+				// Ответ админа. /JS/
+				else if (targetAnswer){
+					event.preventDefault();
+					const next = targetAnswer.nextElementSibling;
+					isActived(targetAnswer);
+					targetAnswer.matches('.is-actived') ? next.classList.remove('is-hide') : next.classList.add('is-hide');
 				}
 
 			});
@@ -2044,21 +2106,21 @@ class Goods {
 		};
 
 		// Крутит изображение при обновлении картинки защиты от роботов
-		this.RefreshImageAction = function (img, num, cnt) {
-			if (cnt > 13) { return false; }
+		this.RefreshImageAction = function(img, num, cnt){
+			if (cnt > 13) {return false}
 			$(img).attr('src', $(img).attr('rel') + 'icon/refresh/' + num + '.gif');
 			num = (num == 6) ? 0 : num;
-			setTimeout(function () {
+			setTimeout(function(){
 				goods.RefreshImageAction(img, num + 1, cnt + 1);
 			}, 50);
 		};
 
 
 		// Инициализация табов на странице товара
-		this.initTabs = function () {
+		this.initTabs = function(){
 			// Блок в котором находятся табы
 			const tabs = $('.productView__tabs');
-			if (!tabs.length) {
+			if (!tabs.length){
 				return false;
 			}
 			// Добавляем аткивные классы на первый элемент
@@ -2067,15 +2129,15 @@ class Goods {
 			// Проверяет хэш и если по нему была открыта вкладка, то эта функция автоматически откроет её.
 			goods.checkTabHash();
 			// Если используется хеш, то скролим до контента
-			if (document.location.hash !== '') {
+			if (document.location.hash !== ''){
 				$('html, body').animate({ scrollTop: jQuery('.tabs__content').offset().top - 68 }, 600);
 			}
 			// Биндим изменение хэша - проверка какой таб нужно открыть.
-			$(window).bind('hashchange', function () { goods.checkTabHash(); });
+			$(window).bind('hashchange', function(){ goods.checkTabHash(); });
 		};
 
 		// Переключение табов
-		this.tabSwitch = function (nb) {
+		this.tabSwitch = function(nb){
 			const tabs = $('.productView__tabs');
 			const tab = tabs.find('[data-tab="' + nb + '"]');
 			const content = tabs.find('[data-tab-content="' + nb + '"]');
@@ -2087,13 +2149,13 @@ class Goods {
 		};
 
 		// Проверяет хэш, переданый пользователем и открывает соответствующий раздел
-		this.checkTabHash = function () {
+		this.checkTabHash = function(){
 			// Определяем текущий хэш страницы
 			let hash = window.location.hash.substr(1);
-			if (hash == 'goodsDataOpinionAdd') {
+			if (hash == 'goodsDataOpinionAdd'){
 				hash = 'tab_4';
 			}
-			if (!hash.length || hash.indexOf('tab_') == -1) {
+			if (!hash.length || hash.indexOf('tab_') == -1){
 				return false;
 			}
 			// Открываем тот таб, который был указан в hash-е
@@ -2101,19 +2163,21 @@ class Goods {
 		};
 
 		// Модификации select
-		this.goodsModification = function ($container) {
+		this.goodsModification = function(selector = $('#main .productViewBlock')){
 			// Функция собирает свойства в строку, для определения модификации товара
-			function getSlugFromGoodsDataFormModificationsProperties(obj) {
+			function getSlugFromGoodsDataFormModificationsProperties(obj){
 				const properties = new Array();
-				$(obj).each(function (i) {
+				$(obj).each(function(i){
 					properties[i] = parseInt($(this).val());
 				});
-				return properties.sort(function (a, b) {
+				return properties.sort(function(a, b){
 					return a - b;
 				}).join('_');
 			}
 
-			const $parentBlock = $container || $('#main .productViewBlock');
+			console.log('selector', selector);
+			const $parentBlock = $(selector);
+			console.log('$parentBlock', $parentBlock);
 
 			const
 				goodsDataProperties = $parentBlock.find('.modifications-props select[name="form[properties][]"]'), // Запоминаем поля выбора свойств, для ускорения работы со значениями свойств
@@ -2121,24 +2185,24 @@ class Goods {
 
 
 			// Обновляет возможность выбора свойств модификации, для отключения возможности выбора по характеристикам модификации которой не существует.
-			function updateVisibility(y) {
+			function updateVisibility(y){
 				// Проверяем в каждом соседнем поле выбора модификаций, возможно ли подобрать модификацию для указанных свойств
-				goodsDataProperties.each(function (j) {
+				goodsDataProperties.each(function(j){
 					// Если мы сравниваем значения свойства не с самим собой, а с другим списком значений свойств
-					if (j != y) {
+					if (j != y){
 						// Проходим по всем значениям текущего свойства модификации товара
-						$(this).find('option').each(function () {
+						$(this).find('option').each(function(){
 							// Записываем временный массив свойств, которые будем использовать для проверки существования модификации
 							const checkProperties = new Array();
-							$(goodsDataProperties).each(function (i) {
+							$(goodsDataProperties).each(function(i){
 								checkProperties[i] = parseInt($(this).val());
 							});
 							// Пытаемся найти модификацию соответствующую выбранным значениям свойств
 							checkProperties[j] = parseInt($(this).attr('value'));
 							// Собираем хэш определяющий модификацию по свойствам
-							const slug = checkProperties.sort(function (a, b) { return a - b; }).join('_');
+							const slug = checkProperties.sort(function(a, b) {return a - b}).join('_');
 							// Ищем модификацию по всем выбранным значениям свойств товара. Если модификации нет в возможном выборе, отмечаем потенциальное значение выбора как не доступное для выбора, т.к. такой модификации нет.
-							if (!goodsDataModifications.filter('[rel="' + slug + '"]').length) {
+							if (!goodsDataModifications.filter('[rel="' + slug + '"]').length){
 								$(this).attr('disabled', true);
 								// Если выбрав данное значение свойства товара можно подобрать модификацию, то выделяем вариант выбора как доступный.
 							} else {
@@ -2155,8 +2219,8 @@ class Goods {
 			updateVisibility(1);
 
 			// Изменение цены товара при изменении у товара свойства для модификации
-			goodsDataProperties.each(function (y) {
-				function slugUpdate() {
+			goodsDataProperties.each(function(y){
+				function slugUpdate(){
 					const 
 						slug = getSlugFromGoodsDataFormModificationsProperties(goodsDataProperties), 
 						goodsModView = $parentBlock.find('.productView'), 
@@ -2182,13 +2246,13 @@ class Goods {
 						productRestValue = goodsModView.find('.productRestValue');
 
 					// Изменяем данные товара для выбранных параметров. Если нашлась выбранная модификация
-					if (modificationBlock.length) {
+					if (modificationBlock.length){
 						// Цена товара
 						goodsPriceNow.html(modificationPriceNowFormated);
 						goodsPriceNow.attr('data-price', modificationPriceNow);
 
 						// Старая цена товара
-						if (modificationPriceOld > modificationPriceNow) {
+						if (modificationPriceOld > modificationPriceNow){
 							goodsPriceOld.html(modificationPriceOldFormated);
 							goodsPriceOld.attr('data-price', modificationPriceOld);
 						} else {
@@ -2197,17 +2261,17 @@ class Goods {
 						}
 
 						// Есть ли товар есть в наличии. Много Мало Отсутствует 
-						if (modificationRestValue > 0) {
+						if (modificationRestValue > 0){
 							goodsModView.removeClass('productView__empty');
 							productRestValue.parent().removeClass('rest-alot').removeClass('rest-zero').addClass('rest-few');
 
 							// Если остаток больше 9
-							if (modificationRestValue > 9) {
+							if (modificationRestValue > 9){
 								productRestValue.parent().removeClass('rest-few').removeClass('rest-zero').addClass('rest-alot');
 							}
 
 							// Если включено в настройках 'Отключить возможность класть в корзину больше товара, чем есть в наличии'
-							if (goodsAvailableQty.hasClass('.has-max')) {
+							if (goodsAvailableQty.hasClass('.has-max')){
 								goodsModQty.val('1').attr('max', modificationRestValue);
 							} else {
 								goodsModQty.val('1').attr('max', 99999);
@@ -2226,7 +2290,7 @@ class Goods {
 						}
 
 						// Покажем артикул модификации товара, если он указан
-						if (modificationArtNumber.length > 0) {
+						if (modificationArtNumber.length > 0){
 							goodsArtNumberBlock.show();
 							goodsArtNumber.html(modificationArtNumber);
 						} else {
@@ -2235,7 +2299,7 @@ class Goods {
 						}
 
 						// Описание модификации товара. Покажем если оно есть, спрячем если его у модификации нет
-						if (modificationDescription.length > 0) {
+						if (modificationDescription.length > 0){
 							goodsModDescription.show().html('<div>' + modificationDescription + '</div>');
 						} else {
 							goodsModDescription.hide().html();
@@ -2247,9 +2311,9 @@ class Goods {
 						const goodsDataMainImage = goodsModView.find('.productView__images');
 
 						// Меняет главное изображение товара на изображение с идентификатором goods_mod_image_id
-						function changePrimaryGoodsImage(goods_mod_image_id) {
+						function changePrimaryGoodsImage(goods_mod_image_id){
 							// Если не указан идентификатор модификации товара, значит ничего менять не нужно.
-							if (1 > goods_mod_image_id) {
+							if (1 > goods_mod_image_id){
 								return true;
 							}
 							const
@@ -2279,7 +2343,7 @@ class Goods {
 					updateVisibility(y);
 				}
 
-				$(this).change(function () {
+				$(this).change(function(){
 					slugUpdate();
 				});
 
@@ -2288,9 +2352,9 @@ class Goods {
 		};
 
 		// Кнопки для модификаций
-		this.newModification = function ($obj) {
+		this.newModification = function($obj){
 
-			if ($obj.hasClass('is-disabled')) {return false;}
+			if ($obj.hasClass('is-disabled')) {return false}
 
 			$obj.parents().find('.modifications-values__value').removeClass('is-disabled is-actived');
 			$obj.addClass('is-actived');
@@ -2308,16 +2372,16 @@ class Goods {
 // Корзина
 ///////////////////////////////////////
 class Cart {
-	constructor() {
+	constructor(){
 		// Функции при клике
-		this.onClick = function () {
+		this.onClick = function(){
 			const content = document.querySelector('.page-cart');
 			// Если нет контента
-			if (!content) {
+			if (!content){
 				return false;
 			}
 
-			content.addEventListener('click', function (event) {
+			content.addEventListener('click', function(event){
 				// console.log('event1', event)
 				// console.log('event1.target', event.target)
 				// Объявление переменных
@@ -2327,23 +2391,21 @@ class Cart {
 				const clear = event.target.closest('.cartTable__clear');
 				const make = event.target.closest('.confirmOrder');
 
-				if (remove) {
+				if (remove){
 					cart.removeItem($(event.target.parentElement));
-				} else if (start) {
+				} else if (start){
 					cart.orderStart();
-				} else if (close) {
+				} else if (close){
 					cart.orderClose();
-				} else if (make) {
+				} else if (make){
 					console.log('make', make);
 					event.preventDefault();
 					const form = $('.order-fast__form');
-					form.validate({
-						errorPlacement: function (error, element) { }
-					});
+					form.validate();
 					form.submit();
-				} else if (clear) {
+				} else if (clear){
 					const yep = confirm('Вы действительно хотите удалить все товары из корзины?');
-					if (yep == true) {
+					if (yep == true){
 						return true;
 					} else {
 						event.preventDefault();
@@ -2355,15 +2417,15 @@ class Cart {
 		};
 
 		// Удаление товара из корзины
-		this.removeItem = function (event) {
+		this.removeItem = function(event){
 			const yep = confirm('Вы точно хотите удалить товар из корзины?');
-			if (yep == true) {
+			if (yep == true){
 				event.closest('.cartTable__item').fadeOut();
 				url = event.data('href');
 				$.ajax({
 					url: url,
 					cache: false,
-					success: function (data) {
+					success: function(data){
 						$('.page-cart').html($(data).find('.page-cart').html());
 						// Вызов функции быстрого заказа в корзине
 						cart.minSum();
@@ -2375,11 +2437,11 @@ class Cart {
 		};
 
 		// Функция вычисления остатка до минимальной суммы заказа
-		this.minSum = function () {
-			if ($('.cartTotal__min').length) {
+		this.minSum = function(){
+			if ($('.cartTotal__min').length){
 				const minPrice = parseInt($('.cartTotal__min-price').data('price'));
 				const totalSum = parseInt($('.cartSumTotal').data('price'));
-				if (minPrice > totalSum) {
+				if (minPrice > totalSum){
 					const diff = minPrice - totalSum;
 					$('.cartTotal__min-price').find('.num').text(addSpaces(diff));
 					$('.total__buttons button').attr('disabled', true).addClass('is-disabled');
@@ -2392,7 +2454,7 @@ class Cart {
 		};
 
 		// Функция быстрого оформления заказа в корзине
-		this.orderStart = function () {
+		this.orderStart = function(){
 			const globalOrder = $('.cartTable__order');
 			const pageCart = $('.page-cart');
 			//объект блока куда будет выводиться форма быстрого заказа
@@ -2412,7 +2474,7 @@ class Cart {
 				cache: false,
 				url: urlQuickForm,
 				data: quickFormData,
-				success: function (data) {
+				success: function(data){
 					OrderAjaxBlock.html($(data).find('.order-fast__content').wrap('<div></div>').html()).show('slow');
 					$('html, body').delay(400).animate({ scrollTop: globalOrder.offset().top }, 800);
 					preload();
@@ -2433,7 +2495,7 @@ class Cart {
 		};
 
 		// Отменить заказ
-		this.orderClose = function () {
+		this.orderClose = function(){
 			$('.page-cart').removeClass('is-started');
 			$('.qty__input').removeAttr('readonly');
 			$('.startOrder').removeClass('is-disabled');
@@ -2449,21 +2511,21 @@ class Cart {
 /* Скрипты для оформления заказов */
 ///////////////////////////////////////
 class Order {
-	constructor() {
+	constructor(){
 
 		// Валидация формы в оформлении заказа
-		this.onValidate = function () {
+		this.onValidate = function(){
 			console.log('onValidate');
 			// Валидация формы
 			$('.order-fast__form').validate({
 				validClass: 'valid',
-				errorPlacement: function (error, element) {
+				errorPlacement: function(error, element){
 				}
 			});
 
 			// Выключение кнопки оформления заказа если не все поля заполнены
-			$('.order-fast__form [required]').on('input', function () {
-				if ($('.order-fast__form').valid()) {
+			$('.order-fast__form [required]').on('input', function(){
+				if ($('.order-fast__form').valid()){
 					$('.total__buttons button').attr('title', 'Оформить заказ').removeClass('is-disabled');
 				} else {
 					$('.total__buttons button').attr('title', 'Заполните все поля').addClass('is-disabled');
@@ -2471,7 +2533,7 @@ class Order {
 			});
 
 			// Проверка обязательных полей
-			if ($('.order-fast__form').valid()) {
+			if ($('.order-fast__form').valid()){
 				$('.total__buttons button').attr('title', 'Оформить заказ').removeClass('is-disabled');
 			} else {
 				$('.total__buttons button').attr('title', 'Заполните все поля').addClass('is-disabled');
@@ -2481,7 +2543,7 @@ class Order {
 		};
 
 		// Регистрация и выбор доставки
-		this.onInit = function () {
+		this.onInit = function(){
 			// Выбор даты доставки. Документация к плагину //t1m0n.name/air-datepicker/docs/index-ru.html
 			$('#deliveryConvenientDate').datepicker({
 				// Если true, то при активации даты, календарь закроется.
@@ -2491,19 +2553,19 @@ class Order {
 			});
 
 			// Действия при выборе варианта доставки на этапе оформления заказа
-			$('.order-delivery__radio').on('click', function (d) {
+			$('.order-delivery__radio').on('click', function(d){
 				// Отображение вариантов оплаты при выборе доставки
 				const ID = $('input[name="form[delivery][id]"]:checked').val();
 				$('.order-payment').hide();
 				$('.order-payment[rel="' + ID + '"]').show();
 				$('.order-payment[rel="' + ID + '"]').find('input:first').click();
 
-				$('.order-delivery__radio').each(function () {
+				$('.order-delivery__radio').each(function(){
 					$(this).prop('checked', false);
 					$(this).parent().removeClass('is-actived');
 				});
 
-				$('.order-delivery-zone__radio').each(function () {
+				$('.order-delivery-zone__radio').each(function(){
 					$(this).prop('checked', false);
 					$(this).parent().removeClass('is-actived');
 				});
@@ -2519,7 +2581,7 @@ class Order {
 				// Обновление цены при наличии зоны
 				const cartSumTotal = $('.cartSumDelivery .num');
 				const zonePrice = $('.order-delivery-zone__radio:checked').attr('price');
-				if (zonePrice > 0) {
+				if (zonePrice > 0){
 					priceBlock.text(addSpaces(zonePrice));
 					cartSumTotal.text(addSpaces(zonePrice));
 				} else {
@@ -2533,7 +2595,7 @@ class Order {
 				$('.cartSumTotal .num').text(addSpaces(newSum));
 
 				// Скрытие необязательных полей при выборе самовывоза
-				if ($(this).data('name') == 'Самовывоз') {
+				if ($(this).data('name') == 'Самовывоз'){
 					$('.order-fast__form').addClass('pickup');
 					$('.address input, .address textarea').val('Самовывоз');
 					$('#deliveryConvenientDate').val('01.01.2220');
@@ -2547,16 +2609,16 @@ class Order {
 			});
 
 			// Действия при выборе зоны внутри варианта доставки на этапе оформления заказа
-			$('.order-delivery-zone__radio').on('click', function () {
+			$('.order-delivery-zone__radio').on('click', function(){
 				const val = $(this).attr('data-id');
 				const price = $(this).attr('price');
 				const priceBlock = $('.order-delivery__item[data-id=' + val + ']').find('.order-delivery__price').find('.num');
 				// Обновление цены
 				priceBlock.text(addSpaces(price));
 
-				$('.order-delivery__radio').each(function () {
+				$('.order-delivery__radio').each(function(){
 					$(this).prop('checked', false);
-					if ($(this).val() == val) {
+					if ($(this).val() == val){
 						$(this).prop('checked', true);
 					} else {
 						$(this).prop('checked', false);
@@ -2577,11 +2639,11 @@ class Order {
 			});
 
 			// Выбор оплаты по клику
-			$('.order-payment__radio').on('click', function () {
+			$('.order-payment__radio').on('click', function(){
 				const paymentDescription = $('.order-payment__radio:checked').parent().find('.order-payment__desc').html();
 				const payDesc = $('.order-payment__desc');
 				payDesc.html(paymentDescription);
-				if (paymentDescription == undefined) {
+				if (paymentDescription == undefined){
 					payDesc.addClass('is-hide').removeClass('is-show');
 				} else {
 					payDesc.addClass('is-show').removeClass('is-hide');
@@ -2589,28 +2651,28 @@ class Order {
 			});
 
 			// Выбор оплаты по умолчанию
-			$('.order-payment__radio').each(function () {
+			$('.order-payment__radio').each(function(){
 				console.log('each', $(this).parent());
 				const paymentDescription = $('.order-payment__radio:checked').parent().find('.order-payment__desc').html();
 				const payDesc = $('.order-payment__desc');
 				payDesc.html(paymentDescription);
-				if (paymentDescription == undefined) {
+				if (paymentDescription == undefined){
 					payDesc.addClass('is-hide').removeClass('is-show');
 				} else {
 					payDesc.addClass('is-show').removeClass('is-hide');
 				}
 			});
 
-			setTimeout(function () {
+			setTimeout(function(){
 				$('.order-delivery__select').trigger('change');
 			}, 100);
 
 		};
 
 		// Выбор доставки и оплаты
-		this.onSelect = function () {
+		this.onSelect = function(){
 			// Выбор доставки
-			$('.order-delivery__select').on('change', function () {
+			$('.order-delivery__select').on('change', function(){
 				const selectedDelId = $('.order-delivery__select').find('option:selected').attr('data-id');
 				$('.order-delivery-zone__selectBox').addClass('is-hide').removeClass('is-show');
 				$('.order-delivery-zone__selectBox[data-id="' + selectedDelId + '"]').addClass('is-show').removeClass('is-hide');
@@ -2621,7 +2683,7 @@ class Order {
 				const WithZone = $('.order-delivery__item[data-id=' + selectedDelId + '] .order-delivery-zone__radio:checked').attr('price');
 				
 				let startprice = WithoutZone
-				if (WithZone >= 0) {
+				if (WithZone >= 0){
 					startprice = WithZone;
 				}
 
@@ -2631,7 +2693,7 @@ class Order {
 				$('.order-payment[rel="' + selectedDelId + '"]').addClass('is-show').removeClass('is-hide');
 				const startInputId = $('.order-delivery__radio:checked').attr('value');
 				$('.order-payments__items .order-payment input').attr('checked', false);
-				$('.order-payments__items .order-payment[rel="' + startInputId + '"] input').each(function () {
+				$('.order-payments__items .order-payment[rel="' + startInputId + '"] input').each(function(){
 					$(this).click();
 					return false;
 				});
@@ -2642,7 +2704,7 @@ class Order {
 				const delDesc = $('.order-delivery__desc')
 				const deliveryDescription = $('.order-delivery__radio:checked').parent().find('.order-delivery__desc').html()
 				delDesc.html(deliveryDescription)
-				if (deliveryDescription == undefined) {
+				if (deliveryDescription == undefined){
 					delDesc.addClass('is-hide').removeClass('is-show')
 				} else {
 					delDesc.addClass('is-show').removeClass('is-hide')
@@ -2652,7 +2714,7 @@ class Order {
 				const paymentDescription = $('.order-payment__radio:checked').parent().find('.order-delivery__desc').html();
 				const payDesc = $('.order-payment__desc')
 				payDesc.html(paymentDescription)
-				if (paymentDescription == undefined) {
+				if (paymentDescription == undefined){
 					payDesc.addClass('is-hide').removeClass('is-show')
 				} else {
 					payDesc.addClass('is-show').removeClass('is-hide')
@@ -2661,7 +2723,7 @@ class Order {
 			});
 
 			// Выбор зоны доставки
-			$('.order-delivery-zone__select').on('change', function () {
+			$('.order-delivery-zone__select').on('change', function(){
 				const optValue = $(this).find('option:selected').attr('value')
 				$('.order-delivery-zone__radio[value="' + optValue + '"]').click()
 				const WithZone = $('.order-delivery-zone__radio:checked').attr('price')
@@ -2670,13 +2732,13 @@ class Order {
 			})
 
 			// Выбор оплаты
-			$('.order-payment__select').on('change', function () {
+			$('.order-payment__select').on('change', function(){
 				const selectedDelId = $(this).find('option:selected').attr('value')
 				$('.order-payment__radio[value="' + selectedDelId + '"]').click()
 				const paymentDescription = $('.order-payment__radio:checked').parent().find('.order-payment__desc').html()
 				const payDesc = $('.order-payment__desc')
 				payDesc.html(paymentDescription)
-				if (paymentDescription == undefined) {
+				if (paymentDescription == undefined){
 					payDesc.addClass('is-hide').removeClass('is-show')
 				} else {
 					payDesc.addClass('is-show').removeClass('is-hide')
@@ -2686,7 +2748,7 @@ class Order {
 		}
 
 		// Отправка купона при оформлении заказа
-		this.coupons = function () {
+		this.coupons = function(){
 			const submitBtn = $('.coupon__button');
 			const couponInput = $('.coupon__code');
 			const couponParent = couponInput.parent();
@@ -2695,20 +2757,20 @@ class Order {
 			const totalDiscountBlock = $('.cartTotal__item-discount');
 
 			// Отправка формы
-			submitBtn.off('click').on('click', function () {
+			submitBtn.off('click').on('click', function(){
 				const url = '/order/stage/confirm';
 				const val = couponInput.val();
 				const oldVal = couponInput.attr('data-value');
 				couponInput.attr('data-value', val);
 
 				// Если ничего не ввели
-				if (val == '') {
+				if (val == ''){
 					couponInput.addClass('error');
 					return false;
 				}
 
 				// Если купон не изменился
-				if (val == oldVal) {
+				if (val == oldVal){
 					couponInput.removeClass('focus');
 					return false;
 				}
@@ -2724,7 +2786,7 @@ class Order {
 					cache: false,
 					url: url,
 					data: formData,
-					success: function (data) {
+					success: function(data){
 						// Получаем блок скидки
 						const discountBlock = $(data).closest('#order_form').find('.order-discount')
 						const discountName = discountBlock.find('.order-discount__name').text()
@@ -2733,9 +2795,9 @@ class Order {
 
 						// Определяем наличие скидки в % или валюте
 						let discountSum = 0
-						if (discountPrice) {
+						if (discountPrice){
 							discountSum = discountPrice
-						} else if (discountPercent) {
+						} else if (discountPercent){
 							discountSum = discountPercent
 						} else {
 							totalCouponBlock.hide()
@@ -2755,14 +2817,14 @@ class Order {
 						const cartSumTotal = $('.cartSumTotal:eq(0) .num').text().toString().replace(/\s/g, '')
 
 						// Проверяем купон
-						if (newTotalSum > cartSumTotal) {
+						if (newTotalSum > cartSumTotal){
 							couponInput.val('').attr('placeholder', 'Купон неверен').removeClass('focus')
 							couponParent.removeClass('success').addClass('error')
 							totalCouponBlock.hide()
 							totalDiscountBlock.show()
 							$('.cartSumTotal .num').text(addSpaces(newTotalSum))
-						} else if (newTotalSum == cartSumTotal) {
-							if (discountName) {
+						} else if (newTotalSum == cartSumTotal){
+							if (discountName){
 								couponInput.addClass('focus')
 								couponParent.addClass('success')
 								totalCouponBlock.show()
@@ -2794,16 +2856,16 @@ class Order {
 						// console.log('newTotalSum', newTotalSum)
 						// console.log('---', )
 					},
-					error: function (data) {
+					error: function(){
 						console.log('Возникла ошибка: Невозможно отправить форму купона.')
 					}
 				})
 			})
 
 			// Сброс
-			resetBtn.on('click', function () {
+			resetBtn.on('click', function(){
 				couponInput.val('').trigger('input')
-				setTimeout(function () {
+				setTimeout(function(){
 					totalCouponBlock.hide()
 					totalDiscountBlock.show()
 					const cartSum = $('.cartSumDiscount').data('value')
@@ -2821,8 +2883,8 @@ class Order {
 			})
 
 			// Отображение кнопки Сброс
-			couponInput.on('input', function () {
-				if ($(this).val()) {
+			couponInput.on('input', function(){
+				if ($(this).val()){
 					resetBtn.addClass('focus')
 				} else {
 					resetBtn.removeClass('focus')
@@ -2832,7 +2894,7 @@ class Order {
 		}
 
 		// Оформление заказа в выпадающей корзине
-		this.orderCart = function () {
+		this.orderCart = function(){
 			const urlQuickForm = '/cart/add'; // адрес страницы с формой
 
 			// данные которые отправятся на сервер чтобы получить только форму быстрого заказа 
@@ -2846,11 +2908,11 @@ class Order {
 				cache: false,
 				url: urlQuickForm,
 				data: quickFormData,
-				success: function (data) {
+				success: function(data){
 					$.fancybox.open(data, {
 						keyboard: false,
 						baseClass: 'fastOrder',
-						afterShow: function () {
+						afterShow: function(){
 							preload()
 							password.onClick();
 							password.capsWarning()
@@ -2921,20 +2983,20 @@ console.timeEnd('start test');
 
 
 // $.event.special.inputchange = {
-// 	setup: function () {
+// 	setup: function(){
 // 			var self = this, val;
-// 			$.data(this, 'timer', window.setInterval(function () {
+// 			$.data(this, 'timer', window.setInterval(function(){
 // 					val = self.value;
-// 					if ( $.data( self, 'cache') != val ) {
+// 					if ( $.data( self, 'cache') != val ){
 // 							$.data( self, 'cache', val );
 // 							$( self ).trigger( 'inputchange' );
 // 					}
 // 			}, 20));
 // 	},
-// 	teardown: function () {
+// 	teardown: function(){
 // 			window.clearInterval( $.data(this, 'timer') );
 // 	},
-// 	add: function () {
+// 	add: function(){
 // 			$.data(this, 'cache', this.value);
 // 	}
 // };
@@ -2959,7 +3021,7 @@ function mainnav(id,rows,media){
 		if(overMenuExist){
 			mainNavOverflow.find('li').removeClass('mainnav__replaced');
 			mainNavMore.remove();
-			mainNavOverflow.find('li').each(function () {
+			mainNavOverflow.find('li').each(function(){
 				mainNavList.append($(this));
 			});
 		}
@@ -2979,13 +3041,13 @@ function mainnav(id,rows,media){
 					mainNavList.find('li:nth-child('+ a +')').addClass('mainnav__replaced');
 				}
 
-				mainNav.find('.mainnav__replaced').each(function () {
+				mainNav.find('.mainnav__replaced').each(function(){
 					mainNavOverflow.append($(this));
 				});
 
 				mainNavList.append('<li class="mainnav__more"><a class="mainnav__link flex"><span>Ещё</span><i class="icon-chevron_down"></i></a></li>');
 
-				mainNav.find('.mainnav__more').on('click',function () {
+				mainNav.find('.mainnav__more').on('click',function(){
 					if($(this).hasClass('is-opened')){
 						$(this).removeClass('is-opened');
 						mainNav.removeClass('is-opened');
@@ -3022,20 +3084,20 @@ function mainnav(id,rows,media){
 ///////////////////////////////////////
 // Отсчет даты до окончания акции
 ///////////////////////////////////////
-function counterDate() {
+function counterDate(){
 	const id = $('.counter');
 	// Если не найдет счетчик прекращаем работу функции
 	if(!id.length){
 		return false;
 	}
 	// Перебираем каждый счетчик
-	id.each(function () {
+	id.each(function(){
 		const t = $(this);
 		// Устанавливаем дату обратного отсчета ММ-ДД-ГГ
 		const expired = t.attr('data-expired');
 		const countDownDate = new Date(expired).getTime();
 		// Обновление счетчика каждую секунду
-		const x = setInterval(function () {
+		const x = setInterval(function(){
 			const now = new Date().getTime();
 			const distance = countDownDate - now;
 			const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -3048,7 +3110,7 @@ function counterDate() {
 			t.find('.minutes span').text(minutes);
 			t.find('.seconds span').text(seconds);
 			// Счетчик завершен
-			if (distance < 0) {
+			if (distance < 0){
 				clearInterval(x);
 				t.hide();
 			}else{
@@ -3063,21 +3125,21 @@ function counterDate() {
 ///////////////////////////////////////
 // Открытие Контактов, Меню, Сравнения, Избранного
 ///////////////////////////////////////
-function openMenu() {
+function openMenu(){
 	// Открытие каталога с сохранением вложенности
   $('.catalog__open').on('click', function(event){
     event.preventDefault();
     const parent = $(this).closest('.parent');
     const sub = $(this).parent().next('.catalog__sub');
     const open = $(this).closest('.catalog__open');
-    if (parent.hasClass('is-opened')) {
+    if (parent.hasClass('is-actived')){
       sub.slideUp(600);
-      parent.removeClass('is-opened');
-      open.removeClass('is-opened');
+      parent.removeClass('is-actived');
+      open.removeClass('is-actived');
     } else {
       sub.slideDown(600);
-      parent.addClass('is-opened');
-      open.addClass('is-opened');
+      parent.addClass('is-actived');
+      open.addClass('is-actived');
     }
   });
 
@@ -3090,7 +3152,7 @@ function openMenu() {
 	});
 
 	// Открытие Меню
-  $('.mainnav__icon').on('click', function (event){
+  $('.mainnav__icon').on('click', function(event){
     event.preventDefault();
 		$(this).toggleClass('is-opened');
 		$('#mobmenu').toggleClass('is-opened');
@@ -3131,12 +3193,12 @@ function openMenu() {
 }
 
 // Функция удаления классов всех активных элементов
-function closeAll() {
+function closeAll(){
 	$('div, a, form, span, nav, ul, li').removeClass('is-opened');
 	$('.overflowMenu').removeClass('is-actived');
 	$('.search__reset').click();
 	$('#overlay').click();
-	setTimeout(function () {
+	setTimeout(function(){
 		$('#overlay').removeClass('transparent');
 		$('.search__reset').click();
 		$('.search__input').blur(); 
@@ -3170,7 +3232,7 @@ function ajaxForms(id,flag,successMessage,errorMessage){
         success: function(d){
           const serverCall = JSON.parse(d).status;
           if(serverCall =='ok'){
-						setTimeout(function () {
+						setTimeout(function(){
 							$.fancybox.close();
 						},2000);
 						// Функция, которая отображает сообщения пользователю
@@ -3193,7 +3255,7 @@ function ajaxForms(id,flag,successMessage,errorMessage){
     }
   });
 	
-	function callbackError() {
+	function callbackError(){
 		$(id).addClass('error')
 		// Функция, которая отображает сообщения пользователю
 		const content = `
@@ -3224,7 +3286,7 @@ ajaxForms('footer .form__callback','footerCallbackFlag','Спасибо за о�
 
 ///////////////////////////////////////
 // Слайдер Новостей
-function swiperNews() {
+function swiperNews(){
 	const id = '#news'
 	// Свайпер слайдер новостей
 	const swiper = new Swiper(id + ' .swiper', {
@@ -3422,32 +3484,32 @@ function swiperSlider(id){
 
 
 // Переименование названий Месяца
-// function monthNames() {
+// function monthNames(){
 // 	if ($('.month').length){
-// 		$('.month').each(function () {
-// 			if ($(this).text() === 'Jan') {
+// 		$('.month').each(function(){
+// 			if ($(this).text() === 'Jan'){
 // 				$(this).text('Января')
-// 			}else if ($(this).text() === 'Feb') {
+// 			}else if ($(this).text() === 'Feb'){
 // 				$(this).text('Февраля')
-// 			}else if ($(this).text() === 'Mar') {
+// 			}else if ($(this).text() === 'Mar'){
 // 				$(this).text('Марта')
-// 			}else if ($(this).text() === 'Apr') {
+// 			}else if ($(this).text() === 'Apr'){
 // 				$(this).text('Апреля')
-// 			}else if ($(this).text() === 'May') {
+// 			}else if ($(this).text() === 'May'){
 // 				$(this).text('Мая')
-// 			}else if ($(this).text() === 'Jun') {
+// 			}else if ($(this).text() === 'Jun'){
 // 				$(this).text('Июня')
-// 			}else if ($(this).text() === 'Jul') {
+// 			}else if ($(this).text() === 'Jul'){
 // 				$(this).text('Июля')
-// 			}else if ($(this).text() === 'Aug') {
+// 			}else if ($(this).text() === 'Aug'){
 // 				$(this).text('Августа')
-// 			}else if ($(this).text() === 'Sep') {
+// 			}else if ($(this).text() === 'Sep'){
 // 				$(this).text('Сентября')
-// 			}else if ($(this).text() === 'Oct') {
+// 			}else if ($(this).text() === 'Oct'){
 // 				$(this).text('Октября')
-// 			}else if ($(this).text() === 'Nov') {
+// 			}else if ($(this).text() === 'Nov'){
 // 				$(this).text('Ноября')
-// 			}else if ($(this).text() === 'Dec') {
+// 			}else if ($(this).text() === 'Dec'){
 // 				$(this).text('Декабря')
 // 			}
 // 		});
@@ -3458,7 +3520,7 @@ function swiperSlider(id){
 ///////////////////////////////////////
 // Функция подгрузки товаров ajax при скроле
 ///////////////////////////////////////
-// function ajaxProducts() {
+// function ajaxProducts(){
 // 	var pages = $('.pages');
 // 	var status = $('.pages__ajax');
 
@@ -3479,7 +3541,7 @@ function swiperSlider(id){
 // 						// Добавляем товары
 // 						$('.products__ajax').append(items)
 // 						// Обновляем изображение подргуженных товаров
-// 						$('.products__ajax .product__item').each(function () {
+// 						$('.products__ajax .product__item').each(function(){
 // 							$(this).find('img').attr('src', $(this).find('img').data('src'))
 // 						})
 // 						// product.priceDiff('.products__ajax .product__item', 'percent');
@@ -3495,7 +3557,7 @@ function swiperSlider(id){
 // 		}
 
 // 		// Проверка положения нижней границы контейнера
-// 		function checkPosition() {
+// 		function checkPosition(){
 // 			var coords = $('.products__container')[0].getBoundingClientRect();
 // 			var windowHeight = document.documentElement.clientHeight;
 // 			// нижний край элемента виден?
@@ -3507,7 +3569,7 @@ function swiperSlider(id){
 // 		function throttle(func, limit){
 // 			var lastFunc;
 // 			var lastRan;
-// 			return function () {
+// 			return function(){
 // 				var context = this;
 // 				var args = arguments;
 // 				if (!lastRan){
@@ -3515,8 +3577,8 @@ function swiperSlider(id){
 // 					lastRan = Date.now();
 // 				} else {
 // 					clearTimeout(lastFunc);
-// 					lastFunc = setTimeout(function () {
-// 						if((Date.now() - lastRan) >= limit) {
+// 					lastFunc = setTimeout(function(){
+// 						if((Date.now() - lastRan) >= limit){
 // 							func.apply(context, args);
 // 							lastRan = Date.now();
 // 						}
@@ -3526,7 +3588,7 @@ function swiperSlider(id){
 // 		}
 		
 // 		// код будет срабатывать раз в 1 секунду
-// 		document.addEventListener('scroll', throttle(function () {
+// 		document.addEventListener('scroll', throttle(function(){
 // 			if(checkPosition()){
 // 				console.log('loadItems')
 // 				return loadItems();
@@ -3542,7 +3604,7 @@ function swiperSlider(id){
 ///////////////////////////////////////
 // Загрузка основных функций шаблона
 ///////////////////////////////////////
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function(){
 	userAgent();
 	openMenu();
 	toTop();
@@ -3574,7 +3636,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Запуск функций при изменении экрана
-document.addEventListener('resize', function () {
+document.addEventListener('resize', function(){
   if(getClientWidth() > 481 && window.outerHeight < 630){
     $('body').addClass('landscape');
   }else{

@@ -15,7 +15,7 @@
 					<div class="order-fast__title">
 						<span>Контактные данные</span>
 					</div>
-					<div class="order-fast__list form__list flex">
+					<div class="order-fast__list form__list">
 						<div class="form__fields person">
 							<label for="sites_client_person" class="form__label required"><span>Ваше Имя</span><em>*</em></label>
 							<input id="sites_client_person" class="form__input form__person" type="text" name="form[contact][person]" value="{ORDER_FORM_CONTACT_PERSON}" maxlength="100" placeholder="ФИО *" required/>
@@ -62,7 +62,7 @@
 					<div class="order-fast__title">
 						<span>Адрес доставки</span>
 					</div>
-					<div class="order-fast__list form__list flex">
+					<div class="order-fast__list form__list">
 						<!-- Если поле страны доставки запрашивается -->
 						{% IFNOT country_list_empty && SETTINGS_ORDER_FIELDS_COUNTRY < 3 %}
 						<div class="form__field selectBox {% IF SETTINGS_ORDER_FIELDS_COUNTRY=1 %}required{% ENDIF %}">
@@ -152,7 +152,7 @@
 
 					<div class="order-fast__list">
 						<!-- Cпособ доставки. Селекты -->
-						<div class="order-delivery__selects">
+						<div class="order-delivery__selects flex-column">
 							<div class="order-delivery__selectBox selectBox">
 								<select class="order-delivery__select form__select">
 									{% FOR order_delivery %}
@@ -319,7 +319,7 @@
 					<div class="order-fast__title">
 						<span>Комментарий к заказу</span>
 					</div>
-					<div class="form__field fields__comment {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}">
+					<div class="form__fields fields__comment {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}">
 						<label for="quickDeliveryComment" class="form__label {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}"><span>Комментарий</span><em>*</em></label>
 						<textarea id="quickDeliveryComment" class="form__textarea" cols="100" rows="3" name="form[delivery][comment]" placeholder="Комментарий {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}*{% ENDIF %}" {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}>{ORDER_FORM_DELIVERY_COMMENT}</textarea>
 					</div>
