@@ -1527,9 +1527,7 @@ class Product {
 				}
 
 				async function getContent(url){
-					await fetch(url, {
-						method: "POST"
-					})
+					await fetch(url)
 					// Получаем ответ
 					.then((response) => response.text())
 					// Преобразуем в html
@@ -1553,7 +1551,8 @@ class Product {
 					// lozadImg.setAttribute('src', lozadImg.getAttribute('data-src'));
 					// Замена ссылки в описании
 					const desc = document.querySelector('.desc__more');
-					desc.setAttribute('href', desc.getAttribute('data-href'));
+					desc ? desc.setAttribute('href', desc.getAttribute('data-href')) : '';
+					
 					// Функции карточки товара
 					setTimeout(() => {
 						console.log('start func');
@@ -2088,10 +2087,12 @@ class Goods {
 				const targetMod = event.target.closest('.modifications-values__value');
 				const targetAnswer = event.target.closest('.opinion__answer-button');
 				const opinionBlock = document.querySelector('.productView__opinion');
-				const parentButton = opinionBlock.querySelector('.opinion__buttons');
-				const parentItems = opinionBlock.querySelector('.opinion__items');
-				const items = opinionBlock.querySelectorAll('.opinion__item');
-				const navs = opinionBlock.querySelectorAll('.opinion__nav');
+				if (opinionBlock) {
+					const parentButton = opinionBlock.querySelector('.opinion__buttons');
+					const parentItems = opinionBlock.querySelector('.opinion__items');
+					const items = opinionBlock.querySelectorAll('.opinion__item');
+					const navs = opinionBlock.querySelectorAll('.opinion__nav');
+				}
 
 				// Функции навигации отзывов. /JS/
 				if (targetNav){

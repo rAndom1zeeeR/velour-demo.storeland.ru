@@ -829,6 +829,8 @@ main {margin: 16px 0 48px;position: relative;display: block;}
 .fancybox-content .productView__images {width: 320px;}
 .fancybox-content .productView__image {width: 320px;height: 320px;}
 .fancybox-content .productView__image img {max-width: 320px;max-height: 320px;}
+.fancybox-content .no-thumb .productView__images-image {height: 320px;}
+.fancybox-content .no-thumb .productView__images-image img {max-width: 320px;max-height: 320px;}
 .fancybox-content .productView__shop {width: calc(100% - 320px - 32px);}
 .fancybox-content .productView__modifications {width: 100%;}
 @media all and (max-width: 767px) {
