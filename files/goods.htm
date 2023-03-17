@@ -160,7 +160,7 @@
 			<div class="thumblist swiper">
 				<div class="thumblist__items swiper-wrapper">
 					{% FOR goods_images %}
-					<div class="thumblist__item swiper-slide" data-index="{goods_images.index}">
+					<div class="thumblist__item swiper-slide" data-id="{goods_images.ID}">
 						<a class="thumblist__image flex-center">
 							<img src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
 						</a>
@@ -173,9 +173,9 @@
 			<div class="productView__images-swiper swiper">
 				<div class="productView__images-wrapper swiper-wrapper">
 					{% FOR goods_images %}
-					<div class="productView__images-slide swiper-slide" data-index="{goods_images.index}">
+					<div class="productView__images-slide swiper-slide" data-id="{goods_images.ID}">
 						<!-- Изображение для смены модификаций -->
-						<input type="hidden" data-id="{goods_images.ID}" data-href="{goods_images.LARGE}" />
+						<!-- <input type="hidden" data-id="{goods_images.ID}" data-href="{goods_images.LARGE}" /> -->
 						<a class="productView__images-image flex-center" href="{goods_images.LARGE}" data-fancybox="images">
 							<img src="{goods_images.MEDIUM}" alt="{goods_images.NAME}" itemprop="image" />
 						</a>

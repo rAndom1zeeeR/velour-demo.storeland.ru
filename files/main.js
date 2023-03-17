@@ -1566,7 +1566,7 @@ class Product {
 						product.addTo();
 						goods.goodsModification(document.querySelector('.productViewBlock'));
 						goods.onClick();
-						goods.swiperTumbs();
+						goods.swiperImages();
 						quantityGoods.onGoods();
 					}, 100);
 				}
@@ -1985,10 +1985,9 @@ class Catalog {
 class Goods {
 	constructor(){
 		// Слайдер доп. изображений
-		this.swiperTumbs = function(){
-			const id = '.thumblist';
+		this.swiperImages = function(id){
 			// Слайдер товаров
-			const swiper = new Swiper('.thumblist.swiper', {
+			const swiperThumb = new Swiper('.thumblist.swiper', {
 				loop: true,
 				slidesPerView: '4',
 				spaceBetween: 16,
@@ -2025,7 +2024,7 @@ class Goods {
 			});
 
 			// Слайдер товаров
-			const swiper2 = new Swiper('.productView__images-swiper', {
+			const swiperImage = new Swiper('.productView__images-swiper', {
 				loop: true,
 				slidesPerView: '1',
 				spaceBetween: 16,
@@ -2035,7 +2034,7 @@ class Goods {
 					prevEl: ".swiper-button-prev",
 				},
 				thumbs: {
-					swiper: swiper,
+					swiper: swiperThumb,
 				},
 				breakpoints: {
 					320: {
@@ -2056,9 +2055,25 @@ class Goods {
 						} else {
 							document.querySelector('.productView__images').classList.remove('no-thumb')
 						}
+						changeImages()
 					},
 				},
 			});
+
+			// Функция смены изображений при изменении модификации
+			function changeImages(){
+				console.log('changeImages()');
+				const mods = document.querySelector('.modifications-props__select')
+				mods.addEventListener('change', function(){
+					const mod = mods.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ this.value +'"]')
+					const id = mod.querySelector('[name="goods_mod_image_id"]').value
+					const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
+					const index = thumb.getAttribute('data-swiper-slide-index')
+					swiperImage.slideTo(index)
+					// swiperThumb.slideTo(index)
+				})
+			}
+
 		};
 
 		// Функции при инициализации товара
@@ -2283,9 +2298,9 @@ class Goods {
 				}).join('_');
 			}
 
-			// console.log('selector', selector);
 			const $parentBlock = $(selector);
-			console.log('$parentBlock', $parentBlock);
+			// console.log('selector', selector);
+			// console.log('$parentBlock', $parentBlock);
 
 			const
 				goodsDataProperties = $parentBlock.find('.modifications-props select[name="form[properties][]"]'), // Запоминаем поля выбора свойств, для ускорения работы со значениями свойств
@@ -2413,35 +2428,10 @@ class Goods {
 							goodsModDescription.hide().html();
 						}
 
-						// Идентификатор товарной модификации
+						// Идентификатор товарной модификации 
+						// TODO Проверить работу
 						goodsModificationId.val(modificationId);
-						goodsModView.find('.goodsDataMainModificationId').attr('name', 'form[goods_mod_id][' + modificationId + ']');
-						const goodsDataMainImage = goodsModView.find('.productView__images');
 
-						// Меняет главное изображение товара на изображение с идентификатором goods_mod_image_id
-						function changePrimaryGoodsImage(goods_mod_image_id){
-							// Если не указан идентификатор модификации товара, значит ничего менять не нужно.
-							if (1 > goods_mod_image_id){
-								return true;
-							}
-							const
-								// Блок с изображением выбранной модификации товара
-								goodsModImageBlock = goodsDataMainImage.find('[data-id="' + parseInt(goods_mod_image_id) + '"'),
-								// Блок, в котором находится главное изображение товара
-								MainImageBlock = goodsDataMainImage.find('.productView__image'),
-								// Изображение модификации товара, на которое нужно будет изменить главное изображение товара.
-								MediumImageUrl = goodsModImageBlock.attr('data-href'),
-								// Главное изображение, в которое будем вставлять новое изображение
-								MainImage = MainImageBlock.find('img');
-							// Если изображение модификации товара найдено - изменяем главное изображение
-							MainImage.attr('src', MediumImageUrl).parent().attr('href', MediumImageUrl);
-							// Изменяем идентификатор главного изображения
-							MainImageBlock.attr('data-id', parseInt(goods_mod_image_id));
-							return true;
-						}
-
-						// Обновляем изображние модификации товара, если оно указано
-						changePrimaryGoodsImage(modificationGoodsModImageId);
 					} else {
 						// Отправим запись об ошибке на сервер
 						sendError('no modification by slug ' + slug);
