@@ -474,21 +474,21 @@ class QuantityGoods extends Quantity {
 
 	constructor(){
 		super()
-		console.log('QuantityGoods');
+		// console.log('QuantityGoods');
 	};
 
 	// Действия в карточке товара
 	onGoods(){
 		const qty = document.querySelector('.productView__qty')
-		const qtyMinus = qty.querySelector('.qty__select-minus')
-		const qtyPlus = qty.querySelector('.qty__select-plus')
-		const qtyInput = qty.querySelector('.qty__input')
-
 		// Если не карточка товара
 		if (qty == null) return false;
 
 		// Если функция уже запущена
 		if (this.once) return false;
+
+		const qtyMinus = qty.querySelector('.qty__select-minus')
+		const qtyPlus = qty.querySelector('.qty__select-plus')
+		const qtyInput = qty.querySelector('.qty__input')
 
 		// Минус
 		qtyMinus.addEventListener('click', () => quantityGoods.minus(qtyInput))
@@ -1510,65 +1510,99 @@ class Product {
 			return false;
 		};
 
-		// Быстрый просмотр
-		// Нажимая кнопку Быстрый просмотр открывается окно с карточкой товара
+		// Быстрый просмотр товара
 		this.quickView = function(){
-			const elements = document.querySelectorAll('.product__quickview')
-			elements.forEach((e) => {
-				e.addEventListener('click', onClick)
+			// Все товары
+			const items = document.querySelectorAll('.product__item');
+			// Массив предзагруженных товаров
+			let quickViewPreload = []
 
-				function onClick(event){
+			// Обрабатываем товары
+			items.forEach((item) => {
+				// Метка загрузки
+				let loaded = false;
+
+				// Копка Быстрый просмотр
+				const quick = item.querySelector('.product__quickview');
+
+				// Ссылка на товар
+				let url = quick.getAttribute('href');
+				url += (false !== url.indexOf('?') ? '&' : '?') + 'only_body=1';
+
+				// Запуск Функции при наведении
+				item.addEventListener('mouseover', quickViewHover);
+
+				// Запуск Функции при клике
+				quick.addEventListener('click', quickViewClick);
+
+				// Функции при наведении. Предзагрузка
+				function quickViewHover(){
+					// Если товар загружен, выход из функции
+					if (loaded) {return false}
+
+					// Обрабатываем полученные данные
+					getFetch(url).then((html) => {
+						const selector = html.querySelector('.productViewBlock')
+						const content = product.quickViewContent(selector)
+						// Отправляем данные в общий массив для быстрой подгрузки
+						quickViewPreload.push({url, content});
+						return content
+						// console.log('onHover content', content);
+					});
+
+					// Ставим метку загрузки
+					loaded = true;
+				}
+
+				// Функции при клике
+				function quickViewClick(){
 					event.preventDefault()
-					let url = e.getAttribute('href')
-					url += (false !== url.indexOf('?') ? '&' : '?') + 'only_body=1';
-					console.log('event', event)
-					console.log('href', url)
-					getContent(url)
-				}
-
-				async function getContent(url){
-					await fetch(url)
-					// Получаем ответ
-					.then((response) => response.text())
-					// Преобразуем в html
-					.then((html) => {
-						// Convert the HTML string into a document object
-						const parser = new DOMParser();
-						const doc = parser.parseFromString(html, 'text/html');
-						// console.log('doc', doc)
-						showContent(doc.querySelector('.productViewBlock'))
-					})
-					.catch((error) => console.error(error));
-				}
-
-				function showContent(data){
-					console.log('data', data);
-					$.fancybox.open(data);
-					// Удаляем табы
-					document.querySelector('.productView__tabs').remove();
-					// // Замена основного изображения
-					// const lozadImg = document.querySelector('.productView__image .lozad');
-					// lozadImg.setAttribute('src', lozadImg.getAttribute('data-src'));
-					// Замена ссылки в описании
-					const desc = document.querySelector('.desc__more');
-					desc ? desc.setAttribute('href', desc.getAttribute('data-href')) : '';
-					
-					// Функции карточки товара
+					// Вывод контента из массива в модальном окне
+					quickViewPreload.map((e) => url == e.url ? $.fancybox.open(e.content) : false);
+					// Запуск функций с задержкой
 					setTimeout(() => {
-						console.log('start func');
+						// Функции карточки товара
 						product.addCart();
 						product.addTo();
 						goods.goodsModification(document.querySelector('.productViewBlock'));
 						goods.onClick();
 						goods.swiperTumbs();
 						quantityGoods.onGoods();
-					}, 1000);
+					}, 100);
 				}
 
 			})
+
+		}
+
+		// Обработка контента быстрого просмотра товара
+		this.quickViewContent = function(selector){
+			// Удаляем табы
+			selector.querySelector('.productView__tabs').remove();
+			// Замена ссылки в описании
+			const desc = selector.querySelector('.desc__more');
+			desc ? desc.setAttribute('href', desc.getAttribute('data-href')) : '';
+			return selector
 		}
 
 	}
+}
+
+// Функция получения HTML контента по ссылке
+async function getFetch(url){
+	// console.log('getFetch url', url);
+	return await fetch(url)
+		// Получаем ответ
+		.then((response) => response.text())
+		// Преобразуем в html
+		.then((text) => {
+			const parser = new DOMParser();
+			const html = parser.parseFromString(text, 'text/html');
+			// console.log('getFetch html', html);
+			return html
+		})
+		// Если получили ошибку
+		.catch(error => console.log(error));
 }
 
 
@@ -2071,7 +2105,7 @@ class Goods {
 		// Действия при клике
 		this.onClick = function(){
 			const content = document.querySelector('.productViewBlock');
-			console.log('productView', content);
+			// console.log('productView', content);
 			// Если нет контента
 			if (!content) {return false;}
 
@@ -2249,7 +2283,7 @@ class Goods {
 				}).join('_');
 			}
 
-			console.log('selector', selector);
+			// console.log('selector', selector);
 			const $parentBlock = $(selector);
 			console.log('$parentBlock', $parentBlock);
 
