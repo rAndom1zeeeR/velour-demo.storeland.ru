@@ -65,6 +65,12 @@ p {margin: 0 0 16px 0;line-height: 1.25;overflow: hidden;text-overflow: ellipsis
 
 
 /**************************************/
+/*** Кнопки ***/
+/**************************************/
+button, [class*="button-"], .paymentFormSubmitLink, .paymentFormTbodySubmitButton {font-family: inherit;gap: 4px;display: inline-flex;align-items: center;justify-content: center;position: relative;transition: all 0.3s ease;}
+
+
+/**************************************/
 /*** Видимость элементов ***/
 /**************************************/
 .is-hide {display: none;}
@@ -165,8 +171,8 @@ h6 {font-size: 14px;}
 /*** Оверлей. Темный фон ***/
 /**************************************/
 #overlay {position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 10;opacity: 0;filter: alpha(opacity=0);visibility: hidden;background: rgba(0, 0, 0, 0.5);-webkit-transition: opacity .25s ease,visibility 0s ease .25s;transition: opacity .25s ease,visibility 0s ease .25s;}
-#overlay.transparent {background: transparent;}
 #overlay.is-opened {opacity: 1;filter: alpha(opacity=100);visibility: visible;-webkit-transition: opacity .25s ease,visibility 0s ease;transition: opacity .25s ease,visibility 0s ease;cursor: pointer;}
+#overlay.transparent {background: transparent;transition: none;}
 
 
 /**************************************/

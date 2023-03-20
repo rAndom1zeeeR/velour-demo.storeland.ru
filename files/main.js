@@ -338,14 +338,16 @@ class Compare {
 		// console.log('Compare onSlider')
 		const swiper = new Swiper('.compare__line', {
 			loop: false,
+			allowTouchMove: false,
 			autoplay: false,
-			watchSlidesVisibility: true,
+			autoHeight: false,
+			draggable: false,
+			freeMode: false,
+			grabCursor: false,
+			simulateTouch: false,
 			slidesPerView: 4,
 			spaceBetween: 16,
-			simulateTouch: false,
-			grabCursor: false,
-			draggable: false,
-			autoHeight: false,
+			watchSlidesVisibility: true,
 			lazy: {
 				enabled: false,
 				loadPrevNext: true,
@@ -532,13 +534,13 @@ class QuantityGoods extends Quantity {
 			const priceOld = blockOld.getAttribute('data-price');
 			const multiOld = parseInt(val * priceOld);
 			blockOld.querySelector('.num').innerHTML = addSpaces(multiOld);
+			// console.log('goods priceOld', priceOld)
+			// console.log('goods multiOld', multiOld)
 		}
 
-		console.log('goods val', val)
-		console.log('goods priceNow', priceNow)
-		console.log('goods priceOld', priceOld)
-		console.log('goods multiNow', multiNow)
-		console.log('goods multiOld', multiOld)
+		// console.log('goods val', val)
+		// console.log('goods priceNow', priceNow)
+		// console.log('goods multiNow', multiNow)
 	};
 
 }
@@ -960,10 +962,10 @@ class Product {
 					<div class="addto__item flex" data-id="${pDataid}">
 						<a class="addto__image flex-center" href="${pUrl}" title="${pName}"><img src="${pImg}" alt="${pName}" /></a>
 						<div class="addto__content flex">
+							<a class="addto__name" href="${pUrl}" title="${pName}"><span>${pName}</span></a>
 							<div class="addto__price ${pDataChar}">
 								<div class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${pDataPrice}</span><span>р.</span></span></div>
 							</div>
-							<a class="addto__name" href="${pUrl}" title="${pName}"><span>${pName}</span></a>
 							<a class="addto__remove button-rotate button-link" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>
 						</div>
 					</div>
@@ -1046,16 +1048,14 @@ class Product {
 									// Блок информации о том, что есть товары на сравнении
 									const sidecount = $(blockCompare).find('[data-count]')
 									// Указываем информацию о новом количестве товаров на сравнении
-									sidecount.animate({ opacity: 0, display: 'none' }, 500, function(){
-										sidecount.text(countCompare).attr('data-count', countCompare)
-										if (countCompare > 0){
-											$(blockCompare).addClass('has-items')
-										} else {
-											$(blockCompare).removeClass('has-items')
-											sidecount.attr('data-count', '0').text('0')
-											$(addCompare).removeAttr('title').removeClass('is-added')
-										}
-									}).animate({ display: 'inline', opacity: 1 }, 500)
+									sidecount.text(countCompare).attr('data-count', countCompare)
+									if (countCompare > 0){
+										$(blockCompare).addClass('has-items')
+									} else {
+										$(blockCompare).removeClass('has-items')
+										sidecount.attr('data-count', '0').text('0')
+										$(addCompare).removeAttr('title').removeClass('is-added')
+									}
 								}
 								
 								// Проверка статуса добавления товара
@@ -1187,16 +1187,14 @@ class Product {
 									// Блок информации о том, что есть товары в избранном
 									const sidecount = $(blockFavorites).find('[data-count]')
 									// Указываем информацию о новом количестве товаров в избранном
-									sidecount.animate({ opacity: 0, display: 'none' }, 500, function(){
-										sidecount.text(countFavorites).attr('data-count', countFavorites)
-										if (countFavorites > 0){
-											$(blockFavorites).addClass('has-items');
-										} else {
-											$(blockFavorites).removeClass('has-items');
-											sidecount.attr('data-count', '0').text('0');
-											$(addFavorites).removeAttr('title').removeClass('is-added');
-										}
-									}).animate({ display: 'inline', opacity: 1 }, 500);
+									sidecount.text(countFavorites).attr('data-count', countFavorites)
+									if (countFavorites > 0){
+										$(blockFavorites).addClass('has-items');
+									} else {
+										$(blockFavorites).removeClass('has-items');
+										sidecount.attr('data-count', '0').text('0');
+										$(addFavorites).removeAttr('title').removeClass('is-added');
+									}
 								}
 
 								// Проверка статуса добавления товара
@@ -1313,7 +1311,7 @@ class Product {
 
 							// Проверяем все товары в других категориях
 							setTimeout(() => {
-								product.inCartAll(id, mod)
+								// product.inCartAll(id, mod)
 							}, 100);
 
 						}
@@ -1557,10 +1555,10 @@ class Product {
 				// Функции при клике
 				function quickViewClick(){
 					event.preventDefault()
-					// Вывод контента из массива в модальном окне
-					quickViewPreload.map((e) => url == e.url ? $.fancybox.open(e.content) : false);
 					// Запуск функций с задержкой
 					setTimeout(() => {
+						// Вывод контента из массива в модальном окне
+						quickViewPreload.map((e) => url == e.url ? $.fancybox.open(e.content) : false);
 						// Функции карточки товара
 						product.addCart();
 						product.addTo();
@@ -2046,12 +2044,20 @@ class Goods {
 					640: {
 						autoHeight: false,
 					},
+					768: {
+						autoHeight: false,
+					},
+					1024: {
+						autoHeight: false,
+					},
+					1200: {
+						autoHeight: false,
+					}
 				},
 				on: {
 					init: function () {
 						if (this.slides.length < 2) {
 							document.querySelector('.productView__images').classList.add('no-thumb')
-							swiper.destroy()
 						} else {
 							document.querySelector('.productView__images').classList.remove('no-thumb')
 						}
@@ -2066,7 +2072,9 @@ class Goods {
 				const mods = document.querySelector('.modifications-props__select')
 				mods.addEventListener('change', function(){
 					const mod = mods.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ this.value +'"]')
+					if (!mod) {return false}
 					const id = mod.querySelector('[name="goods_mod_image_id"]').value
+					if (!id) {return false}
 					const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
 					const index = thumb.getAttribute('data-swiper-slide-index')
 					swiperImage.slideTo(index)
@@ -2431,6 +2439,8 @@ class Goods {
 						// Идентификатор товарной модификации 
 						// TODO Проверить работу
 						goodsModificationId.val(modificationId);
+						goodsModView.find('.goodsDataMainModificationId').val('1')
+						goodsModView.find('.goodsDataMainModificationId').attr('name','form[goods_mod_id][' + modificationId + ']');
 
 					} else {
 						// Отправим запись об ошибке на сервер
@@ -2750,7 +2760,7 @@ class Order {
 
 			// Выбор оплаты по умолчанию
 			$('.order-payment__radio').each(function(){
-				console.log('each', $(this).parent());
+				// console.log('each', $(this).parent());
 				const paymentDescription = $('.order-payment__radio:checked').parent().find('.order-payment__desc').html();
 				const payDesc = $('.order-payment__desc');
 				payDesc.html(paymentDescription);
@@ -3130,7 +3140,7 @@ function mainnav(id,rows,media){
 		let nextCheck = 0;
 
 		for(let i=1; i < menuCount; i++){
-			const currentWidth = parseInt(Math.ceil(mainNavList.find('li:nth-child('+i+')').width())) + 16;
+			const currentWidth = parseInt(Math.ceil(mainNavList.find('li:nth-child('+i+')').width())) + 24;
 			nextCheck += currentWidth;
 
 			if(nextCheck > menuWidth){
@@ -3741,7 +3751,7 @@ window.addEventListener('resize', function(){
     $('body').removeClass('landscape');
   }
   mainnav('header .mainnav', '1', 991);
-	console.log('getClientWidth()', getClientWidth());
+	// console.log('getClientWidth()', getClientWidth());
 });
 
 
