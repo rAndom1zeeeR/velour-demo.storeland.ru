@@ -93,12 +93,38 @@
 					</div>
 
 					<!-- Каталог -->
-					<div class="header-catalog">
-						<div class="header-catalog__icon button-primary">
+					<div class="header-catalog dropdown">
+						<a class="header-catalog__icon button-primary" href="{CATALOG_URL}" title="Перейти в каталог">
 							<i class="icon-menu"></i>
 							<span>Каталог</span>
-						</div>
+						</a>
+						<div class="header-catalog__content dropdown__content">
+							<div class="header-catalog__inner flex-start">
+								<ul class="catalog__items catalog__items-main unstyled">
+									{% FOR catalog_full %}
+										{% IF catalog_full.LEVEL > 0 %}{continue}{% ENDIF %}
+										<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
+											<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+												<span>{catalog_full.NAME}</span>
+												{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
+											</a>
+										</li>
+									{% ENDFOR %}
+								</ul>
 
+								<ul class="catalog__items catalog__items-sub unstyled">
+									{% FOR catalog_full %}
+										{% IF catalog_full.FIRST && catalog_full.LEVEL > 0 %}<ul data-level="{catalog_full.LEVEL}" class="catalog__sub unstyled">{% ENDIF %}
+										<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
+											<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+												<span>{catalog_full.NAME}</span>
+												{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
+											</a>
+											{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
+										{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF %}{% ENDFOR %}{% ENDIF %}
+									{% ENDFOR %}
+							</div>
+						</div>
 					</div>
 
 					<!-- Поиск -->
@@ -172,7 +198,7 @@
 											<a class="addto__name" href="{compare_goods.URL}" title="{compare_goods.NAME}">
 												<span>{compare_goods.NAME}</span>
 											</a>
-											
+
 											<div class="addto__price flex {CURRENCY_CHAR_CODE}">
 												<div class="price__now" data-price="{compare_goods.MIN_PRICE_NOW}">{compare_goods.MIN_PRICE_NOW | money_format}</div>
 												{% IF compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > compare_goods.MIN_PRICE_NOW %}
@@ -488,22 +514,22 @@
 
 							<!-- Слайд 2 -->
 							<div class="slideshow__item swiper-slide flex">
-								<a class="slideshow__image" href="{CATALOG_URL}" title="Спите сладко! Удобные пижамы для беременных">
+								<a class="slideshow__image" href="{CATALOG_URL}" title="Стильные платья! Из натуральных тканей для беременных и кормящих мам">
 									<div class="swiper-lazy-preloader"></div>
 									<picture>
 										<source srcset="{ASSETS_IMAGES_PATH}slide_2_1200.jpg?design=THEMENAME" />
 										<img loading="lazy"
 												srcset="{ASSETS_IMAGES_PATH}slide_2_1200.jpg?design=THEMENAME" 
 												src="{ASSETS_IMAGES_PATH}slide_2_1200.jpg?design=THEMENAME" 
-												alt="Спите сладко! Удобные пижамы для беременных" 
+												alt="Стильные платья! Из натуральных тканей для беременных и кормящих мам" 
 												width="868"
 												height="430"
 										/>
 									</picture>
 								</a>
 								<div class="slideshow__content-hidden">
-									<div class="slideshow__title">Спите крепко!</div>
-									<div class="slideshow__subtitle">Удобные пижамы для беременных</div>
+									<div class="slideshow__title">Стильные платья</div>
+									<div class="slideshow__subtitle">Из натуральных тканей для беременных и кормящих мам</div>
 									<a class="slideshow__button button-secondary" href="{CATALOG_URL}" title="Перейти в каталог">
 										<span>Подробнее</span>
 									</a>
@@ -512,22 +538,22 @@
 
 							<!-- Слайд 3 -->
 							<div class="slideshow__item swiper-slide flex">
-								<a class="slideshow__image" href="{CATALOG_URL}" title="Спите сладко! Удобные пижамы для беременных">
+								<a class="slideshow__image" href="{CATALOG_URL}" title="Новая коллекция! Стильные вещи для беременных">
 									<div class="swiper-lazy-preloader"></div>
 									<picture>
 										<source srcset="{ASSETS_IMAGES_PATH}slide_3_1200.jpg?design=THEMENAME" />
 										<img loading="lazy"
 												srcset="{ASSETS_IMAGES_PATH}slide_3_1200.jpg?design=THEMENAME" 
 												src="{ASSETS_IMAGES_PATH}slide_3_1200.jpg?design=THEMENAME" 
-												alt="Спите сладко! Удобные пижамы для беременных" 
+												alt="Новая коллекция! Стильные вещи для беременных" 
 												width="868"
 												height="430"
 										/>
 									</picture>
 								</a>
 								<div class="slideshow__content-hidden">
-									<div class="slideshow__title">Спите долго!</div>
-									<div class="slideshow__subtitle">Удобные пижамы для всех</div>
+									<div class="slideshow__title">Новая коллекция</div>
+									<div class="slideshow__subtitle">Стильные вещи для беременных</div>
 									<a class="slideshow__button button-secondary" href="{CATALOG_URL}" title="Перейти в каталог">
 										<span>Подробнее</span>
 									</a>
@@ -2993,42 +3019,174 @@
 			<!-- Скрытое обновление корзины -->
 			<div class="hiddenUpdate" style="display: none;"></div>
 
-			<!-- Мобильное меню -->
-			<!-- TODO Переделать все. Проверить дата опен и контент -->
-			<div id="mobmenu" style="display: none;">
-				<div class="mobmenu__nav">
-					<div class="mobmenu__nav-item button-primary" data-open="catalog"><span>Каталог товаров</span></div>
-					<div class="mobmenu__nav-item button-primary is-opened is-actived" data-open="menu"><span>Меню сайта</span></div>
+			<!-- Мобильный Каталог -->
+			<div class="adaptive__sideblock adaptive__sideblock-catalog">
+				<div class="adaptive__sideblock-title">
+					<span>Каталог</span>
+					<i class="icon-close"></i>
 				</div>
-				<div class="mobmenu__content">
-					<div class="mobmenu__menu is-opened" data-content="menu">
-						<ul class="mainnav__list unstyled">
-							{% FOR menu %}
-								{% FOR header %}
-									{% FOR links %}
-									<li class="catalog__item">
-										<a class="mainnav__list-link {% IF menu.header.links.SELECTED %}is-actived{%ENDIF%} {% IF menu.header.links.NAME = Каталог %}mainnav__catalog{%ENDIF%}" href="{menu.header.links.URL}" title="{% IF menu.header.links.TITLE %}{menu.header.links.TITLE}{% ELSE%}{menu.header.links.NAME}{% ENDIF %}" itemprop="url">
-											<span itemprop="name">{menu.header.links.NAME}</span>
-										</a>
-									</li>
-									{% ENDFOR %}
+
+				<div class="adaptive__sideblock-content">
+					<ul class="catalog__items unstyled">
+						{% FOR catalog_full %}
+							{% IFNOT catalog_full.LEVEL = 0 && catalog_full.FIRST %}
+							<ul class="catalog__sub" data-level="{catalog_full.LEVEL}">
+							{% ENDIF %}
+								<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
+									<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+										<span class="catalog__name">{catalog_full.NAME}</span>
+										{% IF catalog_full.ISSET_VISIBLE_SUB %}<span class="catalog__open"></span>{% ENDIF %}
+									</a>
+								{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
+							{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF out.LAST %}{% ENDFOR out %}{% ENDIF LAST %}
+						{% ENDFOR catalog_full %}
+				</div>
+
+			</div>
+
+			<!-- Мобильное Меню -->
+			<div class="adaptive__sideblock adaptive__sideblock-menu">
+				<div class="adaptive__sideblock-title">
+					<span>Меню</span>
+					<i class="icon-close"></i>
+				</div>
+
+				<div class="adaptive__sideblock-content">
+					<ul class="unstyled">
+						{% FOR menu %}
+							{% FOR header %}
+								{% FOR links %}
+								<li>
+									<a class="catalog__link flex {% IF menu.header.links.SELECTED %}is-actived{% ENDIF %} {% IF menu.header.links.NAME = Акции %}mainnav__link-discount{% ENDIF %}" href="{menu.header.links.URL}" title="{% IF menu.header.links.TITLE %}{menu.header.links.TITLE}{% ELSE%}{menu.header.links.NAME}{% ENDIF %}">
+										<span>{menu.header.links.NAME}</span>
+									</a>
+								</li>
 								{% ENDFOR %}
 							{% ENDFOR %}
-						</ul>
+						{% ENDFOR %}
+					</ul>
+
+					<div class="contacts" itemscope itemtype="https://schema.org/Organization">
+						<!-- Время работы -->
+						{% IF SETTINGS_STORE_WORK_TIME %}
+						<div class="contacts__block contacts__worktime">
+							<div class="contacts__label">График работы</div>
+							<a class="contacts__link flex" href="{FEEDBACK_URL}" title="Режим работы">
+								<div class="contacts__icon"><i class="icon-schedule"></i></div>
+								<div class="contacts__content">
+									<span>{SETTINGS_STORE_WORK_TIME}</span>
+								</div>
+							</a>
+						</div>
+						{% ENDIF %}
+						
+						<!-- Адрес -->
+						{% IF SETTINGS_STORE_REGION %}
+						<div class="contacts__block contacts__region">
+							<div class="contacts__label">Адрес магазина</div>
+							<a class="contacts__link flex" href="https://yandex.ru/maps/?text={SETTINGS_STORE_REGION}&z=17" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress" target="_blank" title="Открыть карту по адресу {SETTINGS_STORE_REGION}">
+								<div class="contacts__icon"><i class="icon-location"></i></div>
+								<div class="contacts__content">
+									<span itemprop="addressLocality">{SETTINGS_STORE_REGION}</span>
+								</div>
+							</a>
+						</div>
+						{% ENDIF %}
+
+						<!-- Почта -->
+						{% IF SETTINGS_STORE_EMAIL_MAIN %}
+						<div class="contacts__block contacts__email">
+							<!-- <div class="contacts__label">Электронная почта</div> -->
+							<a class="contacts__link flex" href="mailto:{SETTINGS_STORE_EMAIL_MAIN}" title="{SETTINGS_STORE_EMAIL_MAIN}">
+								<div class="contacts__icon"><i class="icon-mail"></i></div>
+								<div class="contacts__content">
+									<span itemprop="email">{SETTINGS_STORE_EMAIL_MAIN}</span>
+									<div class="contacts__fancy" data-fancybox data-src="#fancybox__feedback"><span>Написать нам</span></div>
+								</div>
+							</a>
+						</div>
+						{% ENDIF SETTINGS_STORE_EMAIL_MAIN %}
+
+						<!-- Телефон 1 -->
+						{% IF SETTINGS_STORE_PHONE_NUMBER1 %}
+						<div class="contacts__block contacts__phone">
+							<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
+								<div class="contacts__icon">
+									<i class="icon-phone"></i>
+								</div>
+								<div class="contacts__content">
+									<strong>{SETTINGS_STORE_PHONE_COUNTRY_CODE1} ({SETTINGS_STORE_PHONE_CITY_CODE1}) {SETTINGS_STORE_PHONE_NUMBER1}</strong>
+									<div class="contacts__fancy" data-fancybox data-src="#fancybox__callback"><span>Заказать звонок</span></div>
+								</div>
+							</a>
+						</div>
+						{% ENDIF SETTINGS_STORE_PHONE_NUMBER1 %}
+
+						<!-- Название магазина -->
+						<meta itemprop="name" content="{SETTINGS_STORE_ORG_NAME}" />
+						<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.png?design=THEMENAME">
 					</div>
-					<div class="mobmenu__catalog" data-content="catalog">
-						<div class="catalog__items">
-							{% FOR catalog_full %}
-								{% IFNOT catalog_full.LEVEL = 0 && catalog_full.FIRST %}<div class="catalog__sub" data-level="{catalog_full.LEVEL}">{% ENDIF %}
-									<div class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-actived{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
-										<a class="catalog__link flex {% IF catalog_full.CURRENT || catalog_full.CURRENT_PARENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
-											<span class="catalog__name">{catalog_full.NAME}</span>
-											{% IF catalog_full.ISSET_VISIBLE_SUB %}<span class="catalog__open"></span>{% ENDIF %}
-										</a>
-									{% IF catalog_full.ISSET_SUB=0 %}</div>{% ENDIF %}
-								{% IF catalog_full.LAST %}{% FOR out %}</div> {% IFNOT catalog_full.out.LAST %}</div>{% ENDIF %}{% ENDFOR %}{% ENDIF %}
-							{% ENDFOR catalog_full %}
-					</div>
+
+				</div>
+			</div>
+
+			<!-- Адаптивная навигация -->
+			<div class="adaprive__navigate">
+				<div class="adaprive__navigate-inner flex">
+					<a class="adaprive__navigate-item adaprive__navigate-catalog" href="{CATALOG_URL}" title="Перейти в каталог">
+						<div class="adaprive__navigate-icon">
+							<i class="icon-menu"></i>
+						</div>
+						<div class="adaprive__navigate-title">
+							<span>Каталог</span>
+						</div>
+					</a>
+					
+					<a class="adaprive__navigate-item adaprive__navigate-favorites favorites {% IF FAVORITES_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{FAVORITES_URL}" title="Перейти в Избранное">
+						<div class="adaprive__navigate-icon">
+							<i class="icon-favorites"></i>
+						</div>
+						<div class="adaprive__navigate-title">
+							<span>Избранное</span>
+						</div>
+					</a>
+
+					<a class="adaprive__navigate-item adaprive__navigate-cart cart {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}" href="{CART_URL}" title="Перейти в Корзину">
+						<div class="adaprive__navigate-icon">
+							<i class="icon-cart"></i>
+						</div>
+						<div class="adaprive__navigate-title">
+							<span>Корзина</span>
+						</div>
+					</a>
+
+					<a class="adaprive__navigate-item adaprive__navigate-compare compare {% IF COMPARE_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{COMPARE_URL}" title="Перейти в Сравнение">
+						<div class="adaprive__navigate-icon">
+							<i class="icon-compare"></i>
+						</div>
+						<div class="adaprive__navigate-title">
+							<span>Сравнение</span>
+						</div>
+					</a>
+
+					<a class="adaprive__navigate-item adaprive__navigate-user" href="{USER_SETTINGS_URL}" title="Перейти в Личный кабинет">
+						<div class="adaprive__navigate-icon">
+							<i class="icon-person"></i>
+						</div>
+						<div class="adaprive__navigate-title">
+							<span>ЛК</span>
+						</div>
+					</a>
+
+					<a class="adaprive__navigate-item adaprive__navigate-toTop toTop" href="{CURRENT_URL}" title="Перейти наверх">
+						<div class="adaprive__navigate-icon">
+							<i class="icon-chevron_up"></i>
+						</div>
+						<div class="adaprive__navigate-title">
+							<span>Наверх</span>
+						</div>
+					</a>
+
 				</div>
 			</div>
 

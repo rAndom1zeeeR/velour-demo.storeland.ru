@@ -3298,6 +3298,41 @@ function openMenu(){
 		}
 	});
 
+	// Каталог на мобильных устройствах
+	$('.header-catalog__icon, .adaprive__navigate-catalog').on('click',function(event){
+		event.preventDefault();
+
+		if(getClientWidth() > 1023) {
+			window.location = this.href;
+			return false
+		}
+
+		$('.adaptive__sideblock-menu').removeClass('is-opened');
+		$('.adaptive__sideblock-catalog').toggleClass('is-opened');
+		$('.adaptive__sideblock-catalog').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
+	})
+
+	// Открыть Меню
+	$('.adaprive__navigate-user').on('click',function(event){
+		event.preventDefault();
+		$('.adaptive__sideblock-catalog').removeClass('is-opened');
+		$('.adaptive__sideblock-menu').toggleClass('is-opened');
+		$('.adaptive__sideblock-menu').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
+	})
+
+	// Закрыть
+	$('.adaptive__sideblock-title').on('click',function(event){
+		closeAll();
+	})
+
+	// Открыть поиск
+	$('.header-search__icon').on('click',function(event){
+		event.preventDefault();
+		$('.search').addClass('is-opened');
+		$('#overlay').addClass('is-opened transparent');
+		$('.search__input').focus();
+	})
+
 }
 
 // Функция удаления классов всех активных элементов
@@ -3719,6 +3754,7 @@ document.addEventListener('DOMContentLoaded', function(){
   mainnav('header .mainnav', '1', 991);
 	swiperSlider('#pdt__viewed');
 	lazyload()
+	catalogHover()
 	remove.onClick()
 	quantityAddto.onAddto()
 	quantityAddto.updAddtoSale()
@@ -3759,5 +3795,27 @@ window.addEventListener('resize', function(){
 function isActived(obj, act = 'is-actived'){
 	obj.matches('.'+act) ? obj.classList.remove(act) : obj.classList.add(act)
 }
+
+function catalogHover(){
+	const items = document.querySelectorAll('.catalog__items-main .catalog__item')
+	
+	items.forEach((item) => {
+		item.addEventListener('mouseenter', () => {
+			const id = item.getAttribute('data-id')
+			const parent = item.classList.contains('parent')
+			const subs = document.querySelectorAll('.catalog__items-sub .catalog__item')
+			const currents = document.querySelectorAll('.catalog__item[data-id="'+ id +'"]')
+			if (parent) {
+				subs.forEach((e) => e.classList.remove('is-show'))
+				currents.forEach((e) => e.classList.add('is-show'))
+			} else {
+				subs.forEach((e) => e.classList.remove('is-show'))
+				return false
+			}
+		})
+	})
+
+}
+
 
 console.timeEnd('time test');
