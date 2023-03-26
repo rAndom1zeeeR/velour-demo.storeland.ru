@@ -172,6 +172,16 @@ function scrollTop(offsetTop){
 	})
 }
 
+// Сообщение пользователю
+function notyMessage(message){
+	return `
+		<div class="noty__addto flex">
+			<div class="noty__title">Внимание!</div>
+			<div class="noty__content">${message}</div>
+		</div>
+	`;
+};
+
 
 ///////////////////////////////////////
 // Конструктор функции пароля. /JS/
@@ -395,9 +405,468 @@ function keyPress(oToCheckField, oKeyEvent){
 ///////////////////////////////////////
 /*** Кол-во ***/
 ///////////////////////////////////////
+// class Quantity {
+// 	// Функция Плюс + для товара. //JS
+// 	plus(obj){
+// 		// console.log('plus obj', obj)
+// 		obj.value = parseInt(obj.value) + 1
+// 		obj.setAttribute('value', obj.value)
+// 		obj.dispatchEvent(new Event('input'));
+// 		return false
+// 	};
+
+// 	// Функция Минус - для товара. //JS
+// 	minus(obj){
+// 		// console.log('minus obj', obj)
+// 		obj.value = parseInt(obj.value) - 1
+// 		obj.setAttribute('value', obj.value)
+// 		obj.dispatchEvent(new Event('input'));
+// 		return false
+// 	};
+
+// 	// Проверка кол-ва. //JS
+// 	check(obj){
+// 		// console.log('check obj', obj);
+// 		// Количество
+// 		let val = parseInt(obj.value);
+// 		// Проверка максимальныго остатка
+// 		const max = parseInt(obj.getAttribute('max'));
+
+// 		// Если вводят 0 то заменяем на 1
+// 		if (!val || val < 1){
+// 			obj.value = 1;
+// 			val = 1;
+// 			obj.previousElementSibling.classList.add('qty__disable');
+// 			return false;
+// 		} else {
+// 			obj.previousElementSibling.classList.remove('qty__disable');
+// 		}
+
+// 		// Если товара нет в наличии
+// 		if (max == 0){
+// 			obj.value = 1;
+// 			obj.previousElementSibling.classList.add('qty__disable');
+// 			obj.nextElementSibling.classList.add('qty__disable');
+// 			// Сообщение пользователю
+// 			const message = quantity.notyMessage('Вы пытаетесь положить в корзину товар которого нет в наличии');
+// 			notyStart(message, 'warning');
+// 			return false;
+// 		}
+
+// 		// Если добавляют больше
+// 		if (val > max){
+// 			obj.value = max;
+// 			val = max;
+// 			obj.nextElementSibling.classList.add('qty__disable');
+// 			// Сообщение пользователю
+// 			const message = quantity.notyMessage('Вы пытаетесь положить в корзину товара больше, чем есть в наличии');
+// 			notyStart(message, 'warning');
+// 			return false;
+// 		} else {
+// 			obj.nextElementSibling.classList.remove('qty__disable');
+// 		}		
+// 	};
+
+// 	// Сообщение пользователю
+// 	notyMessage(message){
+// 		return `
+// 			<div class="noty__addto flex">
+// 				<div class="noty__title">Внимание!</div>
+// 				<div class="noty__content">${message}</div>
+// 			</div>
+// 		`;
+// 	};
+
+// }
+
+// // Кол-во в карточке
+// class QuantityGoods extends Quantity {
+// 	// Статус запуска функции
+// 	once = false;
+
+// 	constructor(){
+// 		super()
+// 		// console.log('QuantityGoods');
+// 	};
+
+// 	// Действия в карточке товара
+// 	onGoods(){
+// 		const qty = document.querySelector('.productView__qty')
+// 		// Если не карточка товара
+// 		if (qty == null) return false;
+
+// 		// Если функция уже запущена
+// 		if (this.once) return false;
+
+// 		const qtyMinus = qty.querySelector('.qty__select-minus')
+// 		const qtyPlus = qty.querySelector('.qty__select-plus')
+// 		const qtyInput = qty.querySelector('.qty__input')
+
+// 		// Минус
+// 		qtyMinus.addEventListener('click', () => quantityGoods.minus(qtyInput))
+
+// 		// Плюс
+// 		qtyPlus.addEventListener('click', () => quantityGoods.plus(qtyInput))
+
+// 		// Изменение
+// 		qtyInput.addEventListener('input', function(){
+// 			quantityGoods.check(qtyInput)
+// 			quantityGoods.updGoods(qtyInput)
+// 			console.log('qtyInput', qtyInput);
+// 		})
+
+// 		// Статус запуска функции
+// 		this.once = true
+
+// 	};
+
+// 	// Изменение кол-ва в карточке. //JS
+// 	updGoods(obj){
+// 		console.log('goods obj', obj);
+// 		const block = obj.closest('.productViewBlock');
+// 		console.log('block', block);
+// 		// Если не карточка товара
+// 		if (block == null) return false;
+
+// 		// Объявляем переменные цены
+// 		// TODO Проверить обновление из-за смены классов
+// 		const val = block.querySelector('.qty__input').value;
+// 		block.querySelector('.qty__input').value = val;
+
+// 		// Обновление цены
+// 		const blockNow = block.querySelector('.price__now');
+// 		const priceNow = blockNow.getAttribute('data-price');
+// 		const multiNow = parseInt(val * priceNow);
+// 		blockNow.querySelector('.num').innerHTML = addSpaces(multiNow);
+
+// 		// Обновление старой цены
+// 		const blockOld = block.querySelector('.price__old');
+// 		if (blockOld){
+// 			const priceOld = blockOld.getAttribute('data-price');
+// 			const multiOld = parseInt(val * priceOld);
+// 			blockOld.querySelector('.num').innerHTML = addSpaces(multiOld);
+// 			// console.log('goods priceOld', priceOld)
+// 			// console.log('goods multiOld', multiOld)
+// 		}
+
+// 		// console.log('goods val', val)
+// 		// console.log('goods priceNow', priceNow)
+// 		// console.log('goods multiNow', multiNow)
+// 	};
+
+// }
+
+// // Кол-во в выпадающей корзине
+// class QuantityAddto extends Quantity {
+// 	constructor(){
+// 		super()
+// 		console.log('QuantityAddto');
+// 	}
+
+// 	// Действия в выпадающей корзине
+// 	onAddto(){
+// 		const elements = document.querySelectorAll('.addto__qty');
+// 		// Если нет элементов
+// 		if (elements == null) return false;
+
+// 		elements.forEach((el) => {
+// 			const qtyMinus = el.querySelector('.qty__select-minus')
+// 			const qtyPlus = el.querySelector('.qty__select-plus')
+// 			const qtyInput = el.querySelector('.qty__input')
+
+// 			// Минус
+// 			qtyMinus.addEventListener('click', () => quantityAddto.minus(qtyInput))
+
+// 			// Плюс
+// 			qtyPlus.addEventListener('click', () => quantityAddto.plus(qtyInput))
+
+// 			// Изменение
+// 			qtyInput.addEventListener('input', function(){
+// 				quantityAddto.check(this);
+// 				quantityAddto.updAddto(this);
+// 			})
+
+// 		})
+// 	};
+
+// 	// Выпадающая корзина
+// 	updAddto(obj){
+// 		// console.log('updAddto obj', obj);
+// 		const item = obj.closest('.addto__item');
+// 		const mod = item.getAttribute('data-mod-id');
+// 		const priceNow = item.querySelector('.price__now');
+// 		const form = item.closest('.addto__form');
+// 		const data = new FormData(form);
+// 		data.append('only_body', '1');
+
+// 		// Обновить корзину
+// 		setTimeout(() => {
+// 			quantityAddto.getAddtoCart(data, mod, priceNow);				
+// 		}, 100);
+
+// 	};
+
+// 	// Обновление выпадающей корзины
+// 	async getAddtoCart($data, $mod, $priceNow){
+// 		await fetch('/cart', {
+// 			method: "POST",
+// 			body: $data
+// 		})
+// 		// Получаем ответ
+// 		.then((response) => response.text())
+// 		// Преобразуем в html
+// 		.then((html) => {
+// 			// Convert the HTML string into a document object
+// 			const parser = new DOMParser();
+// 			const doc = parser.parseFromString(html, 'text/html');
+// 			quantityAddto.updAddtoContent(doc, $mod, $priceNow)
+// 		})
+// 		.catch((error) => console.error(error));
+// 	};
+
+// 	// Обновление выпадающей корзины
+// 	updAddtoContent($doc, $mod, $priceNow){
+// 		// Обновить цену
+// 		const price = $doc.querySelector('.cartTable__item[data-mod-id="' + $mod + '"] .cartTable__price');
+// 		$priceNow.innerHTML = price.innerHTML;
+// 		// Обновить кол-во
+// 		const newCount = $doc.querySelector('.cart-count').innerHTML;
+// 		quantityAddto.updAddtoCount(newCount);
+// 		// Обновить сумму
+// 		const newSum = $doc.querySelector('.cartSumTotal').innerHTML;
+// 		quantityAddto.updAddtoSum(newSum);
+// 		// console.log('updAddto newSum', newSum);
+// 		// Обновить скидку
+// 		const newDiscount = $doc.querySelector('.cartTotal__item-discount .cartTotal__price');
+// 		const totalDiscount = document.querySelector('.addto__total-discount')
+// 		if (newDiscount){
+// 			// console.log('updAddto newDiscount1', newDiscount);
+// 			totalDiscount.classList.remove('is-hidden')
+// 			quantityAddto.updAddtoDiscount(newDiscount.innerHTML)
+// 		} else {
+// 			// console.log('updAddto newDiscount2', newDiscount);
+// 			totalDiscount.classList.add('is-hidden')
+// 		}
+
+// 	};
+
+// 	// Обновление счетчика кол-ва корзины
+// 	updAddtoCount($count){
+// 		const elements = document.querySelectorAll('.cart-count');
+// 		elements.forEach((el) => {
+// 			el.innerHTML = $count;
+// 			el.setAttribute('data-cart-count', $count);
+// 		});
+// 	};
+
+// 	// Обновление итоговой цены
+// 	updAddtoSum($sum){
+// 		const elements = document.querySelectorAll('.cartSumNowDiscount');
+// 		elements.forEach((el) => el.innerHTML = $sum)
+// 	};
+
+// 	// Обновление итоговой скидки
+// 	updAddtoDiscount($sum){
+// 		const element = document.querySelector('.addto__total-discount .addto__total-price');
+// 		element.innerHTML = $sum;
+// 	};
+	
+// 	// Отображаем скидку 
+// 	updAddtoSale(){
+// 		// console.log('updAddtoSale');
+// 		const value = document.querySelector('.discountValue')
+// 		// Если корзина пуста
+// 		if (!value) return false
+// 		// Если есть скидки
+// 		const discount = value.closest('.addto__total-discount')
+// 		value ? discount.classList.remove('is-hidden') : discount.classList.add('is-hidden')
+// 	};
+
+// }
+
+// // Кол-во в корзине
+// class QuantityCart extends Quantity {
+// 	constructor(){
+// 		super()
+// 		console.log('QuantityCart');
+// 	}
+
+// 	// Действия в выпадающей корзине
+// 	onCart(){
+// 		const elements = document.querySelectorAll('.cartTable__qty');
+// 		// Если не карточка товара
+// 		if (elements == null) return false;
+
+// 		elements.forEach((el) => {
+// 			const qtyMinus = el.querySelector('.qty__select-minus')
+// 			const qtyPlus = el.querySelector('.qty__select-plus')
+// 			const qtyInput = el.querySelector('.qty__input')
+
+// 			// Минус
+// 			qtyMinus.addEventListener('click', () => quantityCart.minus(qtyInput))
+
+// 			// Плюс
+// 			qtyPlus.addEventListener('click', () => quantityCart.plus(qtyInput))
+
+// 			// Изменение
+// 			qtyInput.addEventListener('input', function(){
+// 				quantityCart.check(this);
+// 				quantityCart.updCart(this);
+// 			})
+
+// 		})
+// 	}
+
+// 	// Корзина
+// 	updCart(obj){
+// 		const item = obj.closest('.cartTable__item');
+// 		const mod = item.getAttribute('data-mod-id');
+// 		const priceNow = item.querySelector('.cartTable__price');
+// 		const form = item.closest('.cartTable__form');
+// 		const data = new FormData(form);
+// 		data.append('only_body', '1');
+
+// 		// Обновить корзину
+// 		setTimeout(() => {
+// 			quantityCart.getCart(data, mod, priceNow);		
+// 		}, 100);
+
+// 	};
+
+// 	// Обновление в корзине
+// 	async getCart($data, $mod, $priceNow){
+// 		await fetch('/cart', {
+// 			method: "POST",
+// 			body: $data
+// 		})
+// 		// Получаем ответ
+// 		.then((response) => response.text())
+// 		// Преобразуем в html
+// 		.then((html) => {
+// 			// Convert the HTML string into a document object
+// 			const parser = new DOMParser();
+// 			const doc = parser.parseFromString(html, 'text/html');
+// 			quantityCart.updCartContent(doc, $mod, $priceNow)
+// 			// console.log('getCart doc', doc);
+// 		})
+// 		.catch((error) => console.error(error));
+
+// 	};
+
+// 	// Обновление в корзине
+// 	updCartContent($doc, $mod, $priceNow){
+// 		// console.log('doc2', $doc);
+// 		// console.log('mod2', $mod);
+// 		// console.log('priceNow2', $priceNow);
+// 		// Обновить цену
+// 		const price = $doc.querySelector('.cartTable__item[data-mod-id="' + $mod + '"] .cartTable__price');
+// 		$priceNow.innerHTML = price.innerHTML;
+// 		// Обновить кол-во
+// 		const newCount = $doc.querySelector('.cart-count').innerHTML;
+// 		quantityAddto.updAddtoCount(newCount);
+// 		// Обновить итого
+// 		const newTotal = $doc.querySelector('.cartTotal__items').innerHTML;
+// 		document.querySelector('.cartTotal__items').innerHTML = newTotal;
+// 		// Обновить минимальную сумму заказа
+// 		cart.minSum();
+// 		// console.log('price', price);
+// 		// console.log('newCount', newCount);
+// 		// console.log('newTotal', newTotal);
+// 	};
+
+// }
+
+// // Кол-во продуктов
+// class QuantityProduct extends Quantity {
+// 	constructor(){
+// 		super()
+// 		// console.log('QuantityProduct');
+// 	}
+
+// 	// Действия в выпадающей корзине
+// 	onProduct(){
+// 		const elements = document.querySelectorAll('.product__qty');
+// 		// Если нет элемента
+// 		if (elements == null) return false;
+
+// 		elements.forEach((el) => {
+// 			const qtyMinus = el.querySelector('.qty__select-minus')
+// 			const qtyPlus = el.querySelector('.qty__select-plus')
+// 			const qtyInput = el.querySelector('.qty__input')
+
+// 			// Минус
+// 			qtyMinus.addEventListener('click', function(){
+// 				quantityProduct.minus(qtyInput)
+// 			})
+
+// 			// Плюс
+// 			qtyPlus.addEventListener('click', function(){
+// 				quantityProduct.plus(qtyInput)
+// 			})
+
+// 			// Изменение
+// 			qtyInput.addEventListener('input', function(){
+// 				quantityProduct.check(this)
+// 				// quantityProduct.updAddtoValue(this)
+// 			})
+
+// 		})
+// 	};
+	
+// 	// Обновить кол-во выпадающей корзины
+// 	updAddtoValue(obj){
+// 		const val = obj.value
+// 		const id = obj.closest('[data-id]').getAttribute('data-id')
+// 		const mod = obj.getAttribute('name')
+// 		const item = document.querySelector('.addto__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
+		
+// 		if (!item) {return false}
+// 		item.value = val
+// 		item.dispatchEvent(new Event('input'));
+// 		// console.log('updAddtoValue obj', obj);
+// 		// console.log('updAddtoValue val', val);
+// 		// console.log('updAddtoValue id', id);
+// 		// console.log('updAddtoValue mod', mod);
+// 		// console.log('updAddtoValue items', item);
+// 	}
+
+// 	// Обновить кол-во всех товаров
+// 	updProdValue(obj){
+// 		const val = obj.value
+// 		const id = obj.closest('[data-id]').getAttribute('data-id')
+// 		const mod = obj.getAttribute('name')
+// 		const items = document.querySelectorAll('.product__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
+
+// 		if (!items) {return false}
+// 		items.forEach((el) => el.value = val)
+// 		// console.log('updProdValue obj', obj);
+// 		// console.log('updProdValue val', val);
+// 		// console.log('updProdValue id', id);
+// 		// console.log('updProdValue mod', mod);
+// 		// console.log('updProdValue items', items);
+// 	}
+	
+// }
+
+// class QuantityProd extends Quantity {
+// }
+
+// class Quantity {
+// 	constructor(quantity){
+// 		this.quantity = quantity
+// 		console.log('quantity', quantity);
+// 		console.log('this.quantity', this.quantity);
+// 	}
+// }
+
+// const quantity = new Quantity('1');
+
 class Quantity {
+	init(){
+	}
+
 	// Функция Плюс + для товара. //JS
-	plus(obj){
+	getPlus(obj){
 		// console.log('plus obj', obj)
 		obj.value = parseInt(obj.value) + 1
 		obj.setAttribute('value', obj.value)
@@ -406,7 +875,7 @@ class Quantity {
 	};
 
 	// Функция Минус - для товара. //JS
-	minus(obj){
+	getMinus(obj){
 		// console.log('minus obj', obj)
 		obj.value = parseInt(obj.value) - 1
 		obj.setAttribute('value', obj.value)
@@ -415,10 +884,12 @@ class Quantity {
 	};
 
 	// Проверка кол-ва. //JS
-	check(obj){
+	getCheck(obj){
 		// console.log('check obj', obj);
 		// Количество
 		let val = parseInt(obj.value);
+		const minus = obj.parentElement.querySelector('.qty__select-minus')
+		const plus = obj.parentElement.querySelector('.qty__select-plus')
 		// Проверка максимальныго остатка
 		const max = parseInt(obj.getAttribute('max'));
 
@@ -426,17 +897,20 @@ class Quantity {
 		if (!val || val < 1){
 			obj.value = 1;
 			val = 1;
-			obj.previousElementSibling.classList.add('qty__disable');
+			minus.classList.add('qty__disable');
 			return false;
 		} else {
-			obj.previousElementSibling.classList.remove('qty__disable');
+			minus.classList.remove('qty__disable');
 		}
+
+		// Если можно добавить больше чем в наличии
+		if (!max) return false;
 
 		// Если товара нет в наличии
 		if (max == 0){
 			obj.value = 1;
-			obj.previousElementSibling.classList.add('qty__disable');
-			obj.nextElementSibling.classList.add('qty__disable');
+			minus.classList.add('qty__disable');
+			plus.classList.add('qty__disable');
 			// Сообщение пользователю
 			const message = quantity.notyMessage('Вы пытаетесь положить в корзину товар которого нет в наличии');
 			notyStart(message, 'warning');
@@ -447,396 +921,247 @@ class Quantity {
 		if (val > max){
 			obj.value = max;
 			val = max;
-			obj.nextElementSibling.classList.add('qty__disable');
+			plus.classList.add('qty__disable');
 			// Сообщение пользователю
 			const message = quantity.notyMessage('Вы пытаетесь положить в корзину товара больше, чем есть в наличии');
 			notyStart(message, 'warning');
 			return false;
 		} else {
-			obj.nextElementSibling.classList.remove('qty__disable');
+			plus.classList.remove('qty__disable');
 		}		
 	};
-
-	// Сообщение пользователю
-	notyMessage(message){
-		return `
-			<div class="noty__addto flex">
-				<div class="noty__title">Внимание!</div>
-				<div class="noty__content">${message}</div>
-			</div>
-		`;
-	};
-
 }
 
-// Кол-во в карточке
-class QuantityGoods extends Quantity {
-	// Статус запуска функции
-	once = false;
+function quantityInit(doc = document){
+	let once = false;
+	console.log('doc', doc);
 
-	constructor(){
-		super()
-		// console.log('QuantityGoods');
-	};
+	const qtys = doc.querySelectorAll('.qty')
+	qtys.forEach((e) => {
+		const minus = e.querySelector('.qty__select-minus')
+		const plus = e.querySelector('.qty__select-plus')
+		const input = e.querySelector('.qty__input')
 
-	// Действия в карточке товара
-	onGoods(){
-		const qty = document.querySelector('.productView__qty')
-		// Если не карточка товара
-		if (qty == null) return false;
-
-		// Если функция уже запущена
-		if (this.once) return false;
-
-		const qtyMinus = qty.querySelector('.qty__select-minus')
-		const qtyPlus = qty.querySelector('.qty__select-plus')
-		const qtyInput = qty.querySelector('.qty__input')
+		// Если карточка товара
+		const prodView = e.closest('.productViewBlock')
+	
+		// Если карточка товара
+		const prodCart = e.closest('.cartTable')
+	
+		// Если карточка товара
+		const prodAddto = e.closest('.addto__cart')
 
 		// Минус
-		qtyMinus.addEventListener('click', () => quantityGoods.minus(qtyInput))
+		minus.addEventListener('click', function(){
+			quantity.getMinus(input)
+		})
 
 		// Плюс
-		qtyPlus.addEventListener('click', () => quantityGoods.plus(qtyInput))
+		plus.addEventListener('click', function(){
+			quantity.getPlus(input)
+		})
 
 		// Изменение
-		qtyInput.addEventListener('input', function(){
-			quantityGoods.check(qtyInput)
-			quantityGoods.updGoods(qtyInput)
-			console.log('qtyInput', qtyInput);
+		input.addEventListener('input', function(){
+			quantity.getCheck(input)
+
+			// Если карточка товара
+			if (prodView) {
+				console.log('prodView', prodView);
+				updProdView(prodView)
+			}
+
+			// Если карточка товара
+			if (prodCart) {
+				console.log('prodCart', prodCart);
+				updCart(input)
+			}
+
+			// Если карточка товара
+			if (prodAddto) {
+				console.log('prodAddto', prodAddto);
+				updAddto(input)
+			}
+
 		})
 
-		// Статус запуска функции
-		this.once = true
-
-	};
-
-	// Изменение кол-ва в карточке. //JS
-	updGoods(obj){
-		console.log('goods obj', obj);
-		const block = obj.closest('.productViewBlock');
-		console.log('block', block);
-		// Если не карточка товара
-		if (block == null) return false;
-
-		// Объявляем переменные цены
-		const val = block.querySelector('.qty__input').value;
-		block.querySelector('.goodsDataMainModificationId').value = val;
-
-		// Обновление цены
-		const blockNow = block.querySelector('.price__now');
-		const priceNow = blockNow.getAttribute('data-price');
-		const multiNow = parseInt(val * priceNow);
-		blockNow.querySelector('.num').innerHTML = addSpaces(multiNow);
-
-		// Обновление старой цены
-		const blockOld = block.querySelector('.price__old');
-		if (blockOld){
-			const priceOld = blockOld.getAttribute('data-price');
-			const multiOld = parseInt(val * priceOld);
-			blockOld.querySelector('.num').innerHTML = addSpaces(multiOld);
-			// console.log('goods priceOld', priceOld)
-			// console.log('goods multiOld', multiOld)
-		}
-
-		// console.log('goods val', val)
-		// console.log('goods priceNow', priceNow)
-		// console.log('goods multiNow', multiNow)
-	};
-
+	})
 }
 
-// Кол-во в выпадающей корзине
-class QuantityAddto extends Quantity {
-	constructor(){
-		super()
-		console.log('QuantityAddto');
+// Обновление цены в карточке товара
+function updProdView(selector){
+	// Обновление цены
+	const priceNow = selector.querySelector('.price__now');
+	const priceData = priceNow.getAttribute('data-price');
+	const val = selector.querySelector('.qty__input').value
+	const multiNow = parseInt(val * priceData);
+	priceNow.querySelector('.num').innerHTML = addSpaces(multiNow);
+
+	// Обновление старой цены
+	const priceOld = selector.querySelector('.price__old');
+	if (priceOld){
+		const priceData = priceOld.getAttribute('data-price');
+		const multiOld = parseInt(val * priceData);
+		priceOld.querySelector('.num').innerHTML = addSpaces(multiOld);
+		// console.log('goods priceOld', priceData)
+		// console.log('goods multiOld', multiOld)
 	}
-
-	// Действия в выпадающей корзине
-	onAddto(){
-		const elements = document.querySelectorAll('.addto__qty');
-		// Если нет элементов
-		if (elements == null) return false;
-
-		elements.forEach((el) => {
-			const qtyMinus = el.querySelector('.qty__select-minus')
-			const qtyPlus = el.querySelector('.qty__select-plus')
-			const qtyInput = el.querySelector('.qty__input')
-
-			// Минус
-			qtyMinus.addEventListener('click', () => quantityAddto.minus(qtyInput))
-
-			// Плюс
-			qtyPlus.addEventListener('click', () => quantityAddto.plus(qtyInput))
-
-			// Изменение
-			qtyInput.addEventListener('input', function(){
-				quantityAddto.check(this);
-				quantityAddto.updAddto(this);
-			})
-
-		})
-	};
-
-	// Выпадающая корзина
-	updAddto(obj){
-		// console.log('updAddto obj', obj);
-		const item = obj.closest('.addto__item');
-		const mod = item.getAttribute('data-mod-id');
-		const priceNow = item.querySelector('.price__now');
-		const form = item.closest('.addto__form');
-		const data = new FormData(form);
-		data.append('only_body', '1');
-
-		// Обновить корзину
-		setTimeout(() => {
-			quantityAddto.getAddtoCart(data, mod, priceNow);				
-		}, 100);
-
-	};
-
-	// Обновление выпадающей корзины
-	async getAddtoCart($data, $mod, $priceNow){
-		await fetch('/cart', {
-			method: "POST",
-			body: $data
-		})
-		// Получаем ответ
-		.then((response) => response.text())
-		// Преобразуем в html
-		.then((html) => {
-			// Convert the HTML string into a document object
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(html, 'text/html');
-			quantityAddto.updAddtoContent(doc, $mod, $priceNow)
-		})
-		.catch((error) => console.error(error));
-	};
-
-	// Обновление выпадающей корзины
-	updAddtoContent($doc, $mod, $priceNow){
-		// Обновить цену
-		const price = $doc.querySelector('.cartTable__item[data-mod-id="' + $mod + '"] .cartTable__price');
-		$priceNow.innerHTML = price.innerHTML;
-		// Обновить кол-во
-		const newCount = $doc.querySelector('.cart-count').innerHTML;
-		quantityAddto.updAddtoCount(newCount);
-		// Обновить сумму
-		const newSum = $doc.querySelector('.cartSumTotal').innerHTML;
-		quantityAddto.updAddtoSum(newSum);
-		// console.log('updAddto newSum', newSum);
-		// Обновить скидку
-		const newDiscount = $doc.querySelector('.cartTotal__item-discount .cartTotal__price');
-		const totalDiscount = document.querySelector('.addto__total-discount')
-		if (newDiscount){
-			// console.log('updAddto newDiscount1', newDiscount);
-			totalDiscount.classList.remove('is-hidden')
-			quantityAddto.updAddtoDiscount(newDiscount.innerHTML)
-		} else {
-			// console.log('updAddto newDiscount2', newDiscount);
-			totalDiscount.classList.add('is-hidden')
-		}
-
-	};
-
-	// Обновление счетчика кол-ва корзины
-	updAddtoCount($count){
-		const elements = document.querySelectorAll('.cart-count');
-		elements.forEach((el) => {
-			el.innerHTML = $count;
-			el.setAttribute('data-cart-count', $count);
-		});
-	};
-
-	// Обновление итоговой цены
-	updAddtoSum($sum){
-		const elements = document.querySelectorAll('.cartSumNowDiscount');
-		elements.forEach((el) => el.innerHTML = $sum)
-	};
-
-	// Обновление итоговой скидки
-	updAddtoDiscount($sum){
-		const element = document.querySelector('.addto__total-discount .addto__total-price');
-		element.innerHTML = $sum;
-	};
-	
-	// Отображаем скидку 
-	updAddtoSale(){
-		// console.log('updAddtoSale');
-		const value = document.querySelector('.discountValue')
-		// Если корзина пуста
-		if (!value) return false
-		// Если есть скидки
-		const discount = value.closest('.addto__total-discount')
-		value ? discount.classList.remove('is-hidden') : discount.classList.add('is-hidden')
-	};
-
 }
 
-// Кол-во в корзине
-class QuantityCart extends Quantity {
-	constructor(){
-		super()
-		console.log('QuantityCart');
+// Корзина
+function updCart(obj){
+	console.log('updCart', obj);
+	const item = obj.closest('.cartTable__item');
+	const mod = item.getAttribute('data-mod-id');
+	const priceNow = item.querySelector('.cartTable__price');
+	const form = item.closest('.cartTable__form');
+	const data = new FormData(form);
+	data.append('only_body', '1');
+
+	// Обновить корзину
+	setTimeout(() => {
+		getCart(data, mod, priceNow);		
+	}, 100);
+
+};
+
+// Обновление в корзине
+async function getCart(data, mod, priceNow){
+	await fetch('/cart', {
+		method: "POST",
+		body: data
+	})
+	// Получаем ответ
+	.then((response) => response.text())
+	// Преобразуем в html
+	.then((html) => {
+		// Convert the HTML string into a document object
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(html, 'text/html');
+		updCartContent(doc, mod, priceNow)
+		// console.log('getCart doc', doc);
+	})
+	.catch((error) => console.error(error));
+
+};
+
+// Обновление в корзине
+function updCartContent(doc, mod, priceNow){
+	// console.log('doc2', $doc);
+	// console.log('mod2', $mod);
+	// console.log('priceNow2', $priceNow);
+	// Обновить цену
+	const price = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price');
+	priceNow.innerHTML = price.innerHTML;
+	// Обновить кол-во
+	const newCount = doc.querySelector('.cart-count').innerHTML;
+	// quantityAddto.updAddtoCount(newCount);
+	// Обновить итого
+	const newTotal = doc.querySelector('.cartTotal__items').innerHTML;
+	document.querySelector('.cartTotal__items').innerHTML = newTotal;
+	// Обновить минимальную сумму заказа
+	cart.minSum();
+	// console.log('price', price);
+	// console.log('newCount', newCount);
+	// console.log('newTotal', newTotal);
+};
+
+// Выпадающая корзина
+function updAddto(obj){
+	// console.log('updAddto obj', obj);
+	const item = obj.closest('.addto__item');
+	const mod = item.getAttribute('data-mod-id');
+	const price = item.querySelector('.addto__price');
+	const form = item.closest('.addto__form');
+	const data = new FormData(form);
+	data.append('only_body', '1');
+
+	// Обновить корзину
+	setTimeout(() => {
+		getAddtoCart(data, mod, price);				
+	}, 100);
+
+};
+
+// Обновление выпадающей корзины
+async function getAddtoCart(data, mod, price){
+	await fetch('/cart', {
+		method: "POST",
+		body: data
+	})
+	// Получаем ответ
+	.then((response) => response.text())
+	// Преобразуем в html
+	.then((html) => {
+		// Convert the HTML string into a document object
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(html, 'text/html');
+		updAddtoContent(doc, mod, price)
+	})
+	.catch((error) => console.error(error));
+};
+
+// Обновление выпадающей корзины
+function updAddtoContent(doc, mod, price){
+	// Обновить цену
+	const cartPrice = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price');
+	price.innerHTML = cartPrice.innerHTML;
+	// Обновить кол-во
+	const newCount = doc.querySelector('.cart-count').innerHTML;
+	updCartCount(newCount);
+	// Обновить сумму
+	const newSum = doc.querySelector('.cartSumTotal').innerHTML;
+	updCartSum(newSum);
+	// console.log('updAddto newSum', newSum);
+	// Обновить скидку
+	const newDiscount = doc.querySelector('.cartTotal__item-discount .cartTotal__price');
+	const totalDiscount = document.querySelector('.addto__total-discount')
+	if (newDiscount){
+		// console.log('updAddto newDiscount1', newDiscount);
+		totalDiscount.classList.remove('is-hidden')
+		updAddtoDiscount(newDiscount.innerHTML)
+	} else {
+		// console.log('updAddto newDiscount2', newDiscount);
+		totalDiscount.classList.add('is-hidden')
 	}
 
-	// Действия в выпадающей корзине
-	onCart(){
-		const elements = document.querySelectorAll('.cartTable__qty');
-		// Если не карточка товара
-		if (elements == null) return false;
+};
 
-		elements.forEach((el) => {
-			const qtyMinus = el.querySelector('.qty__select-minus')
-			const qtyPlus = el.querySelector('.qty__select-plus')
-			const qtyInput = el.querySelector('.qty__input')
+// Обновление счетчика кол-ва корзины
+function updCartCount(count){
+	const elements = document.querySelectorAll('.cart-count');
+	elements.forEach((el) => {
+		el.innerHTML = count;
+		el.setAttribute('data-cart-count', count);
+	});
+};
 
-			// Минус
-			qtyMinus.addEventListener('click', () => quantityCart.minus(qtyInput))
+// Обновление итоговой цены
+function updCartSum(sum){
+	const elements = document.querySelectorAll('.cartSumNowDiscount');
+	elements.forEach((el) => el.innerHTML = sum)
+};
 
-			// Плюс
-			qtyPlus.addEventListener('click', () => quantityCart.plus(qtyInput))
+// Обновление итоговой скидки
+function updAddtoDiscount(sum){
+	const element = document.querySelector('.addto__total-discount .addto__total-price');
+	element.innerHTML = sum;
+};
 
-			// Изменение
-			qtyInput.addEventListener('input', function(){
-				quantityCart.check(this);
-				quantityCart.updCart(this);
-			})
+// Отображаем скидку 
+function updAddtoSale(){
+	// console.log('updAddtoSale');
+	const value = document.querySelector('.discountValue')
+	// Если корзина пуста
+	if (!value) return false
+	// Если есть скидки
+	const discount = value.closest('.addto__total-discount')
+	value ? discount.classList.remove('is-hidden') : discount.classList.add('is-hidden')
+};
 
-		})
-	}
 
-	// Корзина
-	updCart(obj){
-		const item = obj.closest('.cartTable__item');
-		const mod = item.getAttribute('data-mod-id');
-		const priceNow = item.querySelector('.cartTable__price');
-		const form = item.closest('.cartTable__form');
-		const data = new FormData(form);
-		data.append('only_body', '1');
-
-		// Обновить корзину
-		setTimeout(() => {
-			quantityCart.getCart(data, mod, priceNow);		
-		}, 100);
-
-	};
-
-	// Обновление в корзине
-	async getCart($data, $mod, $priceNow){
-		await fetch('/cart', {
-			method: "POST",
-			body: $data
-		})
-		// Получаем ответ
-		.then((response) => response.text())
-		// Преобразуем в html
-		.then((html) => {
-			// Convert the HTML string into a document object
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(html, 'text/html');
-			quantityCart.updCartContent(doc, $mod, $priceNow)
-			// console.log('getCart doc', doc);
-		})
-		.catch((error) => console.error(error));
-
-	};
-
-	// Обновление в корзине
-	updCartContent($doc, $mod, $priceNow){
-		// console.log('doc2', $doc);
-		// console.log('mod2', $mod);
-		// console.log('priceNow2', $priceNow);
-		// Обновить цену
-		const price = $doc.querySelector('.cartTable__item[data-mod-id="' + $mod + '"] .cartTable__price');
-		$priceNow.innerHTML = price.innerHTML;
-		// Обновить кол-во
-		const newCount = $doc.querySelector('.cart-count').innerHTML;
-		quantityAddto.updAddtoCount(newCount);
-		// Обновить итого
-		const newTotal = $doc.querySelector('.cartTotal__items').innerHTML;
-		document.querySelector('.cartTotal__items').innerHTML = newTotal;
-		// Обновить минимальную сумму заказа
-		cart.minSum();
-		// console.log('price', price);
-		// console.log('newCount', newCount);
-		// console.log('newTotal', newTotal);
-	};
-
-}
-
-// Кол-во продуктов
-class QuantityProduct extends Quantity {
-	constructor(){
-		super()
-		// console.log('QuantityProduct');
-	}
-
-	// Действия в выпадающей корзине
-	onProduct(){
-		const elements = document.querySelectorAll('.product__qty');
-		// Если нет элемента
-		if (elements == null) return false;
-
-		elements.forEach((el) => {
-			const qtyMinus = el.querySelector('.qty__select-minus')
-			const qtyPlus = el.querySelector('.qty__select-plus')
-			const qtyInput = el.querySelector('.qty__input')
-
-			// Минус
-			qtyMinus.addEventListener('click', function(){
-				quantityProduct.minus(qtyInput)
-			})
-
-			// Плюс
-			qtyPlus.addEventListener('click', function(){
-				quantityProduct.plus(qtyInput)
-			})
-
-			// Изменение
-			qtyInput.addEventListener('input', function(){
-				quantityProduct.check(this)
-				// quantityProduct.updAddtoValue(this)
-			})
-
-		})
-	};
-	
-	// Обновить кол-во выпадающей корзины
-	updAddtoValue(obj){
-		const val = obj.value
-		const id = obj.closest('[data-id]').getAttribute('data-id')
-		const mod = obj.getAttribute('name')
-		const item = document.querySelector('.addto__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
-		
-		if (!item) {return false}
-		item.value = val
-		item.dispatchEvent(new Event('input'));
-		// console.log('updAddtoValue obj', obj);
-		// console.log('updAddtoValue val', val);
-		// console.log('updAddtoValue id', id);
-		// console.log('updAddtoValue mod', mod);
-		// console.log('updAddtoValue items', item);
-	}
-
-	// Обновить кол-во всех товаров
-	updProdValue(obj){
-		const val = obj.value
-		const id = obj.closest('[data-id]').getAttribute('data-id')
-		const mod = obj.getAttribute('name')
-		const items = document.querySelectorAll('.product__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
-
-		if (!items) {return false}
-		items.forEach((el) => el.value = val)
-		// console.log('updProdValue obj', obj);
-		// console.log('updProdValue val', val);
-		// console.log('updProdValue id', id);
-		// console.log('updProdValue mod', mod);
-		// console.log('updProdValue items', items);
-	}
-	
-}
-
+const quantity = new Quantity();
+quantityInit()
 
 ///////////////////////////////////////
 // Конструктор функции Товара
@@ -1272,10 +1597,10 @@ class Product {
 				// Находим форму, которую отправляем на сервер, для добавления товара в корзину
 				const formBlock = $($(this).get(0));
 				const formData = formBlock.serializeArray();
-				const t = $(this);
-				const id = t.find('input[name="form[goods_id]"]').val();
-				const val = t.find('.qty__input').val();
-				const mod = t.find('.qty__input').attr('name');
+				// const t = $(this);
+				// const id = t.find('input[name="form[goods_id]"]').val();
+				// const val = t.find('.qty__input').val();
+				// const mod = t.find('.qty__input').attr('name');
 
 				// Проверка на существование формы отправки запроса на добавление товара в корзину
 				if (1 > formBlock.length || formBlock.get(0).tagName != 'FORM'){
@@ -1312,6 +1637,7 @@ class Product {
 							// Проверяем все товары в других категориях
 							setTimeout(() => {
 								// product.inCartAll(id, mod)
+								quantityInit(document.querySelector('.addto__cart'))
 							}, 100);
 
 						}
@@ -1419,7 +1745,8 @@ class Product {
 					product.addTo();
 					goods.goodsModification($('.fancybox-content.productViewBlock'));
 					goods.onClick();
-					quantityGoods.onGoods();
+					quantityInit(document.querySelector('.productViewMod'))
+					// quantityGoods.onGoods();
 				}
 			} else {
 				$.get(href, function(content){
@@ -1433,7 +1760,8 @@ class Product {
 					product.addTo();
 					goods.goodsModification($('.fancybox-content.productViewBlock'));
 					goods.onClick();
-					quantityGoods.onGoods();
+					quantityInit(document.querySelector('.productViewMod'))
+					// quantityGoods.onGoods();
 				});
 			}
 		};
@@ -1519,6 +1847,7 @@ class Product {
 			items.forEach((item) => {
 				// Метка загрузки
 				let loaded = false;
+				let once = false;
 
 				// Копка Быстрый просмотр
 				const quick = item.querySelector('.product__quickview');
@@ -1559,13 +1888,17 @@ class Product {
 					setTimeout(() => {
 						// Вывод контента из массива в модальном окне
 						quickViewPreload.map((e) => url == e.url ? $.fancybox.open(e.content) : false);
+						if (once) return false;
 						// Функции карточки товара
 						product.addCart();
 						product.addTo();
 						goods.goodsModification(document.querySelector('.productViewBlock'));
 						goods.onClick();
 						goods.swiperImages();
-						quantityGoods.onGoods();
+						// quantityGoods.onGoods();
+						quantityInit(document.querySelector('.productViewBlock'))
+						// Отметка загруженности
+						once = true
 					}, 100);
 				}
 
@@ -2366,7 +2699,7 @@ class Goods {
 						modificationMeasure = modificationBlock.find('[name="measure_name"]').val(), 
 						modificationDescription = modificationBlock.find('.description').html(), 
 						modificationGoodsModImageId = modificationBlock.find('[name="goods_mod_image_id"]').val(), 
-						goodsModificationId = goodsModView.find('.goodsModificationId'), 
+						goodsModId = goodsModView.find('[name="form[goods_mod_id]"]'), 
 						goodsPriceNow = goodsModView.find('.price__now'), 
 						goodsPriceOld = goodsModView.find('.price__old'), 
 						goodsAvailableQty = goodsModView.find('.productView__qty'), 
@@ -2438,9 +2771,8 @@ class Goods {
 
 						// Идентификатор товарной модификации 
 						// TODO Проверить работу
-						goodsModificationId.val(modificationId);
-						goodsModView.find('.goodsDataMainModificationId').val('1')
-						goodsModView.find('.goodsDataMainModificationId').attr('name','form[goods_mod_id][' + modificationId + ']');
+						goodsModId.val(modificationId);
+						goodsModView.find('.qty__input').val('1').attr('name','form[goods_mod_id][' + modificationId + ']');
 
 					} else {
 						// Отправим запись об ошибке на сервер
@@ -3056,16 +3388,16 @@ const goods = new Goods();
 const cart = new Cart();
 // Объявляем конструктор Заказа
 const order = new Order();
-// Объявляем конструктор Счетчиков
-const quantity = new Quantity();
-// Объявляем конструктор Счетчиков Товара
-const quantityGoods = new QuantityGoods();
-// Объявляем конструктор Счетчиков Выпадающей корзины
-const quantityAddto = new QuantityAddto();
-// Объявляем конструктор Счетчиков Корзины
-const quantityCart = new QuantityCart();
-// Объявляем конструктор Счетчиков товаров
-const quantityProduct = new QuantityProduct();
+// // Объявляем конструктор Счетчиков
+// const quantity = new Quantity();
+// // Объявляем конструктор Счетчиков Товара
+// const quantityGoods = new QuantityGoods();
+// // Объявляем конструктор Счетчиков Выпадающей корзины
+// const quantityAddto = new QuantityAddto();
+// // Объявляем конструктор Счетчиков Корзины
+// const quantityCart = new QuantityCart();
+// // Объявляем конструктор Счетчиков товаров
+// const quantityProduct = new QuantityProduct();
 
 
 console.timeEnd('start test');
@@ -3756,8 +4088,8 @@ document.addEventListener('DOMContentLoaded', function(){
 	lazyload()
 	catalogHover()
 	remove.onClick()
-	quantityAddto.onAddto()
-	quantityAddto.updAddtoSale()
+	// quantityAddto.onAddto()
+	// quantityAddto.updAddtoSale()
 
 	// Удаление классов загрузки для элементов страницы
 	$('.loading').addClass('loaded');

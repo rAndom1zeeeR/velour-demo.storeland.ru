@@ -1404,6 +1404,8 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 #pdt__new .product__attr {display: none;}
 #pdt__new .product__links {gap: 8px;flex-direction: column;}
 #pdt__new .product__img {height: 170px;}
+#pdt__new .price__now {font-size: 20px;}
+#pdt__new .price__old {font-size: 12px;}
 /* Баннер */
 #pdt__new .product__banner {grid-column-start: 1;grid-column-end: 3;grid-row-start: 1;grid-row-end: 3;border-radius: 16px;background-position: center;background-size: cover;position: relative;}
 #pdt__new .product__banner-titles {color: var(--color-primary);font-family: 'Yeseva One', cursive;position: absolute;bottom: 16px;left: 16px;}
