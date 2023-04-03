@@ -862,7 +862,57 @@ function keyPress(oToCheckField, oKeyEvent){
 // const quantity = new Quantity('1');
 
 class Quantity {
-	init(){
+	init(doc = document){
+		// console.log('doc', doc);
+		if (!doc) {doc = document}
+	
+		const qtys = doc.querySelectorAll('.qty')
+
+		qtys.forEach((e) => {
+			const minus = e.querySelector('.qty__select-minus')
+			const plus = e.querySelector('.qty__select-plus')
+			const input = e.querySelector('.qty__input')
+	
+			// Если карточка товара
+			const prodView = e.closest('.productViewBlock')
+		
+			// Если корзина
+			const prodCart = e.closest('.cartTable')
+		
+			// Если выпадающая корзина
+			const prodAddto = e.closest('.addto__cart')
+	
+			// Минус
+			minus.addEventListener('click', () => quantity.getMinus(input))
+	
+			// Плюс
+			plus.addEventListener('click', () => quantity.getPlus(input))
+	
+			// Изменение
+			input.addEventListener('input', function(){
+				quantity.getCheck(input)
+	
+				// Если карточка товара
+				if (prodView) {
+					// console.log('prodView', prodView);
+					quantity.updView(prodView)
+				}
+	
+				// Если корзина
+				if (prodCart) {
+					// console.log('prodCart', prodCart);
+					quantity.updCart(input)
+				}
+	
+				// Если выпадающая корзина
+				if (prodAddto) {
+					// console.log('prodAddto', prodAddto);
+					quantity.updAddto(input)
+				}
+	
+			})
+	
+		})
 	}
 
 	// Функция Плюс + для товара. //JS
@@ -895,8 +945,7 @@ class Quantity {
 
 		// Если вводят 0 то заменяем на 1
 		if (!val || val < 1){
-			obj.value = 1;
-			val = 1;
+			obj.value = val = 1;
 			minus.classList.add('qty__disable');
 			return false;
 		} else {
@@ -919,8 +968,7 @@ class Quantity {
 
 		// Если добавляют больше
 		if (val > max){
-			obj.value = max;
-			val = max;
+			obj.value = val = max;
 			plus.classList.add('qty__disable');
 			// Сообщение пользователю
 			const message = quantity.notyMessage('Вы пытаетесь положить в корзину товара больше, чем есть в наличии');
@@ -930,238 +978,182 @@ class Quantity {
 			plus.classList.remove('qty__disable');
 		}		
 	};
-}
 
-function quantityInit(doc = document){
-	let once = false;
-	console.log('doc', doc);
-
-	const qtys = doc.querySelectorAll('.qty')
-	qtys.forEach((e) => {
-		const minus = e.querySelector('.qty__select-minus')
-		const plus = e.querySelector('.qty__select-plus')
-		const input = e.querySelector('.qty__input')
-
-		// Если карточка товара
-		const prodView = e.closest('.productViewBlock')
+	// Обновление цены в карточке товара
+	updView(obj){
+		// Обновление цены
+		const priceNow = obj.querySelector('.price__now');
+		const priceData = priceNow.getAttribute('data-price');
+		const val = obj.querySelector('.qty__input').value
+		const multiNow = parseInt(val * priceData);
+		priceNow.querySelector('.num').innerHTML = addSpaces(multiNow);
 	
-		// Если карточка товара
-		const prodCart = e.closest('.cartTable')
-	
-		// Если карточка товара
-		const prodAddto = e.closest('.addto__cart')
-
-		// Минус
-		minus.addEventListener('click', function(){
-			quantity.getMinus(input)
-		})
-
-		// Плюс
-		plus.addEventListener('click', function(){
-			quantity.getPlus(input)
-		})
-
-		// Изменение
-		input.addEventListener('input', function(){
-			quantity.getCheck(input)
-
-			// Если карточка товара
-			if (prodView) {
-				console.log('prodView', prodView);
-				updProdView(prodView)
-			}
-
-			// Если карточка товара
-			if (prodCart) {
-				console.log('prodCart', prodCart);
-				updCart(input)
-			}
-
-			// Если карточка товара
-			if (prodAddto) {
-				console.log('prodAddto', prodAddto);
-				updAddto(input)
-			}
-
-		})
-
-	})
-}
-
-// Обновление цены в карточке товара
-function updProdView(selector){
-	// Обновление цены
-	const priceNow = selector.querySelector('.price__now');
-	const priceData = priceNow.getAttribute('data-price');
-	const val = selector.querySelector('.qty__input').value
-	const multiNow = parseInt(val * priceData);
-	priceNow.querySelector('.num').innerHTML = addSpaces(multiNow);
-
-	// Обновление старой цены
-	const priceOld = selector.querySelector('.price__old');
-	if (priceOld){
-		const priceData = priceOld.getAttribute('data-price');
-		const multiOld = parseInt(val * priceData);
-		priceOld.querySelector('.num').innerHTML = addSpaces(multiOld);
-		// console.log('goods priceOld', priceData)
-		// console.log('goods multiOld', multiOld)
-	}
-}
-
-// Корзина
-function updCart(obj){
-	console.log('updCart', obj);
-	const item = obj.closest('.cartTable__item');
-	const mod = item.getAttribute('data-mod-id');
-	const priceNow = item.querySelector('.cartTable__price');
-	const form = item.closest('.cartTable__form');
-	const data = new FormData(form);
-	data.append('only_body', '1');
-
-	// Обновить корзину
-	setTimeout(() => {
-		getCart(data, mod, priceNow);		
-	}, 100);
-
-};
-
-// Обновление в корзине
-async function getCart(data, mod, priceNow){
-	await fetch('/cart', {
-		method: "POST",
-		body: data
-	})
-	// Получаем ответ
-	.then((response) => response.text())
-	// Преобразуем в html
-	.then((html) => {
-		// Convert the HTML string into a document object
-		const parser = new DOMParser();
-		const doc = parser.parseFromString(html, 'text/html');
-		updCartContent(doc, mod, priceNow)
-		// console.log('getCart doc', doc);
-	})
-	.catch((error) => console.error(error));
-
-};
-
-// Обновление в корзине
-function updCartContent(doc, mod, priceNow){
-	// console.log('doc2', $doc);
-	// console.log('mod2', $mod);
-	// console.log('priceNow2', $priceNow);
-	// Обновить цену
-	const price = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price');
-	priceNow.innerHTML = price.innerHTML;
-	// Обновить кол-во
-	const newCount = doc.querySelector('.cart-count').innerHTML;
-	// quantityAddto.updAddtoCount(newCount);
-	// Обновить итого
-	const newTotal = doc.querySelector('.cartTotal__items').innerHTML;
-	document.querySelector('.cartTotal__items').innerHTML = newTotal;
-	// Обновить минимальную сумму заказа
-	cart.minSum();
-	// console.log('price', price);
-	// console.log('newCount', newCount);
-	// console.log('newTotal', newTotal);
-};
-
-// Выпадающая корзина
-function updAddto(obj){
-	// console.log('updAddto obj', obj);
-	const item = obj.closest('.addto__item');
-	const mod = item.getAttribute('data-mod-id');
-	const price = item.querySelector('.addto__price');
-	const form = item.closest('.addto__form');
-	const data = new FormData(form);
-	data.append('only_body', '1');
-
-	// Обновить корзину
-	setTimeout(() => {
-		getAddtoCart(data, mod, price);				
-	}, 100);
-
-};
-
-// Обновление выпадающей корзины
-async function getAddtoCart(data, mod, price){
-	await fetch('/cart', {
-		method: "POST",
-		body: data
-	})
-	// Получаем ответ
-	.then((response) => response.text())
-	// Преобразуем в html
-	.then((html) => {
-		// Convert the HTML string into a document object
-		const parser = new DOMParser();
-		const doc = parser.parseFromString(html, 'text/html');
-		updAddtoContent(doc, mod, price)
-	})
-	.catch((error) => console.error(error));
-};
-
-// Обновление выпадающей корзины
-function updAddtoContent(doc, mod, price){
-	// Обновить цену
-	const cartPrice = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price');
-	price.innerHTML = cartPrice.innerHTML;
-	// Обновить кол-во
-	const newCount = doc.querySelector('.cart-count').innerHTML;
-	updCartCount(newCount);
-	// Обновить сумму
-	const newSum = doc.querySelector('.cartSumTotal').innerHTML;
-	updCartSum(newSum);
-	// console.log('updAddto newSum', newSum);
-	// Обновить скидку
-	const newDiscount = doc.querySelector('.cartTotal__item-discount .cartTotal__price');
-	const totalDiscount = document.querySelector('.addto__total-discount')
-	if (newDiscount){
-		// console.log('updAddto newDiscount1', newDiscount);
-		totalDiscount.classList.remove('is-hidden')
-		updAddtoDiscount(newDiscount.innerHTML)
-	} else {
-		// console.log('updAddto newDiscount2', newDiscount);
-		totalDiscount.classList.add('is-hidden')
+		// Обновление старой цены
+		const priceOld = obj.querySelector('.price__old');
+		if (priceOld){
+			const priceData = priceOld.getAttribute('data-price');
+			const multiOld = parseInt(val * priceData);
+			priceOld.querySelector('.num').innerHTML = addSpaces(multiOld);
+			// console.log('goods priceOld', priceData)
+			// console.log('goods multiOld', multiOld)
+		}
 	}
 
-};
+	// Корзина
+	updCart(obj){
+		console.log('updCart', obj);
+		const item = obj.closest('.cartTable__item');
+		const mod = item.getAttribute('data-mod-id');
+		const priceNow = item.querySelector('.cartTable__price');
+		const form = item.closest('.cartTable__form');
+		const data = new FormData(form);
+		data.append('only_body', '1');
+	
+		// Обновить корзину
+		setTimeout(() => {
+			quantity.getCart(data, mod, priceNow);		
+		}, 100);
+	
+	};
 
-// Обновление счетчика кол-ва корзины
-function updCartCount(count){
-	const elements = document.querySelectorAll('.cart-count');
-	elements.forEach((el) => {
-		el.innerHTML = count;
-		el.setAttribute('data-cart-count', count);
-	});
-};
+	// Обновление в корзине
+	async getCart(data, mod, priceNow){
+		await fetch('/cart', {
+			method: "POST",
+			body: data
+		})
+		// Получаем ответ
+		.then((response) => response.text())
+		// Преобразуем в html
+		.then((html) => {
+			// Convert the HTML string into a document object
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(html, 'text/html');
+			quantity.updCartContent(doc, mod, priceNow)
+			// console.log('getCart doc', doc);
+		})
+		.catch((error) => console.error(error));
+	
+	};
 
-// Обновление итоговой цены
-function updCartSum(sum){
-	const elements = document.querySelectorAll('.cartSumNowDiscount');
-	elements.forEach((el) => el.innerHTML = sum)
-};
+	// Обновление в корзине
+	updCartContent(doc, mod, priceNow){
+		// console.log('doc2', $doc);
+		// console.log('mod2', $mod);
+		// console.log('priceNow2', $priceNow);
+		// Обновить цену
+		const price = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price');
+		priceNow.innerHTML = price.innerHTML;
+		// Обновить кол-во
+		const newCount = doc.querySelector('.cart-count').innerHTML;
+		// quantityAddto.updAddtoCount(newCount);
+		// Обновить итого
+		const newTotal = doc.querySelector('.cartTotal__items').innerHTML;
+		document.querySelector('.cartTotal__items').innerHTML = newTotal;
+		// Обновить минимальную сумму заказа
+		cart.minSum();
+		// console.log('price', price);
+		// console.log('newCount', newCount);
+		// console.log('newTotal', newTotal);
+	};
 
-// Обновление итоговой скидки
-function updAddtoDiscount(sum){
-	const element = document.querySelector('.addto__total-discount .addto__total-price');
-	element.innerHTML = sum;
-};
+	// Выпадающая корзина
+	updAddto(obj){
+		// console.log('updAddto obj', obj);
+		const item = obj.closest('.addto__item');
+		const mod = item.getAttribute('data-mod-id');
+		const price = item.querySelector('.addto__price');
+		const form = item.closest('.addto__form');
+		const data = new FormData(form);
+		data.append('only_body', '1');
+	
+		// Обновить корзину
+		setTimeout(() => {
+			quantity.getAddtoCart(data, mod, price);				
+		}, 100);
+	
+	};
 
-// Отображаем скидку 
-function updAddtoSale(){
-	// console.log('updAddtoSale');
-	const value = document.querySelector('.discountValue')
-	// Если корзина пуста
-	if (!value) return false
-	// Если есть скидки
-	const discount = value.closest('.addto__total-discount')
-	value ? discount.classList.remove('is-hidden') : discount.classList.add('is-hidden')
-};
+	// Обновление выпадающей корзины
+	async getAddtoCart(data, mod, price){
+		await fetch('/cart', {
+			method: "POST",
+			body: data
+		})
+		// Получаем ответ
+		.then((response) => response.text())
+		// Преобразуем в html
+		.then((html) => {
+			// Convert the HTML string into a document object
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(html, 'text/html');
+			quantity.updAddtoContent(doc, mod, price)
+		})
+		.catch((error) => console.error(error));
+	};
+	
+	// Обновление выпадающей корзины
+	updAddtoContent(doc, mod, price){
+		// Обновить цену
+		const cartPrice = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price');
+		price.innerHTML = cartPrice.innerHTML;
+		// Обновить кол-во
+		const newCount = doc.querySelector('.cart-count').innerHTML;
+		quantity.updCartCount(newCount);
+		// Обновить сумму
+		const newSum = doc.querySelector('.cartSumTotal').innerHTML;
+		quantity.updCartSum(newSum);
+		// console.log('updAddto newSum', newSum);
+		// Обновить скидку
+		const newDiscount = doc.querySelector('.cartTotal__item-discount .cartTotal__price');
+		const totalDiscount = document.querySelector('.addto__total-discount')
+		if (newDiscount){
+			// console.log('updAddto newDiscount1', newDiscount);
+			totalDiscount.classList.remove('is-hidden')
+			quantity.updAddtoDiscount(newDiscount.innerHTML)
+		} else {
+			// console.log('updAddto newDiscount2', newDiscount);
+			totalDiscount.classList.add('is-hidden')
+		}
+	
+	};
+	
+	// Обновление счетчика кол-ва корзины
+	updCartCount(count){
+		const elements = document.querySelectorAll('.cart-count');
+		elements.forEach((e) => {
+			e.innerHTML = count;
+			e.setAttribute('data-cart-count', count);
+		});
+	};
+	
+	// Обновление итоговой цены
+	updCartSum(sum){
+		const elements = document.querySelectorAll('.cartSumNowDiscount');
+		elements.forEach((e) => e.innerHTML = sum)
+	};
+	
+	// Обновление итоговой скидки
+	updAddtoDiscount(sum){
+		const element = document.querySelector('.addto__total-discount .addto__total-price');
+		element.innerHTML = sum;
+	};
+	
+	// Отображаем скидку 
+	updAddtoSale(){
+		const value = document.querySelector('.discountValue')
+		// Если корзина пуста
+		if (!value) return false
+		// Если есть скидки
+		const discount = value.closest('.addto__total-discount')
+		value ? discount.classList.remove('is-hidden') : discount.classList.add('is-hidden')
+	};
+	
+}
 
 
 const quantity = new Quantity();
-quantityInit()
+quantity.init()
 
 ///////////////////////////////////////
 // Конструктор функции Товара
@@ -1637,7 +1629,7 @@ class Product {
 							// Проверяем все товары в других категориях
 							setTimeout(() => {
 								// product.inCartAll(id, mod)
-								quantityInit(document.querySelector('.addto__cart'))
+								quantity.init(document.querySelector('.addto__cart'))
 							}, 100);
 
 						}
@@ -1650,121 +1642,129 @@ class Product {
 			})
 		}
 
-		// Функция выбора модификаций
-		this.quickViewMod = function(){
-			// Получение центральной разметки страницы (для быстрого просмотра)
-			$(document).ready(function(){
-				$.fn.getColumnContent = function(){
-					const block = ($(this).length && $(this).hasClass('productViewBlock') ? $(this).filter('.productViewBlock') : $('.productViewBlock:eq(0)'));
-					// Удаляем все блоки, которые не отображаются в быстром просмотре.
-					block.each(function(){
-						$(this).children().not('.productView').remove();
-					});
-					block.removeClass('productViewQuick');
-					block.addClass('productViewMod');
-					block.find('.productView__image img').attr('src', block.find('.productView__image img').data('src'));
-					return block;
-				};
+		// // Функция выбора модификаций
+		// this.quickViewMod = function(){
+		// 	// Получение центральной разметки страницы (для быстрого просмотра)
+		// 	$(document).ready(function(){
+		// 		$.fn.getColumnContent = function(){
+		// 			const block = ($(this).length && $(this).hasClass('productViewBlock') ? $(this).filter('.productViewBlock') : $('.productViewBlock:eq(0)'));
+		// 			// Удаляем все блоки, которые не отображаются в быстром просмотре.
+		// 			block.each(function(){
+		// 				$(this).children().not('.productView').remove();
+		// 			});
+		// 			block.removeClass('productViewQuick');
+		// 			block.addClass('productViewMod');
+		// 			block.find('.productView__image img').attr('src', block.find('.productView__image img').data('src'));
+		// 			return block;
+		// 		};
 
-				// При наведении на блок товара загружаем контент этого товара, который будет использоваться для быстрого просмотра, чтобы загрузка происходила быстрее.
-				$('.product__has-mod').mouseover(function(){
-					// Если в блоке нет ссылки на быстрый просмотр, то не подгружаем никаких данных
-					const link = $(this).find('.add-mod');
-					if (link.length < 1){
-						return true;
-					}
+		// 		// При наведении на блок товара загружаем контент этого товара, который будет использоваться для быстрого просмотра, чтобы загрузка происходила быстрее.
+		// 		$('.product__has-mod').mouseover(function(){
+		// 			// Если в блоке нет ссылки на быстрый просмотр, то не подгружаем никаких данных
+		// 			const link = $(this).find('.add-mod');
+		// 			if (link.length < 1){
+		// 				return true;
+		// 			}
 
-					// Если массив с подгруженными заранее карточками товара для быстрого просмотра ещё не создан - создадим его.
-					if (typeof (document.quickviewPreload) == 'undefined'){
-						document.quickviewPreload = [];
-					}
+		// 			// Если массив с подгруженными заранее карточками товара для быстрого просмотра ещё не создан - создадим его.
+		// 			if (typeof (document.quickviewPreload) == 'undefined'){
+		// 				document.quickviewPreload = [];
+		// 			}
 
-					let href = link.attr('href');
-					href += (false !== href.indexOf('?') ? '&' : '?') + 'only_body=1';
+		// 			let href = link.attr('href');
+		// 			href += (false !== href.indexOf('?') ? '&' : '?') + 'only_body=1';
 					
-					// Если контент по данной ссылке ещё не загружен
-					if (typeof (document.quickviewPreload[href]) == 'undefined'){
-						// Ставим отметку о том, что мы начали загрузку страницы товара
-						document.quickviewPreload[href] = 1;
-						// Делаем запрос на загрузку страницы товара
-						$.get(href, function(content){
-							// Сохраняем контент, необходимый для быстрого просмотра в специально созданный для этого массив
-							document.quickviewPreload[href] = $(content).getColumnContent();
-						})
-						// Если загрузить страницу не удалось, удаляем отметку о том, что мы подгрузили эту страницу
-						.fail(function(){
-							delete document.quickviewPreload[href];
-						});
-					}
-				});
+		// 			// Если контент по данной ссылке ещё не загружен
+		// 			if (typeof (document.quickviewPreload[href]) == 'undefined'){
+		// 				// Ставим отметку о том, что мы начали загрузку страницы товара
+		// 				document.quickviewPreload[href] = 1;
+		// 				// Делаем запрос на загрузку страницы товара
+		// 				$.get(href, function(content){
+		// 					// Сохраняем контент, необходимый для быстрого просмотра в специально созданный для этого массив
+		// 					document.quickviewPreload[href] = $(content).getColumnContent();
+		// 				})
+		// 				// Если загрузить страницу не удалось, удаляем отметку о том, что мы подгрузили эту страницу
+		// 				.fail(function(){
+		// 					delete document.quickviewPreload[href];
+		// 				});
+		// 			}
+		// 		});
 
-				// Действие при нажатии на кнопку быстрого просмотра.
-				$('.add-mod').on('click', function(){
-					let href = $(this).attr('href');
-					href += (false !== href.indexOf('?') ? '&' : '?') + 'only_body=1';
-					product.quickViewShowMod(href);
-					lazyload();
-					preload();
-					return false;
-				});
+		// 		// Действие при нажатии на кнопку быстрого просмотра.
+		// 		$('.add-mod').on('click', function(){
+		// 			let href = $(this).attr('href');
+		// 			href += (false !== href.indexOf('?') ? '&' : '?') + 'only_body=1';
+		// 			product.quickViewShowMod(href);
+		// 			lazyload();
+		// 			preload();
+		// 			return false;
+		// 		});
 
-			});
-		};
+		// 	});
+		// };
 
-		// Быстрый просмотр модификаций
-		this.quickViewShowMod = function(href, atempt){
-			// Если данные по быстрому просмотру уже подгружены
-			if (typeof (document.quickviewPreload[href]) != 'undefined'){
-				// Если мы в режиме загрузки страницы и ждём результата от другой функции, то тоже подождём, когда тот контент загрузится и будет доступен в этом массиве.
-				if (1 == document.quickviewPreload[href]){
-					// Если попытки ещё не указывались, ставим 0 - первая попытка
-					if (typeof (atempt) == 'undefined'){
-						atempt = 0;
-						// Иначе прибавляем счётчик попыток
-					} else {
-						atempt += 1;
-						// Если больше 500 попыток, то уже прошло 25 секунд и похоже, что быстрый просмотр не подгрузится, отменяем информацию о том, что контент загружен
-						if (atempt > 500){
-							delete document.quickviewPreload[href];
-							// TODO сделать вывод красивой таблички
-							alert('Не удалось загрузить страницу товара. Пожалуйста, повторите попытку позже.');
-							return true;
-						}
-					}
-					// Запустим функцию быстрого просмотра через 5 сотых секунды, вероятно запрошендная страница товара уже подгрузится.
-					setTimeout('product.quickViewShowMod("' + href + '", ' + atempt + ')', 50);
-					return true;
-				} else {
-					$.fancybox.close();
-					$.fancybox.open({
-						src: document.quickviewPreload[href],
-						type: 'inline',
-						transitionEffect: 'slide'
-					});
-					product.addCart();
-					product.addTo();
-					goods.goodsModification($('.fancybox-content.productViewBlock'));
-					goods.onClick();
-					quantityInit(document.querySelector('.productViewMod'))
-					// quantityGoods.onGoods();
-				}
-			} else {
-				$.get(href, function(content){
-					$.fancybox.close();
-					$.fancybox.open({
-						src: $(content).getColumnContent(),
-						type: 'inline',
-						transitionEffect: 'slide'
-					});
-					product.addCart();
-					product.addTo();
-					goods.goodsModification($('.fancybox-content.productViewBlock'));
-					goods.onClick();
-					quantityInit(document.querySelector('.productViewMod'))
-					// quantityGoods.onGoods();
-				});
-			}
-		};
+		// // Быстрый просмотр модификаций
+		// this.quickViewShowMod = function(href, atempt){
+		// 	// Если данные по быстрому просмотру уже подгружены
+		// 	if (typeof (document.quickviewPreload[href]) != 'undefined'){
+		// 		// Если мы в режиме загрузки страницы и ждём результата от другой функции, то тоже подождём, когда тот контент загрузится и будет доступен в этом массиве.
+		// 		if (1 == document.quickviewPreload[href]){
+		// 			// Если попытки ещё не указывались, ставим 0 - первая попытка
+		// 			if (typeof (atempt) == 'undefined'){
+		// 				atempt = 0;
+		// 				// Иначе прибавляем счётчик попыток
+		// 			} else {
+		// 				atempt += 1;
+		// 				// Если больше 500 попыток, то уже прошло 25 секунд и похоже, что быстрый просмотр не подгрузится, отменяем информацию о том, что контент загружен
+		// 				if (atempt > 500){
+		// 					delete document.quickviewPreload[href];
+		// 					// TODO сделать вывод красивой таблички
+		// 					alert('Не удалось загрузить страницу товара. Пожалуйста, повторите попытку позже.');
+		// 					return true;
+		// 				}
+		// 			}
+		// 			// Запустим функцию быстрого просмотра через 5 сотых секунды, вероятно запрошендная страница товара уже подгрузится.
+		// 			setTimeout('product.quickViewShowMod("' + href + '", ' + atempt + ')', 50);
+		// 			return true;
+		// 		} else {
+		// 			$.fancybox.close();
+		// 			$.fancybox.open({
+		// 				src: document.quickviewPreload[href],
+		// 				type: 'inline',
+		// 				transitionEffect: 'slide'
+		// 			});
+		// 			product.addCart();
+		// 			product.addTo();
+		// 			goods.goodsModification($('.fancybox-content.productViewBlock'));
+		// 			goods.onClick();
+		// 			quantity.init(document.querySelector('.productViewMod'))
+		// 			// quantityGoods.onGoods();
+		// 			// Передаем новое кол-во в быстрый просмотр
+		// 			// console.log(item.querySelector('.qty__input').value)
+		// 			document.querySelector('.productViewBlock .qty__input').value = item.querySelector('.qty__input').value
+		// 			document.querySelector('.productViewBlock .qty__input').dispatchEvent(new Event('input'));
+		// 		}
+		// 	} else {
+		// 		$.get(href, function(content){
+		// 			$.fancybox.close();
+		// 			$.fancybox.open({
+		// 				src: $(content).getColumnContent(),
+		// 				type: 'inline',
+		// 				transitionEffect: 'slide'
+		// 			});
+		// 			product.addCart();
+		// 			product.addTo();
+		// 			goods.goodsModification($('.fancybox-content.productViewBlock'));
+		// 			goods.onClick();
+		// 			quantity.init(document.querySelector('.productViewMod'))
+		// 			// Передаем новое кол-во в быстрый просмотр
+		// 			// console.log(item.querySelector('.qty__input').value)
+		// 			document.querySelector('.productViewBlock .qty__input').value = item.querySelector('.qty__input').value
+		// 			document.querySelector('.productViewBlock .qty__input').dispatchEvent(new Event('input'));
+		// 			// quantityGoods.onGoods();
+		// 		});
+		// 	}
+		// };
 
 		// Добавление товара в корзину
 		this.onCart = function(){
@@ -1849,18 +1849,48 @@ class Product {
 				let loaded = false;
 				let once = false;
 
+				// Запуск Функции при наведении
+				item.addEventListener('mouseover', quickViewHover);
+
 				// Копка Быстрый просмотр
 				const quick = item.querySelector('.product__quickview');
+				const ID = item.getAttribute('data-id')
+
+				// Запуск Функции при клике
+				quick.addEventListener('click', quickViewClick);
 
 				// Ссылка на товар
 				let url = quick.getAttribute('href');
 				url += (false !== url.indexOf('?') ? '&' : '?') + 'only_body=1';
 
-				// Запуск Функции при наведении
-				item.addEventListener('mouseover', quickViewHover);
+				// Запуск Функции выбора модификации при клике
+				const quickMod = item.querySelector('.add-mod');
+				if (quickMod) {
+					quickMod.addEventListener('click', function(){
+						quickViewClick('productViewMod')
+					})
+				}
 
-				// Запуск Функции при клике
-				quick.addEventListener('click', quickViewClick);
+				// Обрабатываем полученные данные
+				async function quickViewFetch(url){
+					return await getFetch(url).then((html) => {
+						const selector = html.querySelector('.productViewBlock')
+						const content = product.quickViewContent(selector)
+						const id = selector.getAttribute('data-id')
+						// Отправляем данные в общий массив для быстрой подгрузки
+						// if (!quickViewPreload.find(e => e.id === ID)){
+						// 	quickViewPreload.push({id, url, content});
+						// 	return content
+						// } else {
+						// 	return false
+						// }
+						// Если данные уже добавлены
+						if (quickViewPreload.find(e => e.id === ID)) {return false}
+						// Отправляем данные в общий массив для быстрой подгрузки
+						quickViewPreload.push({id, url, content});
+						return content
+					});
+				}
 
 				// Функции при наведении. Предзагрузка
 				function quickViewHover(){
@@ -1868,38 +1898,52 @@ class Product {
 					if (loaded) {return false}
 
 					// Обрабатываем полученные данные
-					getFetch(url).then((html) => {
-						const selector = html.querySelector('.productViewBlock')
-						const content = product.quickViewContent(selector)
-						// Отправляем данные в общий массив для быстрой подгрузки
-						quickViewPreload.push({url, content});
-						return content
-						// console.log('onHover content', content);
-					});
+					quickViewFetch(url)
 
 					// Ставим метку загрузки
 					loaded = true;
 				}
 
 				// Функции при клике
-				function quickViewClick(){
-					event.preventDefault()
-					// Запуск функций с задержкой
-					setTimeout(() => {
-						// Вывод контента из массива в модальном окне
-						quickViewPreload.map((e) => url == e.url ? $.fancybox.open(e.content) : false);
-						if (once) return false;
-						// Функции карточки товара
-						product.addCart();
-						product.addTo();
-						goods.goodsModification(document.querySelector('.productViewBlock'));
-						goods.onClick();
-						goods.swiperImages();
-						// quantityGoods.onGoods();
-						quantityInit(document.querySelector('.productViewBlock'))
-						// Отметка загруженности
-						once = true
-					}, 100);
+				function quickViewClick(mod = ''){
+					event.preventDefault();
+					// Если есть совпадение в массиве предзагрузки
+					if (quickViewPreload.find(e => e.id === ID)){
+						quickViewPreloadFilter(quickViewPreload, item, mod)
+					} else {
+						// Если нет, то запуск функции через 1000мс
+						setTimeout(() => {
+							quickViewPreloadFilter(quickViewPreload, item, mod)
+						}, 1000);
+					}
+				}
+
+				// Фильтр контента из массива
+				function quickViewPreloadFilter(objects, item, mod){
+					return objects.filter((e) => {
+						if (ID === e.id) {
+							// Открыть в модальном окне
+							$.fancybox.open(e.content)
+							// Выбор модификации
+							mod == 'productViewMod' ? e.content.classList.add('productViewMod') : e.content.classList.remove('productViewMod')
+	
+							// Обновление кол-ва
+							// e.content.querySelector('.qty__input').value = item.querySelector('.qty__input').value;
+							// e.content.querySelector('.qty__input').dispatchEvent(new Event('input'));
+						
+							// Запуск функций карточки товара
+							if (once) return false;
+							product.addCart();
+							product.addTo();
+							goods.onClick();
+							goods.swiperImages();
+							goods.goodsModification(e.content);
+							quantity.init(e.content)
+							// Отметка загруженности
+							once = true
+
+						};
+					});
 				}
 
 			})
@@ -2401,7 +2445,7 @@ class Goods {
 
 			// Функция смены изображений при изменении модификации
 			function changeImages(){
-				console.log('changeImages()');
+				// console.log('changeImages()');
 				const mods = document.querySelector('.modifications-props__select')
 				mods.addEventListener('change', function(){
 					const mod = mods.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ this.value +'"]')
@@ -2477,12 +2521,12 @@ class Goods {
 				const targetMod = event.target.closest('.modifications-values__value');
 				const targetAnswer = event.target.closest('.opinion__answer-button');
 				const opinionBlock = document.querySelector('.productView__opinion');
-				if (opinionBlock) {
-					const parentButton = opinionBlock.querySelector('.opinion__buttons');
-					const parentItems = opinionBlock.querySelector('.opinion__items');
-					const items = opinionBlock.querySelectorAll('.opinion__item');
-					const navs = opinionBlock.querySelectorAll('.opinion__nav');
-				}
+				if (!opinionBlock) {return false}
+				const parentButton = opinionBlock.querySelector('.opinion__buttons');
+				const parentItems = opinionBlock.querySelector('.opinion__items');
+				const items = opinionBlock.querySelectorAll('.opinion__item');
+				const navs = opinionBlock.querySelectorAll('.opinion__nav');
+				
 
 				// Функции навигации отзывов. /JS/
 				if (targetNav){
