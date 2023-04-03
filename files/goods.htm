@@ -275,7 +275,7 @@
 					<!-- Количество -->
 					<div class="productView__qty">
 						<div class="qty flex {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}has-max{% ENDIF %}">
-							<span class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></span>
+							<a class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></a>
 							<input class="qty__input" 
 										type="text" 
 										name="form[goods_mod_id][{GOODS_MOD_ID}]"
@@ -288,7 +288,7 @@
 										onkeypress="return keyPress(this, event);" 
 										onpaste="return false;" 
 							/>
-							<span class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></span>
+							<a class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></a>
 						</div>
 					</div>
 
@@ -405,7 +405,7 @@
 			<a href="javascript:goods.tabSwitch(3);" class="tabs__nav" data-tab="3"><span>Доставка</span></a>
 			{% ENDIF %}
 			{% IF SETTINGS_OPINION_DISABLE=0 %}
-			<a href="javascript:goods.tabSwitch(4);" class="tabs__nav" data-tab="4"><span>Отзывы ({GOODS_OPINION_RATING_CNT_ALL})</span></a>
+			<a href="javascript:goods.tabSwitch(4);" class="tabs__nav" data-tab="4"><span>Отзывы({GOODS_OPINION_RATING_CNT_ALL})</span></a>
 			{% ENDIF %}
 		</div>
 

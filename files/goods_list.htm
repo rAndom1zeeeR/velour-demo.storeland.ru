@@ -98,10 +98,11 @@
 	
 	<div class="main__inner flex-start">
 		<!-- Левая часть -->
-		{% IFNOT IS_FULL_CATALOG && goods_empty=0 %}
+		<!-- {% IFNOT IS_FULL_CATALOG && goods_empty=0 %} -->
+		{% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}
 		<div class="main__left sidebar">
 			<!-- Каталог -->
-			<div class="sidebar__block sidebar__block-catalog">
+			<!-- <div class="sidebar__block sidebar__block-catalog">
 				<div class="sidebar__title flex">
 					<i class="icon-menu"></i>
 					<span>Каталог товаров</span>
@@ -121,8 +122,8 @@
 							{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF out.LAST %}{% ENDFOR out %}{% ENDIF LAST %}
 						{% ENDFOR catalog_full %}
 				</div>
-			</div>
-			{% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}
+			</div> -->
+			
 			<!-- Если в тарифном плане подключен модуль фильтров по товарам -->
 			<div id="filters" class="sidebar__block sidebar__block-filters">
 				<div class="sidebar__title flex">
@@ -248,17 +249,16 @@
 					</div>
 				</div>
 			</div>
-			{% ENDIF filters %}
 
 		</div>
-		{% ENDIF %}
+		{% ENDIF filters %}
 
 		<!-- Правая часть -->
-		<div class="main__right {% IFNOT IS_FULL_CATALOG && goods_empty=0 %}has-sidebar{% ENDIF %}">
+		<div class="main__right {% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}has-sidebar{% ENDIF %}">
 
 			<!-- Вывод категорий -->
 			{% IFNOT nested_categories_list_empty %}
-			<div class="categories {% IF IS_FULL_CATALOG %}categories-full{% ENDIF %}">
+			<div class="categories {% IF IS_FULL_CATALOG %}is-full{% ENDIF %}">
 				<div class="categories__grid">
 					{% FOR nested_categories_list %}
 					<div class="categories__item" data-id="{nested_categories_list.ID}">

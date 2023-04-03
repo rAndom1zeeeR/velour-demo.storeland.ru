@@ -2402,7 +2402,7 @@
 						{% ELSEIF MOD_LNAME=catalog %}
 						<h1 class="title">
 							<span>{CATEGORY_NAME}</span>
-							{% IF GOODS_PAGES_RESULTS > 0 %}<span class="subtitle">{GOODS_PAGES_RESULTS} товар{GOODS_PAGES_RESULTS | gen_word_end("","а","ов")}</span>{% ENDIF %}
+							{% IFNOT IS_FULL_CATALOG && GOODS_PAGES_RESULTS != 0 %}<span class="subtitle">{GOODS_PAGES_RESULTS} товар{GOODS_PAGES_RESULTS | gen_word_end("","а","ов")}</span>{% ENDIF %}
 						</h1>
 						{% ELSEIF MOD_LNAME=cart %}
 						<h1 class="title"><a href="{CART_URL}" title="Корзина"><span>Корзина</span></a></h1>
@@ -3365,7 +3365,7 @@
 			product.init();
 			product.addTo();
 			product.addCart();
-			product.quickViewMod();
+			// product.quickViewMod();
 			product.quickView();
 			product.onCart();
 			product.onNotify();
@@ -3473,7 +3473,6 @@
 	<!-- Слайдер. Карусель -->
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}swiper-bundle.min.js?design=THEMENAME"></script>
 	<!-- Модальные окна -->
-	<script defer type="text/javascript" src="{ASSETS_JS_PATH}fslightbox.js?design=THEMENAME"></script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}jquery.fancybox.min.js?design=THEMENAME"></script>
 	<link rel="stylesheet" type="text/css" href="{ASSETS_STYLES_PATH}jquery.fancybox.min.css?design=THEMENAME" />
 	<!-- Уведомления -->
