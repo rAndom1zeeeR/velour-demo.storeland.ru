@@ -1109,11 +1109,11 @@ class Quantity {
 		const totalDiscount = document.querySelector('.addto__total-discount')
 		if (newDiscount){
 			// console.log('updAddto newDiscount1', newDiscount);
-			totalDiscount.classList.remove('is-hidden')
+			totalDiscount.classList.remove('is-hide')
 			quantity.updAddtoDiscount(newDiscount.innerHTML)
 		} else {
 			// console.log('updAddto newDiscount2', newDiscount);
-			totalDiscount.classList.add('is-hidden')
+			totalDiscount.classList.add('is-hide')
 		}
 	
 	};
@@ -1146,7 +1146,7 @@ class Quantity {
 		if (!value) return false
 		// Если есть скидки
 		const discount = value.closest('.addto__total-discount')
-		value ? discount.classList.remove('is-hidden') : discount.classList.add('is-hidden')
+		value ? discount.classList.remove('is-hide') : discount.classList.add('is-hide')
 	};
 	
 }
@@ -3679,7 +3679,7 @@ function openMenu(){
 		event.preventDefault();
 
 		if(getClientWidth() > 1023) {
-			window.location = this.href;
+			// window.location = this.href;
 			return false
 		}
 

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?tz1t1b');
-  src:  url('fonts/icomoon.eot?tz1t1b#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?tz1t1b') format('truetype'),
-    url('fonts/icomoon.woff?tz1t1b') format('woff'),
-    url('fonts/icomoon.svg?tz1t1b#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?f3p0a5');
+  src:  url('fonts/icomoon.eot?f3p0a5#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?f3p0a5') format('truetype'),
+    url('fonts/icomoon.woff?f3p0a5') format('woff'),
+    url('fonts/icomoon.svg?f3p0a5#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -69,9 +69,6 @@
 }
 .icon-mir:before {
   content: "\e935";
-}
-.icon-notification:before {
-  content: "\e936";
 }
 .icon-odnoklassniki:before {
   content: "\e937";

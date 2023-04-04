@@ -328,7 +328,7 @@
 												</a>
 
 												{% IFNOT cart_items.distinctive_properties_empty %}
-												<div class="addto__mod">{% FOR distinctive_properties %}{cart_items.distinctive_properties.NAME}: {cart_items.distinctive_properties.VALUE}{% IFNOT cart_items.distinctive_properties.last %}, {% ENDIF %}{% ENDFOR %}</div>
+												<div class="addto__mod">{% FOR distinctive_properties %}{cart_items.distinctive_properties.NAME}: {cart_items.distinctive_properties.VALUE}{% IFNOT cart_items.distinctive_properties.last %}; {% ENDIF %}{% ENDFOR %}</div>
 												{% ENDIF %}
 
 												<div class="addto__qty qty flex {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}has-max{% ENDIF %}">
@@ -371,7 +371,7 @@
 
 								<div class="addto__total {CURRENCY_CHAR_CODE}">
 									<!-- Скидки, действующие на заказ -->
-									<div class="addto__total-discount is-hidden flex justify-between">
+									<div class="addto__total-discount is-hide flex justify-between">
 										<span class="addto__total-label">Скидка:</span>
 										<span class="addto__total-price flex">
 											{% FOR cart_discount %}
@@ -406,9 +406,15 @@
 
 						<!-- Личный кабинет -->
 						<div class="addto__block login">
+							{% IF MOD_LNAME = user %}
+							<a class="button-tertiary" href="{USER_LOGOUT_URL}" title="Выход">
+								<span>Выход</span>
+							</a>
+							{% ELSE %}
 							<a class="button-tertiary" href="{USER_LOGIN_URL}" title="Личный кабинет">
 								<span>{% IF CLIENT_IS_LOGIN %}Профиль{% ELSE %}Войти{% ENDIF %}</span>
 							</a>
+							{% ENDIF %}
 						</div>
 
 						<!-- Шапка. Телефон 1 -->
@@ -703,6 +709,7 @@
 									<!-- Счетчик обратного отсчета. end дата окончания акции в формате Месяц:День:Год Часы:Минуты:Секунды -->
 									<div class="product__counter product__margin">
 										<div class="counter" data-expired="{index_page_sale_goods.MAX_DISCOUNT_EXPIRED_AT | date('m/d/Y H:i:s')}" data-time="{CURRENT_TIME | date('m/d/Y H:i:s')}">
+											<i class="icon-notifications"></i>
 											<div class="counter__item days">
 												<span>0</span>
 											</div>

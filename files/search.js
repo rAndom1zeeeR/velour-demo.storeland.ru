@@ -11,8 +11,9 @@ function SearchFieldInit(obj) {
 	}
 	// Поле поиска товара
 	obj.s_search = obj.f_search.find('.search__input');
+	obj.s_submit = obj.f_search.find('.search__submit');
 	// Обнуление данных в форме поиска
-	obj.s_reset  = obj.f_search.find('.search__reset');
+	obj.s_reset = obj.f_search.find('.search__reset');
 	// Проверка на существование функции проверки поля и действий с ним
 	if(typeof(obj.SearchFieldCheck) != 'function') {
 		console.log('function SearchFieldCheck is not found in object for SearchFieldInit', {status: 'error'});
@@ -28,9 +29,15 @@ function SearchFieldInit(obj) {
 		if(obj.s_search.val().length) {
 			obj.f_search.addClass('search__filled');
 			obj.f_search.parent().addClass('search__filled');
+			if(obj.s_search.val().length < 2){
+				obj.s_submit.css({'pointer-events' : 'none'})
+			} else {
+				obj.s_submit.css({'pointer-events' : 'all'})
+			}
 		} else {
 			obj.f_search.removeClass('search__filled');
 			obj.f_search.parent().removeClass('search__filled');
+			obj.s_submit.css({'pointer-events' : 'none'})
 		}
 		// При нажатии клавиши данных внутри поля ещё нет, так что проверки вернут информацию что менять поле не нужно, хотя как только операция будет завершена данные в поле появятся. Поэтому произведём вторую проверку спустя 2 сотых секунды.
 		if(typeof( isAfter ) == "undefined" || !isAfter) {

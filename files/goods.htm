@@ -114,15 +114,15 @@
 					data-id="{GOODS_ID}"
 					data-mod-id="{GOODS_MIN_PRICE_NOW_ID}"
 					data-mod-price="{GOODS_MOD_PRICE_NOW}"
-					data-add-tooltip="В избранное"
-					data-del-tooltip="В избранном"
+					data-add-tooltip="Отложить"
+					data-del-tooltip="Отложенно"
 					data-tooltip="Убрать из избранного"
 					title="Убрать &laquo;{GOODS_NAME}&raquo; из Избранного"
 					href="{FAVORITES_DELETE_URL}?id={GOODS_MOD_ID}&amp;return_to={CURRENT_URL | urlencode}"
 					rel="nofollow"
 				>
 					<i class="icon-favorites"></i>
-					<span>В избранном</span>
+					<span>Отложенно</span>
 				</a>
 				{% ELSE %}
 				<a class="product__link add-favorites"
@@ -138,15 +138,15 @@
 					data-id="{GOODS_ID}"
 					data-mod-id="{GOODS_MIN_PRICE_NOW_ID}"
 					data-mod-price="{GOODS_MOD_PRICE_NOW}"
-					data-add-tooltip="В избранное"
-					data-del-tooltip="В избранном"
+					data-add-tooltip="Отложить"
+					data-del-tooltip="Отложенно"
 					data-tooltip="Убрать из избранного"
 					title="Добавить &laquo;{GOODS_NAME}&raquo; в Избранное"
 					href="{FAVORITES_ADD_URL}?id={GOODS_MOD_ID}&amp;return_to={CURRENT_URL | urlencode}"
 					rel="nofollow"
 				>
 					<i class="icon-favorites"></i>
-					<span>В избранное</span>
+					<span>Отложить</span>
 				</a>
 				{% ENDIF %}
 			</div>
@@ -320,7 +320,7 @@
 							<span>Купить в 1 клик</span>
 						</button>
 						<!-- Уведомить -->
-						<a class="productView__add add-notify button-empty" 
+						<a class="productView__add add-notify" 
 							title="Уведомить"
 							data-tooltip="Уведомить"
 							rel="nofollow"
@@ -894,7 +894,7 @@
 						{% ENDIF %}
 			
 						<div class="product__addto flex">
-							<!-- Добавление товара в избранное и сравнение и в корзину -->
+							<!-- Добавление в корзину -->
 							<div class="product__cart">
 								<!-- Добавление в корзину -->
 								{% IF related_goods.MAX_REST_VALUE=0 %}
