@@ -338,7 +338,7 @@
 						<a class="coupon__reset" title="Сбросить">
 							<i class="icon-close"></i>
 						</a>
-						<a class="coupon__button" title="Применить">
+						<a class="coupon__button button-tertiary" title="Применить">
 							<span>Применить</span>
 						</a>
 					</div>
@@ -376,7 +376,7 @@
 <div style="display:none;" id="newCartData">
 	<div class="addto__title">
 		<span>В Корзине</span>
-		<span class="cart-count" data-cart-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
+		<span class="cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
 		<span class="cart-wordend">товар{CART_COUNT_TOTAL | gen_word_end("","а","ов")}</span>
 	</div>
 
@@ -473,7 +473,7 @@
 <!-- Обновление данных корзины -->
 <script>
 	$('.addto__cart').html($('#newCartData').html());
-	$('.cart-count').attr('data-cart-count', $('#newCartCount').html()).html($('#newCartCount').html());
+	$('.cart-count').attr('data-count', $('#newCartCount').html()).html($('#newCartCount').html());
 	$('.cart-wordend').html($('#newCartWord').html());
 	$('.cartSumNow').attr('data-price', $('#newCartSumNow').html()).html(addSpaces($('#newCartSumNowFormated').html()));
 	$('.cartSumNowDiscount').attr('data-price', $('#newCartSumNowDiscount').html()).html(addSpaces($('#newCartSumNowDiscountFormated').html()));

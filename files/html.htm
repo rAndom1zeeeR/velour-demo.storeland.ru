@@ -299,7 +299,7 @@
 						<div class="addto__block cart dropdown {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}">
 							<a class="addto__link flex cart__icon dropdown__open" href="{CART_URL}" title="Перейти в корзину">
 								<i class="icon-cart"></i>
-								<span class="addto__count cart-count" data-cart-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
+								<span class="addto__count cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
 								<span>Корзина</span>
 							</a>
 
@@ -308,7 +308,7 @@
 								{% IFNOT cart_items_empty %}
 								<div class="addto__title">
 									<span>В Корзине</span>
-									<span class="cart-count" data-cart-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
+									<span class="cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
 									<span class="cart-wordend">товар{CART_COUNT_TOTAL | gen_word_end("","а","ов")}</span>
 								</div>
 
@@ -406,7 +406,7 @@
 
 						<!-- Личный кабинет -->
 						<div class="addto__block login">
-							{% IF MOD_LNAME = user %}
+							{% IF MOD_LNAME = user && CLIENT_IS_LOGIN %}
 							<a class="button-tertiary" href="{USER_LOGOUT_URL}" title="Выход">
 								<span>Выход</span>
 							</a>
@@ -1175,7 +1175,7 @@
 										data-del-tooltip="В сравнении"
 										data-tooltip="Удалено из сравнения"
 										title="Убрать &laquo;{index_page_favorites_goods.NAME}&raquo; из списка сравнения с другими товарами"
-										href="{COMPARE_DELETE_URL}?id={index_page_favorites_goods.MIN_PRICE_NOW_ID}&amp;from={index_page_favorites_goods.GOODS_FROM}&amp;return_to={CURRENT_URL | urlencode}"
+										href="{COMPARE_DELETE_URL}?id={index_page_favorites_goods.MIN_PRICE_NOW_ID}"
 										rel="nofollow"
 									>
 										<i class="icon-compare"></i>
@@ -1200,7 +1200,7 @@
 										data-del-tooltip="В сравнении"
 										data-tooltip="Добавлено в сравнение"
 										title="Добавить &laquo;{index_page_favorites_goods.NAME}&raquo; в список сравнения с другими товарами"
-										href="{COMPARE_ADD_URL}?id={index_page_favorites_goods.MIN_PRICE_NOW_ID}&amp;from={index_page_favorites_goods.GOODS_FROM}&amp;return_to={CURRENT_URL | urlencode}"
+										href="{COMPARE_ADD_URL}?id={index_page_favorites_goods.MIN_PRICE_NOW_ID}"
 										rel="nofollow"
 									>
 										<i class="icon-compare"></i>
@@ -1229,7 +1229,7 @@
 										data-del-tooltip="Отложено"
 										data-tooltip="Убрать из избранного"
 										title="Убрать &laquo;{index_page_favorites_goods.NAME}&raquo; из Избранного"
-										href="{FAVORITES_DELETE_URL}?id={index_page_favorites_goods.MIN_PRICE_NOW_ID}&amp;return_to={CURRENT_URL | urlencode}"
+										href="{FAVORITES_DELETE_URL}?id={index_page_favorites_goods.MIN_PRICE_NOW_ID}"
 										rel="nofollow"
 									>
 										<i class="icon-favorites"></i>
@@ -1254,7 +1254,7 @@
 										data-del-tooltip="Отложено"
 										data-tooltip="Добавить в избранное"
 										title="Добавить &laquo;{index_page_favorites_goods.NAME}&raquo; в Избранное"
-										href="{FAVORITES_ADD_URL}?id={index_page_favorites_goods.MIN_PRICE_NOW_ID}&amp;return_to={CURRENT_URL | urlencode}"
+										href="{FAVORITES_ADD_URL}?id={index_page_favorites_goods.MIN_PRICE_NOW_ID}"
 										rel="nofollow"
 									>
 										<i class="icon-favorites"></i>
