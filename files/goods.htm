@@ -574,13 +574,13 @@
 						<div class="opinion__items" itemprop="review" itemscope itemtype="https://schema.org/Review">
 							{% FOR opinion_list %}
 							<div class="opinion__item" data-index="{opinion_list.index}" data-nav-content="{% IF opinion_list.GENERALLY_IS_GOOD %}good{% ELSE %}bad{% ENDIF %}" data-rating='{opinion_list.RATING | divide("2")}'>
-								<div class="opinion__inner flex">
-									{% IF opinion_list.NAME %}
-									<div class="opinion__name" itemprop="author" itemscope itemtype="https://schema.org/Person">
-										<span itemprop="name">{opinion_list.NAME}</span>
-									</div>
-									{% ENDIF %}
+								{% IF opinion_list.NAME %}
+								<div class="opinion__name" itemprop="author" itemscope itemtype="https://schema.org/Person">
+									<span itemprop="name">{opinion_list.NAME}</span>
+								</div>
+								{% ENDIF %}
 
+								<div class="opinion__inner flex">
 									{% IF opinion_list.RATING %}
 									<div class="opinion__ratings">
 										<div class="ratings" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
