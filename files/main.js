@@ -2911,7 +2911,8 @@ class Cart {
 				const make = event.target.closest('.confirmOrder');
 
 				if (remove){
-					cart.removeItem($(event.target.parentElement));
+					event.preventDefault();
+					cart.removeItem(remove);
 				} else if (start){
 					cart.orderStart();
 				} else if (close){
@@ -2936,11 +2937,11 @@ class Cart {
 		};
 
 		// Удаление товара из корзины
-		this.removeItem = function(event){
+		this.removeItem = function(obj){
 			const yep = confirm('Вы точно хотите удалить товар из корзины?');
 			if (yep == true){
-				event.closest('.cartTable__item').fadeOut();
-				url = event.data('href');
+				obj.closest('.cartTable__item').style.display = 'none';
+				const url = obj.getAttribute('href');
 				$.ajax({
 					url: url,
 					cache: false,

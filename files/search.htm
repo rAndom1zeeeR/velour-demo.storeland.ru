@@ -208,7 +208,7 @@
 						{% ENDIF %}
 			
 						<!-- Добавление товара в избранное и сравнение и в корзину -->
-						<div class="product__links {% IF goods.IS_HAS_IN_COMPARE_LIST || goods.IS_HAS_IN_FAVORITES_LIST %}is-added{% ENDIF %}">
+						<div class="product__links">
 							<!-- Если в тарифном плане подключен модуль сравнения товаров и он не выключен в настройках магазина -->
 							{% IFNOT SETTINGS_COMPARE_DISABLE && goods.IS_HAS_IN_COMPARE_LIST %}
 							<a class="product__link add-compare is-added"
@@ -229,7 +229,7 @@
 								data-del-tooltip="В сравнении"
 								data-tooltip="Удалено из сравнения"
 								title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
-								href="{COMPARE_DELETE_URL}?id={goods.MIN_PRICE_NOW_ID}&amp;from={goods.GOODS_FROM}&amp;return_to={CURRENT_URL | urlencode}"
+								href="{COMPARE_DELETE_URL}?id={goods.MIN_PRICE_NOW_ID}"
 								rel="nofollow"
 							>
 								<i class="icon-compare"></i>
@@ -254,7 +254,7 @@
 								data-del-tooltip="В сравнении"
 								data-tooltip="Добавлено в сравнение"
 								title="Добавить &laquo;{goods.NAME}&raquo; в список сравнения с другими товарами"
-								href="{COMPARE_ADD_URL}?id={goods.MIN_PRICE_NOW_ID}&amp;from={goods.GOODS_FROM}&amp;return_to={CURRENT_URL | urlencode}"
+								href="{COMPARE_ADD_URL}?id={goods.MIN_PRICE_NOW_ID}"
 								rel="nofollow"
 							>
 								<i class="icon-compare"></i>
@@ -283,7 +283,7 @@
 								data-del-tooltip="Отложено"
 								data-tooltip="Убрать из избранного"
 								title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
-								href="{FAVORITES_DELETE_URL}?id={goods.MIN_PRICE_NOW_ID}&amp;return_to={CURRENT_URL | urlencode}"
+								href="{FAVORITES_DELETE_URL}?id={goods.MIN_PRICE_NOW_ID}"
 								rel="nofollow"
 							>
 								<i class="icon-favorites"></i>
@@ -308,7 +308,7 @@
 								data-del-tooltip="Отложено"
 								data-tooltip="Добавить в избранное"
 								title="Добавить &laquo;{goods.NAME}&raquo; в Избранное"
-								href="{FAVORITES_ADD_URL}?id={goods.MIN_PRICE_NOW_ID}&amp;return_to={CURRENT_URL | urlencode}"
+								href="{FAVORITES_ADD_URL}?id={goods.MIN_PRICE_NOW_ID}"
 								rel="nofollow"
 							>
 								<i class="icon-favorites"></i>
@@ -568,7 +568,7 @@
 						{% ENDIF %}
 			
 						<!-- Добавление товара в избранное и сравнение и в корзину -->
-						<div class="product__links {% IF goods.IS_HAS_IN_COMPARE_LIST || goods.IS_HAS_IN_FAVORITES_LIST %}is-added{% ENDIF %}">
+						<div class="product__links">
 							<!-- Если в тарифном плане подключен модуль сравнения товаров и он не выключен в настройках магазина -->
 							{% IFNOT SETTINGS_COMPARE_DISABLE && goods.IS_HAS_IN_COMPARE_LIST %}
 							<a class="product__link add-compare is-added"
@@ -589,7 +589,7 @@
 								data-del-tooltip="В сравнении"
 								data-tooltip="Удалено из сравнения"
 								title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
-								href="{COMPARE_DELETE_URL}?id={goods.MIN_PRICE_NOW_ID}&amp;from={goods.GOODS_FROM}&amp;return_to={CURRENT_URL | urlencode}"
+								href="{COMPARE_DELETE_URL}?id={goods.MIN_PRICE_NOW_ID}"
 								rel="nofollow"
 							>
 								<i class="icon-compare"></i>
@@ -614,7 +614,7 @@
 								data-del-tooltip="В сравнении"
 								data-tooltip="Добавлено в сравнение"
 								title="Добавить &laquo;{goods.NAME}&raquo; в список сравнения с другими товарами"
-								href="{COMPARE_ADD_URL}?id={goods.MIN_PRICE_NOW_ID}&amp;from={goods.GOODS_FROM}&amp;return_to={CURRENT_URL | urlencode}"
+								href="{COMPARE_ADD_URL}?id={goods.MIN_PRICE_NOW_ID}"
 								rel="nofollow"
 							>
 								<i class="icon-compare"></i>
@@ -643,7 +643,7 @@
 								data-del-tooltip="Отложено"
 								data-tooltip="Убрать из избранного"
 								title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
-								href="{FAVORITES_DELETE_URL}?id={goods.MIN_PRICE_NOW_ID}&amp;return_to={CURRENT_URL | urlencode}"
+								href="{FAVORITES_DELETE_URL}?id={goods.MIN_PRICE_NOW_ID}"
 								rel="nofollow"
 							>
 								<i class="icon-favorites"></i>
@@ -668,7 +668,7 @@
 								data-del-tooltip="Отложено"
 								data-tooltip="Добавить в избранное"
 								title="Добавить &laquo;{goods.NAME}&raquo; в Избранное"
-								href="{FAVORITES_ADD_URL}?id={goods.MIN_PRICE_NOW_ID}&amp;return_to={CURRENT_URL | urlencode}"
+								href="{FAVORITES_ADD_URL}?id={goods.MIN_PRICE_NOW_ID}"
 								rel="nofollow"
 							>
 								<i class="icon-favorites"></i>
