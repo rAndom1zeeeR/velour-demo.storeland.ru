@@ -70,15 +70,6 @@ button, [class*="button-"], .paymentFormSubmitLink, .paymentFormTbodySubmitButto
 
 
 /**************************************/
-/*** Видимость элементов ***/
-/**************************************/
-.is-hide {display: none;}
-.is-show {display: block;}
-.is-hidden {opacity: 0;visibility: hidden;}
-.is-visible {opacity: 1;visibility: visible;}
-
-
-/**************************************/
 /*** Заголовки ***/
 /**************************************/
 h1, h2, h3, h4, h5, h6 {font-family: 'Yeseva One';text-rendering: optimizelegibility;text-transform: none;line-height: 1.25;margin: 0;padding: 0;font-weight: 500;}
@@ -93,7 +84,7 @@ h6 {font-size: 14px;}
 /**************************************/
 /*** Уведомления. Системные сообщения ***/
 /**************************************/
-[class^="notice-"] {width: 100%;margin-bottom: 32px;padding: 12px 20px;font-size: 16px;line-height: 1.25;overflow: hidden;position: relative;display: block;}
+[class^="notice-"] {width: 100%;margin-bottom: 32px;padding: 12px 20px;font-size: 16px;line-height: 1.25;overflow: hidden;position: relative;display: flex;}
 .notice-success {background: #dff0d8;color: #3c763d;border-color: #d6e9c6;}
 .notice-warning {background: #f2dede;color: #a94442;border-color: #ebccd1;}
 .notice-attention {background: #fcf8e3;color: #8a6d3b;border-color: #faebcc;}
@@ -202,7 +193,7 @@ h6 {font-size: 14px;}
 .table-box .hide {display: none;}
 @media all and (max-width: 767px) {
 .scroll {width: 100%;overflow-x: auto;margin-bottom: 16px;}
-.scroll::-webkit-scrollbar {width: 0;height: 16px;}
+.scroll::-webkit-scrollbar {width: 0;height: 8px;}
 }
 
 
@@ -252,12 +243,12 @@ h6 {font-size: 14px;}
 .password__icon:before {content: '\e911';font-size: 24px;font-family: 'icomoon';vertical-align: middle;}
 .password__icon.is-actived:before {content: '\e912';}
 .password__input {padding-right: 40px;}
+.password__input::-webkit-caps-lock-indicator {right: 40px;}
 
 /*** Капслок ***/
 #capslock {display: none;}
 .capslock__icon i {margin-right: 8px;font-size: 24px;color: var(--color-red);}
 .capslock__text {margin-top: 8px;}
-
 
 
 /**************************************/
@@ -276,6 +267,17 @@ h6 {font-size: 14px;}
 .stages__buttons {width: 100%;}
 .stages__buttons [class*="button-"] {margin: 16px 16px 0 0;}
 .stages__buttons [class*="button-"]:last-child {margin-right: 0;}
+
+
+
+
+/**************************************/
+/*** Видимость элементов ***/
+/**************************************/
+.is-hide {display: none;}
+.is-show {display: block;}
+.is-hidden {opacity: 0;visibility: hidden;}
+.is-visible {opacity: 1;visibility: visible;}
 
 
 /**************************************/

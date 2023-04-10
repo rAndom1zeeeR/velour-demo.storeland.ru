@@ -709,7 +709,7 @@
 									<!-- Счетчик обратного отсчета. end дата окончания акции в формате Месяц:День:Год Часы:Минуты:Секунды -->
 									<div class="product__counter product__margin">
 										<div class="counter" data-expired="{index_page_sale_goods.MAX_DISCOUNT_EXPIRED_AT | date('m/d/Y H:i:s')}" data-time="{CURRENT_TIME | date('m/d/Y H:i:s')}">
-											<i class="icon-notifications"></i>
+											<i class="icon-notification"></i>
 											<div class="counter__item days">
 												<span>0</span>
 											</div>
@@ -2405,7 +2405,7 @@
 						{% ELSEIF MOD_LNAME=callback %}
 						<h1 class="title"><span>Заказ обратного звонка</span></h1>
 						{% ELSEIF MOD_LNAME=catalog %}
-						<h1 class="title">
+						<h1 class="title flex">
 							<span>{CATEGORY_NAME}</span>
 							{% IFNOT IS_FULL_CATALOG && GOODS_PAGES_RESULTS != 0 %}<span class="subtitle">{GOODS_PAGES_RESULTS} товар{GOODS_PAGES_RESULTS | gen_word_end("","а","ов")}</span>{% ENDIF %}
 						</h1>

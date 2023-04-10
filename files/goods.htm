@@ -218,7 +218,7 @@
 							<label class="modifications-props__name">{goods_modifications_properties.NAME}:</label>
 							<select class="modifications-props__select select" name="form[properties][]">
 								{% FOR values %}
-									<option value="{goods_modifications_properties.values.ID}" {% IF goods_modifications_properties.values.SELECTED %}selected="selected" {% ENDIF %}>{goods_modifications_properties.values.NAME}</option>
+									<option value="{goods_modifications_properties.values.ID}" {% IF goods_modifications_properties.values.SELECTED %}selected="selected"{% ENDIF %}>{goods_modifications_properties.values.NAME}</option>
 								{% ENDFOR values %}
 							</select>
 						</div>
@@ -235,6 +235,7 @@
 						</div>
 						{% ENDFOR %}
 					</div>
+
 					<!-- Данные по модификациям для текущей товарной позиции -->
 					{% FOR goods_modifications %}
 					<div class="goodsModificationsSlug is-hide" rel="{goods_modifications.PROPERTIES_SLUG}">
@@ -254,6 +255,7 @@
 						<div class="description" style="display:none" itemprop="description">{goods_modifications.DESCRIPTION}</div>
 					</div>
 					{% ENDFOR %}
+
 					<!-- Блок описания модификации -->
 					<p class="modifications__description" itemprop="description" {% IFNOT GOODS_MOD_DESCRIPTION %}style="display: none;"{% ENDIF %}>{GOODS_MOD_DESCRIPTION}</p>
 				</div>
@@ -542,7 +544,7 @@
 							{% ENDIF %}
 						</div>
 				
-						<div class="opinion__score-count">На основе {GOODS_OPINION_RATING_CNT_ALL} отзыв{GOODS_OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}</div>
+						<div class="opinion__score-count">На основе {GOODS_OPINION_RATING_CNT_ALL} отзыв{GOODS_OPINION_RATING_CNT_ALL | gen_word_end("а","ов","ов")}</div>
 						{% ELSE %}
 						<div class="opinion__score-label">У этого товара еще нет отзывов</div>
 						<div class="">Вы приобрели товар? Поделитесь своим мнением и, возможно, Вы поможете кому-то сделать правильный выбор!</div>

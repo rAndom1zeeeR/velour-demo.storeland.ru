@@ -136,12 +136,17 @@ function changeTxt(obj){
 ///////////////////////////////////////
 function pdtVisible(id){
 	const content = document.querySelector(id);
+	if (!content) {return false}
 	const button = content.querySelector('.pdt__visible-button');
 	const items = content.querySelectorAll('.product__item');
-	const visible = 8;
 	
 	// Скрываем кнопку показать все если мало товаров
-	button.parentElement.style.display = items.length < visible ? 'none' : 'block';
+	pdtVisibleButton(content, button, items)
+
+	// Скрываем кнопку при изменении экрана
+	window.addEventListener('resize', function(){
+		pdtVisibleButton(content, button, items)
+	})
 
 	// Функция открытия скрытых товаров
 	button.addEventListener('click', function(event){
@@ -153,6 +158,12 @@ function pdtVisible(id){
 			pdtVisibleScroll(content, this)			
 		}, 100);
 	})
+}
+
+// Скрываем кнопку показать все если мало товаров
+function pdtVisibleButton(content, button, items) {
+	const visible = $(content).find('.product__item:visible').length;
+	button.parentElement.style.display = items.length > visible ? 'block' : 'none';
 }
 
 // Переход к контенту
@@ -438,6 +449,9 @@ class Quantity {
 		
 			// Если выпадающая корзина
 			const prodAddto = e.closest('.addto__cart')
+		
+			// Если выпадающая корзина
+			const prodItem = e.closest('.product__item')
 	
 			// Минус
 			minus.addEventListener('click', () => quantity.getMinus(input))
@@ -465,6 +479,13 @@ class Quantity {
 				if (prodAddto) {
 					// console.log('prodAddto', prodAddto);
 					quantity.updAddto(input)
+					quantity.updProdValue(input)					
+				}
+	
+				// Если товар
+				if (prodItem) {
+					// console.log('prodItem', prodItem);
+					quantity.updAddtoValue(input)
 				}
 	
 			})
@@ -696,6 +717,29 @@ class Quantity {
 		const discount = value.closest('.addto__total-discount')
 		value ? discount.classList.remove('is-hide') : discount.classList.add('is-hide')
 	};
+
+	// Обновить кол-во выпадающей корзины
+	updAddtoValue(obj) {
+		const val = obj.value
+		const id = obj.closest('[data-id]').getAttribute('data-id')
+		const mod = obj.getAttribute('name')
+		const item = document.querySelector('.addto__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
+		
+		if (!item) {return false}
+		item.value = val
+		item.dispatchEvent(new Event('input'));
+	}
+
+	// Обновить кол-во всех товаров
+	updProdValue(obj) {
+		const val = obj.value
+		const id = obj.closest('[data-id]').getAttribute('data-id')
+		const mod = obj.getAttribute('name')
+		const items = document.querySelectorAll('.product__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
+
+		if (!items) {return false}
+		items.forEach((el) => el.value = val)
+	}
 	
 }
 
@@ -1137,9 +1181,11 @@ class Product {
 				// Находим форму, которую отправляем на сервер, для добавления товара в корзину
 				const formBlock = $($(this).get(0));
 				const formData = formBlock.serializeArray();
-				// const t = $(this);
+				const t = $(this);
+				// const qty = t.find('.qty__input');
+				// const val = parseInt(qty.val());
 				// const id = t.find('input[name="form[goods_id]"]').val();
-				// const val = t.find('.qty__input').val();
+				// console.log('val', val);
 				// const mod = t.find('.qty__input').attr('name');
 
 				// Проверка на существование формы отправки запроса на добавление товара в корзину
@@ -1178,6 +1224,7 @@ class Product {
 							setTimeout(() => {
 								// product.inCartAll(id, mod)
 								quantity.init(document.querySelector('.addto__cart'))
+								t.addClass('product__inCart')
 							}, 100);
 
 						}
@@ -1249,6 +1296,7 @@ class Product {
 							order.coupons();
 							order.onValidate();
 							preload();
+							cart.minSum();
 							// Стили для новых селектов
 							$('.form__phone').mask('+7 (999) 999-9999');
 						}
@@ -1900,18 +1948,69 @@ class Goods {
 
 			// Функция смены изображений при изменении модификации
 			function changeImages(){
-				// console.log('changeImages()');
-				const mods = document.querySelector('.modifications-props__select')
-				mods.addEventListener('change', function(){
-					const mod = mods.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ this.value +'"]')
-					if (!mod) {return false}
-					const id = mod.querySelector('[name="goods_mod_image_id"]').value
-					if (!id) {return false}
-					const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
-					const index = thumb.getAttribute('data-swiper-slide-index')
-					swiperImage.slideTo(index)
-					// swiperThumb.slideTo(index)
+				console.log('changeImages()');
+				const ids = []
+				const mods = document.querySelectorAll('.modifications-props__select')
+				mods.forEach(e => {
+					console.log('e1', e);
+					console.log('e2', e.value);
+					e.addEventListener('change', function(){
+						console.log('e2', this);
+						console.log('this.value', this.value);
+						console.log('e3', e.value);
+						console.log('ids',ids);
+						const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ getModId() +'"]')
+						// console.log('getModId()',getModId());
+						console.log('mod',mod);
+						
+						if (!mod) {return false}
+						const id = mod.querySelector('[name="goods_mod_image_id"]').value
+						console.log('id', id);
+						if (!id) {return false}
+						const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
+						const index = thumb.getAttribute('data-swiper-slide-index')
+						console.log('thumb', thumb);
+						console.log('index', index);
+						swiperImage.slideTo(index)
+						
+					})
 				})
+
+				function compareNumeric(a, b) {
+					if (a > b) return 1;
+					if (a == b) return 0;
+					if (a < b) return -1;
+				}
+
+				function getModId(){
+					const items = []
+					mods.forEach(e => items.push(e.value))
+					const arr = []
+					const slugs = document.querySelectorAll('.goodsModificationsSlug')
+					slugs.forEach(e => arr.push(e.getAttribute('rel')))
+					console.log('items', items);
+					console.log('arr', arr);
+					return items.sort(compareNumeric).join('_')
+				}
+				// mods.forEach(e => {
+				// 	e.addEventListener('change', function(){
+				// 		console.log('e', e);
+				// 		const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ e.value +'"]')
+				// 		console.log('this.value', e.value);
+				// 		console.log('mod', mod);
+
+				// 		if (!mod) {return false}
+				// 		const id = mod.querySelector('[name="goods_mod_image_id"]').value
+				// 		console.log('id', id);
+				// 		if (!id) {return false}
+				// 		const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
+				// 		const index = thumb.getAttribute('data-swiper-slide-index')
+				// 		console.log('thumb', thumb);
+				// 		console.log('index', index);
+				// 		swiperImage.slideTo(index)
+				// 		// swiperThumb.slideTo(index)
+				// 	})
+				// })
 			}
 
 		};
@@ -1976,8 +2075,8 @@ class Goods {
 				const targetMod = event.target.closest('.modifications-values__value');
 				const targetAnswer = event.target.closest('.opinion__answer-button');
 				const opinionBlock = document.querySelector('.productView__opinion');
-				const moreDesc = document.querySelector('.desc__more');
-				const moreFeat = document.querySelector('.features__more');
+				const moreDesc = event.target.closest('.desc__more');
+				const moreFeat = event.target.closest('.features__more');
 				if (!opinionBlock) {return false}
 				const parentButton = opinionBlock.querySelector('.opinion__buttons');
 				const parentItems = opinionBlock.querySelector('.opinion__items');
@@ -2067,15 +2166,13 @@ class Goods {
 				}
 
 				// Переход к характеристикам
-				else if (moreFeat){
-					event.preventDefault();
+				if (moreFeat){
 					const content = document.querySelector('.productView__tabs')
 					scrollTop(content.offsetTop + 32)
 				}
 
 				// Переход к описанию
-				else if (moreDesc){
-					event.preventDefault();
+				if (moreDesc){
 					const content = document.querySelector('.productView__tabs')
 					scrollTop(content.offsetTop + 32)
 				}
@@ -2396,15 +2493,17 @@ class Cart {
 		this.minSum = function(){
 			if ($('.cartTotal__min').length){
 				const minPrice = parseInt($('.cartTotal__min-price').data('price'));
-				const totalSum = parseInt($('.cartSumTotal').data('price'));
+				const totalSum = parseInt($('.cartSumNowDiscount').data('price'));
+				console.log('minPrice', minPrice);
+				console.log('totalSum', totalSum);
 				if (minPrice > totalSum){
 					const diff = minPrice - totalSum;
 					$('.cartTotal__min-price').find('.num').text(addSpaces(diff));
 					$('.total__buttons button').attr('disabled', true).addClass('is-disabled');
-					$('.cartTotal__min').show();
+					$('.cartTotal__min').removeClass('is-hide');
 				} else {
 					$('.total__buttons button').attr('disabled', false).removeClass('is-disabled');
-					$('.cartTotal__min').hide();
+					$('.cartTotal__min').addClass('is-hide');
 				}
 			}
 		};
