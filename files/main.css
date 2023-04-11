@@ -146,7 +146,7 @@ main {margin: 0 0 48px;position: relative;display: block;}
 .block__nav {display: flex;align-items: center;justify-content: space-between;}
 .block__nav .title {width: calc(100% - 48px * 2 - 16px);overflow: hidden;text-overflow: ellipsis;}
 .modal__title {font-size: 24px;font-weight: 500;text-align: center;margin-bottom: 32px;width: 100%;}
-#page__title .title {gap: 8px 16px;}
+#page__title .title {gap: 8px 16px;align-items: baseline;}
 @media all and (max-width: 639px) {
 	.block__title .title {font-size: 22px;}
 }
@@ -280,7 +280,7 @@ main {margin: 0 0 48px;position: relative;display: block;}
 /**************************************/
 .price__now {color: var(--color-primary);font-weight: 500;font-size: 22px;line-height: 1;display: inline-block;}
 .price__old {color: var(--color-gray);font-weight: 400;font-size: 14px;line-height: 1;display: inline-block;text-decoration: line-through;}
-.RUB .num {display: inline-flex;align-items: center;}
+.RUB .num {display: inline-flex;align-items: center;white-space: nowrap;}
 .RUB .num:after {content: '₽';margin-left: 6px;line-height: 1;display: inline-block;}
 .RUB .num + span {display: none;}
 .price__old .num:after {text-decoration: line-through;}
@@ -1333,7 +1333,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 	.adaprive__navigate-icon i {display: block;}
 	.adaprive__navigate-inner {justify-content: space-around;padding: 8px;}
 	.adaprive__navigate-title {font-size: 14px;font-weight: 500;margin-top: 4px;}
-	.adaprive__navigate-title .cartSumNowDiscount {display: none;}
+	.adaprive__navigate-title .cartSumDiscount {display: none;}
 	.has-items .adaprive__navigate-icon:before {content: '';width: 8px;height: 8px;background-color: var(--color-primary);border-radius: 100%;top: -2px;right: -4px;position: absolute;}
 }
 @media all and (max-width: 479px) {

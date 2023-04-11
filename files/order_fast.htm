@@ -375,12 +375,12 @@
 <!-- Блок для обновления данных корзины. Не виден пользователю -->
 <div style="display:none;" id="newCartCount">{CART_COUNT_TOTAL}</div>
 <div style="display:none;" id="newCartWord">товар{CART_COUNT_TOTAL | gen_word_end("","а","ов")}</div>
-<div style="display:none;" id="newCartSumNow">{CART_SUM_NOW}</div>
-<div style="display:none;" id="newCartSumNowFormated">{CART_SUM_NOW | money_format}</div>
-<div style="display:none;" id="newCartSumNowDiscount">{CART_SUM_NOW_WITH_DISCOUNT}</div>
-<div style="display:none;" id="newCartSumNowDiscountFormated">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</div>
-<div style="display:none;" id="newCartSumNowTotal">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT}</div>
-<div style="display:none;" id="newCartSumNowTotalFormated">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT | money_format}</div>
+<div style="display:none;" id="newCartSum">{CART_SUM_NOW}</div>
+<div style="display:none;" id="newCartSumFormated">{CART_SUM_NOW | money_format}</div>
+<div style="display:none;" id="newCartSumDiscount">{CART_SUM_NOW_WITH_DISCOUNT}</div>
+<div style="display:none;" id="newCartSumDiscountFormated">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</div>
+<div style="display:none;" id="newCartSumTotal">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT}</div>
+<div style="display:none;" id="newCartSumTotalFormated">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT | money_format}</div>
 <div style="display:none;" id="newCartData">
 	<div class="addto__title">
 		<span>В Корзине</span>
@@ -463,7 +463,7 @@
 		<!-- Итого -->
 		<div class="addto__total-block flex justify-between">
 			<span class="addto__total-label">Итого:</span>
-			<span class="addto__total-price cartSumNowDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
+			<span class="addto__total-price cartSumDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
 		</div>
 
 	</div>
@@ -483,9 +483,9 @@
 	$('.addto__cart').html($('#newCartData').html());
 	$('.cart-count').attr('data-count', $('#newCartCount').html()).html($('#newCartCount').html());
 	$('.cart-wordend').html($('#newCartWord').html());
-	$('.cartSumNow').attr('data-price', $('#newCartSumNow').html()).html(addSpaces($('#newCartSumNowFormated').html()));
-	$('.cartSumNowDiscount').attr('data-price', $('#newCartSumNowDiscount').html()).html(addSpaces($('#newCartSumNowDiscountFormated').html()));
-	$('.cartSumNowTotal').attr('data-price', $('#newCartSumNowTotal').html()).html(addSpaces($('#newCartSumNowTotalFormated').html()));
+	$('.cartSum').attr('data-price', $('#newCartSum').html()).html(addSpaces($('#newCartSumFormated').html()));
+	$('.cartSumDiscount').attr('data-price', $('#newCartSumDiscount').html()).html(addSpaces($('#newCartSumDiscountFormated').html()));
+	$('.cartSumTotal').attr('data-price', $('#newCartSumTotal').html()).html(addSpaces($('#newCartSumTotalFormated').html()));
 	// Обновление скидки
 	// quantityAddto.onAddto();
 </script>

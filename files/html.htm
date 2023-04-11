@@ -296,6 +296,7 @@
 						</div>
 
 						<!-- Корзина -->
+						{% IFNOT MOD_LNAME = cart %}
 						<div class="addto__block cart dropdown {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}">
 							<a class="addto__link flex cart__icon dropdown__open" href="{CART_URL}" title="Перейти в корзину">
 								<i class="icon-cart"></i>
@@ -386,7 +387,7 @@
 									<!-- Итого -->
 									<div class="addto__total-block flex justify-between">
 										<span class="addto__total-label">Итого:</span>
-										<span class="addto__total-price cartSumNowDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
+										<span class="addto__total-price cartSumDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
 									</div>
 
 								</div>
@@ -403,6 +404,7 @@
 							</div>
 
 						</div>
+						{% ENDIF %}
 
 						<!-- Личный кабинет -->
 						<div class="addto__block login">

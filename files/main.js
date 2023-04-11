@@ -171,11 +171,12 @@ function pdtVisibleScroll(content, obj){
 	// Верхний отступ до контента + высота контента - высота окна + отступ снизу
 	const contentBottom = content.offsetTop + content.clientHeight - window.innerHeight + 16;
 	// Переход
-	scrollTop(obj.matches('.is-actived') ? contentBottom : content.offsetTop)
+	scrollTop(obj.matches('.is-actived') ? false : content.offsetTop)
 }
 
 // Переход к контенту сверху
 function scrollTop(offsetTop){
+	if (offsetTop == false) {return false}
 	window.scrollTo({
 		top: offsetTop,
 		left: 0,
@@ -478,8 +479,7 @@ class Quantity {
 				// Если выпадающая корзина
 				if (prodAddto) {
 					// console.log('prodAddto', prodAddto);
-					quantity.updAddto(input)
-					quantity.updProdValue(input)					
+					quantity.updAddto(input)				
 				}
 	
 				// Если товар
@@ -629,7 +629,9 @@ class Quantity {
 		const newTotal = doc.querySelector('.cartTotal__items').innerHTML;
 		document.querySelector('.cartTotal__items').innerHTML = newTotal;
 		// Обновить минимальную сумму заказа
-		cart.minSum();
+		setTimeout(() => {
+			cart.minSum();			
+		}, 100);
 		// console.log('price', price);
 		// console.log('newCount', newCount);
 		// console.log('newTotal', newTotal);
@@ -698,8 +700,8 @@ class Quantity {
 	
 	// Обновление итоговой цены
 	updCartSum(sum){
-		const elements = document.querySelectorAll('.cartSumNowDiscount');
-		elements.forEach((e) => e.innerHTML = sum)
+		const elements = document.querySelectorAll('.cartSumDiscount');
+		elements.forEach(e => e.innerHTML = sum)
 	};
 	
 	// Обновление итоговой скидки
@@ -728,17 +730,6 @@ class Quantity {
 		if (!item) {return false}
 		item.value = val
 		item.dispatchEvent(new Event('input'));
-	}
-
-	// Обновить кол-во всех товаров
-	updProdValue(obj) {
-		const val = obj.value
-		const id = obj.closest('[data-id]').getAttribute('data-id')
-		const mod = obj.getAttribute('name')
-		const items = document.querySelectorAll('.product__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
-
-		if (!items) {return false}
-		items.forEach((el) => el.value = val)
 	}
 	
 }
@@ -1542,8 +1533,8 @@ class Remove {
 							e.innerHTML = $(data).find('.cart-wordend').html()
 						})
 						// Итоговая сумма со скидкой
-						document.querySelectorAll('.cartSumNowDiscount').forEach(e => {
-							const newPrice = Math.ceil($(data).find('.cartSumNowDiscount').attr('data-price'))
+						document.querySelectorAll('.cartSumDiscount').forEach(e => {
+							const newPrice = Math.ceil($(data).find('.cartSumDiscount').attr('data-price'))
 							e.setAttribute('data-price', newPrice)
 							e.querySelector('.num').textContent = addSpaces(newPrice)
 						})
@@ -2493,7 +2484,7 @@ class Cart {
 		this.minSum = function(){
 			if ($('.cartTotal__min').length){
 				const minPrice = parseInt($('.cartTotal__min-price').data('price'));
-				const totalSum = parseInt($('.cartSumNowDiscount').data('price'));
+				const totalSum = parseInt($('.cartSumDiscount').data('price'));
 				console.log('minPrice', minPrice);
 				console.log('totalSum', totalSum);
 				if (minPrice > totalSum){
@@ -2866,7 +2857,7 @@ class Order {
 
 						// Получаем новую итоговую стоимость заказа
 						const totalBlock = $(data).closest('#order_form').find('.order-total')
-						const totalSum = totalBlock.find('.cartSumNowWithDiscount').data('price')
+						const totalSum = totalBlock.find('.cartSumDiscount').data('price')
 						const deliveryPrice = parseInt($('.cartSumDelivery:eq(0) .num').text())
 						const newTotalSum = totalSum + deliveryPrice
 						const cartSumTotal = $('.cartSumTotal:eq(0) .num').text().toString().replace(/\s/g, '')
@@ -2923,14 +2914,14 @@ class Order {
 				setTimeout(function(){
 					totalCouponBlock.hide()
 					totalDiscountBlock.show()
-					const cartSum = $('.cartSumDiscount').data('value')
+					const cartSum = $('.cartSumDiscount').data('price')
 					const deliveryPrice = parseInt($('.cartSumDelivery:eq(0) .num').text())
 					const newTotalSum = cartSum + deliveryPrice
 					// Возвращаем значение по умолчанию итоговой стоимости
 					$('.cartSumTotal .num').text(addSpaces(newTotalSum))
 					$('.cartSumTotal').attr('data-price', newTotalSum)
-					$('.cartSumCoupons').attr('data-value', newTotalSum)
-					$('.cartSumDiscount').attr('data-value', newTotalSum)
+					$('.cartSumCoupons').attr('data-price', newTotalSum)
+					$('.cartSumDiscount').attr('data-price', newTotalSum)
 					$('.cartSumDiscount .num').text(addSpaces(newTotalSum))
 					couponInput.val('').attr('placeholder', 'Введите купон').removeClass('focus').removeClass('error')
 					couponParent.removeClass('error').removeClass('success')
