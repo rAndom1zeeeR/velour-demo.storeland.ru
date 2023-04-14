@@ -60,7 +60,7 @@
 					data-action-delete-title="Убрать &laquo;{GOODS_NAME}&raquo; из списка сравнения с другими товарами"
 					data-prodname="{GOODS_NAME}"
 					data-produrl="{GOODS_URL}"
-					data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_ICON}{% ENDIF %}"
+					data-prodimg="{% IF GOODS_IMAGE_ICON %}{GOODS_IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 					data-id="{GOODS_ID}"
 					data-mod-id="{GOODS_MOD_ID}"
 					data-mod-price="{GOODS_MOD_PRICE_NOW}"
@@ -83,7 +83,7 @@
 					data-action-delete-title="Убрать &laquo;{GOODS_NAME}&raquo; из списка сравнения с другими товарами"
 					data-prodname="{GOODS_NAME}"
 					data-produrl="{GOODS_URL}"
-					data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_ICON}{% ENDIF %}"
+					data-prodimg="{% IF GOODS_IMAGE_ICON %}{GOODS_IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 					data-id="{GOODS_ID}"
 					data-mod-id="{GOODS_MOD_ID}"
 					data-mod-price="{GOODS_MOD_PRICE_NOW}"
@@ -110,7 +110,7 @@
 					data-msgtype="2"
 					data-prodname="{GOODS_NAME}"
 					data-produrl="{GOODS_URL}"
-					data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_ICON}{% ENDIF %}"
+					data-prodimg="{% IF GOODS_IMAGE_ICON %}{GOODS_IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 					data-id="{GOODS_ID}"
 					data-mod-id="{GOODS_MIN_PRICE_NOW_ID}"
 					data-mod-price="{GOODS_MOD_PRICE_NOW}"
@@ -134,7 +134,7 @@
 					data-msgtype="2"
 					data-prodname="{GOODS_NAME}"
 					data-produrl="{GOODS_URL}"
-					data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_ICON}{% ENDIF %}"
+					data-prodimg="{% IF GOODS_IMAGE_ICON %}{GOODS_IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 					data-id="{GOODS_ID}"
 					data-mod-id="{GOODS_MIN_PRICE_NOW_ID}"
 					data-mod-price="{GOODS_MOD_PRICE_NOW}"
@@ -197,6 +197,14 @@
 				</div>
 
 			</div>
+			{% ELSE %}
+			<!-- Главное изображение -->
+			<a class="productView__image flex-center" href="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_LARGE}{% ENDIF %}" data-fancybox="images">
+				<noscript>
+					<img class="noscript-lozad" src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" alt="{GOODS_NAME}" itemprop="image" />
+				</noscript>
+				<img class="lozad" data-src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" alt="{GOODS_NAME}" itemprop="image" />
+			</a>
 			{% ENDIF %}
 		</div>		
 		
@@ -975,7 +983,7 @@
 								data-action-delete-title="Убрать &laquo;{related_goods.NAME}&raquo; из списка сравнения с другими товарами"
 								data-prodname="{related_goods.NAME}"
 								data-produrl="{related_goods.URL}"
-								data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_goods.IMAGE_ICON}{% ENDIF %}"
+								data-prodimg="{% IF related_goods.IMAGE_ICON %}{related_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 								data-id="{related_goods.ID}"
 								data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{related_goods.MIN_PRICE_NOW}"
@@ -1000,7 +1008,7 @@
 								data-action-delete-title="Убрать &laquo;{related_goods.NAME}&raquo; из списка сравнения с другими товарами"
 								data-prodname="{related_goods.NAME}"
 								data-produrl="{related_goods.URL}"
-								data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_goods.IMAGE_ICON}{% ENDIF %}"
+								data-prodimg="{% IF related_goods.IMAGE_ICON %}{related_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 								data-id="{related_goods.ID}"
 								data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{related_goods.MIN_PRICE_NOW}"
@@ -1029,7 +1037,7 @@
 								data-action-delete-title="Убрать &laquo;{related_goods.NAME}&raquo; из Избранного"
 								data-prodname="{related_goods.NAME}"
 								data-produrl="{related_goods.URL}"
-								data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_goods.IMAGE_ICON}{% ENDIF %}"
+								data-prodimg="{% IF related_goods.IMAGE_ICON %}{related_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 								data-id="{related_goods.ID}"
 								data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{related_goods.MIN_PRICE_NOW}"
@@ -1054,7 +1062,7 @@
 								data-action-delete-title="Убрать &laquo;{related_goods.NAME}&raquo; из Избранного"
 								data-prodname="{related_goods.NAME}"
 								data-produrl="{related_goods.URL}"
-								data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_goods.IMAGE_ICON}{% ENDIF %}"
+								data-prodimg="{% IF related_goods.IMAGE_ICON %}{related_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 								data-id="{related_goods.ID}"
 								data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{related_goods.MIN_PRICE_NOW}"
@@ -1300,7 +1308,7 @@
 								data-action-delete-title="Убрать &laquo;{related_views_goods.NAME}&raquo; из списка сравнения с другими товарами"
 								data-prodname="{related_views_goods.NAME}"
 								data-produrl="{related_views_goods.URL}"
-								data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_views_goods.IMAGE_ICON}{% ENDIF %}"
+								data-prodimg="{% IF related_views_goods.IMAGE_ICON %}{related_views_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 								data-id="{related_views_goods.ID}"
 								data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{related_views_goods.MIN_PRICE_NOW}"
@@ -1325,7 +1333,7 @@
 								data-action-delete-title="Убрать &laquo;{related_views_goods.NAME}&raquo; из списка сравнения с другими товарами"
 								data-prodname="{related_views_goods.NAME}"
 								data-produrl="{related_views_goods.URL}"
-								data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_views_goods.IMAGE_ICON}{% ENDIF %}"
+								data-prodimg="{% IF related_views_goods.IMAGE_ICON %}{related_views_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 								data-id="{related_views_goods.ID}"
 								data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{related_views_goods.MIN_PRICE_NOW}"
@@ -1354,7 +1362,7 @@
 								data-action-delete-title="Убрать &laquo;{related_views_goods.NAME}&raquo; из Избранного"
 								data-prodname="{related_views_goods.NAME}"
 								data-produrl="{related_views_goods.URL}"
-								data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_views_goods.IMAGE_ICON}{% ENDIF %}"
+								data-prodimg="{% IF related_views_goods.IMAGE_ICON %}{related_views_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 								data-id="{related_views_goods.ID}"
 								data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{related_views_goods.MIN_PRICE_NOW}"
@@ -1379,7 +1387,7 @@
 								data-action-delete-title="Убрать &laquo;{related_views_goods.NAME}&raquo; из Избранного"
 								data-prodname="{related_views_goods.NAME}"
 								data-produrl="{related_views_goods.URL}"
-								data-prodimg="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{related_views_goods.IMAGE_ICON}{% ENDIF %}"
+								data-prodimg="{% IF related_views_goods.IMAGE_ICON %}{related_views_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 								data-id="{related_views_goods.ID}"
 								data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{related_views_goods.MIN_PRICE_NOW}"
