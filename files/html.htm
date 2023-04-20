@@ -1302,7 +1302,7 @@
 		{% ENDIF index_page_favorites_goods_empty %}
 
 		<!-- Промо -->
-		<section id="promo">
+		<section id="promo-banners">
 			<div class="container">
 				<div class="promo__inner">
 					<div class="promo__image">
@@ -2039,7 +2039,7 @@
 		<section id="news" class="loading">
 			<div class="container">
 				<div class="block__title block__nav">
-					<a class="title" href="#">Новости</a>
+					<a class="title" href="{NEWS_ALL_URL}">Новости</a>
 
 					<div class="swiper-navigation flex">
 						<div class="swiper-button-prev"></div>
@@ -3034,19 +3034,37 @@
 				</div>
 
 				<div class="adaptive__sideblock-content">
-					<ul class="catalog__items unstyled">
-						{% FOR catalog_full %}
-							{% IFNOT catalog_full.LEVEL = 0 && catalog_full.FIRST %}
-							<ul class="catalog__sub" data-level="{catalog_full.LEVEL}">
-							{% ENDIF %}
-								<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
-									<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
-										<span class="catalog__name">{catalog_full.NAME}</span>
-										{% IF catalog_full.ISSET_VISIBLE_SUB %}<span class="catalog__open"></span>{% ENDIF %}
-									</a>
-								{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
-							{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF out.LAST %}{% ENDFOR out %}{% ENDIF LAST %}
-						{% ENDFOR catalog_full %}
+					<div class="adaptive__catalog">
+						<ul class="catalog__items unstyled">
+							{% FOR catalog_full %}
+								{% IFNOT catalog_full.LEVEL = 0 && catalog_full.FIRST %}
+								<ul class="catalog__sub" data-level="{catalog_full.LEVEL}">
+								{% ENDIF %}
+									<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
+										<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+											<span class="catalog__name">{catalog_full.NAME}</span>
+											{% IF catalog_full.ISSET_VISIBLE_SUB %}<span class="catalog__open"></span>{% ENDIF %}
+										</a>
+									{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
+								{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF out.LAST %}{% ENDFOR out %}{% ENDIF LAST %}
+							{% ENDFOR catalog_full %}
+					</div>
+
+					<div class="adaptive__menu">
+						<ul class="unstyled">
+							{% FOR menu %}
+								{% FOR header %}
+									{% FOR links %}
+									<li>
+										<a class="catalog__link flex {% IF menu.header.links.SELECTED %}is-actived{% ENDIF %} {% IF menu.header.links.NAME = Акции %}mainnav__link-discount{% ENDIF %}" href="{menu.header.links.URL}" title="{% IF menu.header.links.TITLE %}{menu.header.links.TITLE}{% ELSE%}{menu.header.links.NAME}{% ENDIF %}">
+											<span>{menu.header.links.NAME}</span>
+										</a>
+									</li>
+									{% ENDFOR %}
+								{% ENDFOR %}
+							{% ENDFOR %}
+						</ul>
+					</div>
 				</div>
 
 			</div>
@@ -3059,19 +3077,6 @@
 				</div>
 
 				<div class="adaptive__sideblock-content">
-					<ul class="unstyled">
-						{% FOR menu %}
-							{% FOR header %}
-								{% FOR links %}
-								<li>
-									<a class="catalog__link flex {% IF menu.header.links.SELECTED %}is-actived{% ENDIF %} {% IF menu.header.links.NAME = Акции %}mainnav__link-discount{% ENDIF %}" href="{menu.header.links.URL}" title="{% IF menu.header.links.TITLE %}{menu.header.links.TITLE}{% ELSE%}{menu.header.links.NAME}{% ENDIF %}">
-										<span>{menu.header.links.NAME}</span>
-									</a>
-								</li>
-								{% ENDFOR %}
-							{% ENDFOR %}
-						{% ENDFOR %}
-					</ul>
 
 					<div class="contacts" itemscope itemtype="https://schema.org/Organization">
 						<!-- Время работы -->
@@ -3119,7 +3124,7 @@
 						<div class="contacts__block contacts__phone">
 							<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
 								<div class="contacts__icon">
-									<i class="icon-phone"></i>
+									<i class="icon-phone_border"></i>
 								</div>
 								<div class="contacts__content">
 									<strong>{SETTINGS_STORE_PHONE_COUNTRY_CODE1} ({SETTINGS_STORE_PHONE_CITY_CODE1}) {SETTINGS_STORE_PHONE_NUMBER1}</strong>
@@ -3138,58 +3143,58 @@
 			</div>
 
 			<!-- Адаптивная навигация -->
-			<div class="adaprive__navigate">
-				<div class="adaprive__navigate-inner flex">
-					<a class="adaprive__navigate-item adaprive__navigate-catalog" href="{CATALOG_URL}" title="Перейти в каталог">
-						<div class="adaprive__navigate-icon">
+			<div class="adaptive__navigate">
+				<div class="adaptive__navigate-inner flex">
+					<a class="adaptive__navigate-item adaptive__navigate-catalog" href="{CATALOG_URL}" title="Перейти в каталог">
+						<div class="adaptive__navigate-icon">
 							<i class="icon-menu"></i>
 						</div>
-						<div class="adaprive__navigate-title">
+						<div class="adaptive__navigate-title">
 							<span>Каталог</span>
 						</div>
 					</a>
 					
-					<a class="adaprive__navigate-item adaprive__navigate-favorites favorites {% IF FAVORITES_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{FAVORITES_URL}" title="Перейти в Избранное">
-						<div class="adaprive__navigate-icon">
+					<a class="adaptive__navigate-item adaptive__navigate-favorites favorites {% IF FAVORITES_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{FAVORITES_URL}" title="Перейти в Избранное">
+						<div class="adaptive__navigate-icon">
 							<i class="icon-favorites"></i>
 						</div>
-						<div class="adaprive__navigate-title">
+						<div class="adaptive__navigate-title">
 							<span>Избранное</span>
 						</div>
 					</a>
 
-					<a class="adaprive__navigate-item adaprive__navigate-cart cart {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}" href="{CART_URL}" title="Перейти в Корзину">
-						<div class="adaprive__navigate-icon">
+					<a class="adaptive__navigate-item adaptive__navigate-cart cart {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}" href="{CART_URL}" title="Перейти в Корзину">
+						<div class="adaptive__navigate-icon">
 							<i class="icon-cart"></i>
 						</div>
-						<div class="adaprive__navigate-title">
+						<div class="adaptive__navigate-title">
 							<span>Корзина</span>
 						</div>
 					</a>
 
-					<a class="adaprive__navigate-item adaprive__navigate-compare compare {% IF COMPARE_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{COMPARE_URL}" title="Перейти в Сравнение">
-						<div class="adaprive__navigate-icon">
+					<a class="adaptive__navigate-item adaptive__navigate-compare compare {% IF COMPARE_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{COMPARE_URL}" title="Перейти в Сравнение">
+						<div class="adaptive__navigate-icon">
 							<i class="icon-compare"></i>
 						</div>
-						<div class="adaprive__navigate-title">
+						<div class="adaptive__navigate-title">
 							<span>Сравнение</span>
 						</div>
 					</a>
 
-					<a class="adaprive__navigate-item adaprive__navigate-user" href="{USER_SETTINGS_URL}" title="Перейти в Личный кабинет">
-						<div class="adaprive__navigate-icon">
-							<i class="icon-person"></i>
+					<a class="adaptive__navigate-item adaptive__navigate-contacts" href="{FEEDBACK_URL}" title="Перейти в Контакты">
+						<div class="adaptive__navigate-icon">
+							<i class="icon-phone_border"></i>
 						</div>
-						<div class="adaprive__navigate-title">
-							<span>ЛК</span>
+						<div class="adaptive__navigate-title">
+							<span>Контакты</span>
 						</div>
 					</a>
 
-					<a class="adaprive__navigate-item adaprive__navigate-toTop toTop" href="{CURRENT_URL}" title="Перейти наверх">
-						<div class="adaprive__navigate-icon">
+					<a class="adaptive__navigate-item adaptive__navigate-toTop toTop" href="{CURRENT_URL}" title="Перейти наверх">
+						<div class="adaptive__navigate-icon">
 							<i class="icon-chevron_up"></i>
 						</div>
-						<div class="adaprive__navigate-title">
+						<div class="adaptive__navigate-title">
 							<span>Наверх</span>
 						</div>
 					</a>

@@ -113,6 +113,7 @@ function toTop(){
 
 	// Действие наверх
   goto.addEventListener('click', function(){
+		console.log('click');
     scrollTop(0)
   })
 }
@@ -171,12 +172,12 @@ function pdtVisibleScroll(content, obj){
 	// Верхний отступ до контента + высота контента - высота окна + отступ снизу
 	const contentBottom = content.offsetTop + content.clientHeight - window.innerHeight + 16;
 	// Переход
-	scrollTop(obj.matches('.is-actived') ? false : content.offsetTop)
+	scrollTop(obj.matches('.is-actived') ? true : content.offsetTop)
 }
 
 // Переход к контенту сверху
 function scrollTop(offsetTop){
-	if (offsetTop == false) {return false}
+	if (offsetTop == true) {return false}
 	window.scrollTo({
 		top: offsetTop,
 		left: 0,
@@ -3188,7 +3189,7 @@ function openMenu(){
 	});
 
 	// Каталог на мобильных устройствах
-	$('.header-catalog__icon, .adaprive__navigate-catalog').on('click',function(event){
+	$('.header-catalog__icon, .adaptive__navigate-catalog').on('click',function(event){
 		event.preventDefault();
 
 		if(getClientWidth() > 1023) {
@@ -3202,7 +3203,7 @@ function openMenu(){
 	})
 
 	// Открыть Меню
-	$('.adaprive__navigate-user').on('click',function(event){
+	$('.adaptive__navigate-contacts').on('click',function(event){
 		event.preventDefault();
 		$('.adaptive__sideblock-catalog').removeClass('is-opened');
 		$('.adaptive__sideblock-menu').toggleClass('is-opened');
@@ -3524,8 +3525,8 @@ document.addEventListener('DOMContentLoaded', function(){
 	lazyload()
 	catalogHover()
 	remove.onClick()
+	quantity.updAddtoSale()
 	// quantityAddto.onAddto()
-	// quantityAddto.updAddtoSale()
 
 	// Удаление классов загрузки для элементов страницы
 	$('.loading').addClass('loaded');
