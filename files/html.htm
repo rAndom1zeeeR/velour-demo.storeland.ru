@@ -3069,16 +3069,15 @@
 
 			</div>
 
-			<!-- Мобильное Меню -->
-			<div class="adaptive__sideblock adaptive__sideblock-menu">
+			<!-- Мобильное Контакты -->
+			<div class="adaptive__sideblock adaptive__sideblock-contacts">
 				<div class="adaptive__sideblock-title">
-					<span>Меню</span>
+					<span>Контакты</span>
 					<i class="icon-close"></i>
 				</div>
 
 				<div class="adaptive__sideblock-content">
-
-					<div class="contacts" itemscope itemtype="https://schema.org/Organization">
+					<div class="contacts">
 						<!-- Время работы -->
 						{% IF SETTINGS_STORE_WORK_TIME %}
 						<div class="contacts__block contacts__worktime">
@@ -3096,7 +3095,7 @@
 						{% IF SETTINGS_STORE_REGION %}
 						<div class="contacts__block contacts__region">
 							<div class="contacts__label">Адрес магазина</div>
-							<a class="contacts__link flex" href="https://yandex.ru/maps/?text={SETTINGS_STORE_REGION}&z=17" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress" target="_blank" title="Открыть карту по адресу {SETTINGS_STORE_REGION}">
+							<a class="contacts__link flex" href="https://yandex.ru/maps/?text={SETTINGS_STORE_REGION}&z=17" itemprop="address" target="_blank" title="Открыть карту по адресу {SETTINGS_STORE_REGION}">
 								<div class="contacts__icon"><i class="icon-location"></i></div>
 								<div class="contacts__content">
 									<span itemprop="addressLocality">{SETTINGS_STORE_REGION}</span>
@@ -3112,7 +3111,7 @@
 							<a class="contacts__link flex" href="mailto:{SETTINGS_STORE_EMAIL_MAIN}" title="{SETTINGS_STORE_EMAIL_MAIN}">
 								<div class="contacts__icon"><i class="icon-mail"></i></div>
 								<div class="contacts__content">
-									<span itemprop="email">{SETTINGS_STORE_EMAIL_MAIN}</span>
+									<span>{SETTINGS_STORE_EMAIL_MAIN}</span>
 									<div class="contacts__fancy" data-fancybox data-src="#fancybox__feedback"><span>Написать нам</span></div>
 								</div>
 							</a>
@@ -3133,12 +3132,7 @@
 							</a>
 						</div>
 						{% ENDIF SETTINGS_STORE_PHONE_NUMBER1 %}
-
-						<!-- Название магазина -->
-						<meta itemprop="name" content="{SETTINGS_STORE_ORG_NAME}" />
-						<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.png?design=THEMENAME">
 					</div>
-
 				</div>
 			</div>
 

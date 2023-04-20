@@ -3197,7 +3197,7 @@ function openMenu(){
 			return false
 		}
 
-		$('.adaptive__sideblock-menu').removeClass('is-opened');
+		$('.adaptive__sideblock-contacts').removeClass('is-opened');
 		$('.adaptive__sideblock-catalog').toggleClass('is-opened');
 		$('.adaptive__sideblock-catalog').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
 	})
@@ -3206,8 +3206,8 @@ function openMenu(){
 	$('.adaptive__navigate-contacts').on('click',function(event){
 		event.preventDefault();
 		$('.adaptive__sideblock-catalog').removeClass('is-opened');
-		$('.adaptive__sideblock-menu').toggleClass('is-opened');
-		$('.adaptive__sideblock-menu').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
+		$('.adaptive__sideblock-contacts').toggleClass('is-opened');
+		$('.adaptive__sideblock-contacts').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
 	})
 
 	// Закрыть
