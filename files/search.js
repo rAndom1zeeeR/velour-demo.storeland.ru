@@ -11,8 +11,9 @@ function SearchFieldInit(obj) {
 	}
 	// Поле поиска товара
 	obj.s_search = obj.f_search.find('.search__input');
+	obj.s_submit = obj.f_search.find('.search__submit');
 	// Обнуление данных в форме поиска
-	obj.s_reset  = obj.f_search.find('.search__reset');
+	obj.s_reset = obj.f_search.find('.search__reset');
 	// Проверка на существование функции проверки поля и действий с ним
 	if(typeof(obj.SearchFieldCheck) != 'function') {
 		console.log('function SearchFieldCheck is not found in object for SearchFieldInit', {status: 'error'});
@@ -28,9 +29,15 @@ function SearchFieldInit(obj) {
 		if(obj.s_search.val().length) {
 			obj.f_search.addClass('search__filled');
 			obj.f_search.parent().addClass('search__filled');
+			if(obj.s_search.val().length < 2){
+				obj.s_submit.css({'pointer-events' : 'none'})
+			} else {
+				obj.s_submit.css({'pointer-events' : 'all'})
+			}
 		} else {
 			obj.f_search.removeClass('search__filled');
 			obj.f_search.parent().removeClass('search__filled');
+			obj.s_submit.css({'pointer-events' : 'none'})
 		}
 		// При нажатии клавиши данных внутри поля ещё нет, так что проверки вернут информацию что менять поле не нужно, хотя как только операция будет завершена данные в поле появятся. Поэтому произведём вторую проверку спустя 2 сотых секунды.
 		if(typeof( isAfter ) == "undefined" || !isAfter) {
@@ -71,7 +78,7 @@ function SearchFieldInit(obj) {
 			obj.__SearchFieldCheck()
 		},20);
 	}).bind('cut', function(e){
-		$('#search-results').hide();
+		$('.search-results').hide();
 		$('.search-results__inner > div').remove();
 		obj.__SearchFieldCheck();
 	});
@@ -95,7 +102,7 @@ function SearchFieldInit(obj) {
 		switch(I.keyCode) {
 				// По нажатию клавиш прячем подсказку
 			case 27: // escape
-				$('#search-results').hide();
+				$('.search-results').hide();
 				return false;
 				break;
 				// Нажатие enter при выделенном пункте из поиска
@@ -129,7 +136,7 @@ function SearchFieldInit(obj) {
 	// Кнопка обнуления данных в форме поиска
 	obj.s_reset.click(function(){
 		obj.s_search.val('').focus();
-		$('#search-results').hide();
+		$('.search-results').hide();
 		$('.search-results__item').remove();
 	});
 	// Проверка данных в форме после инициализации функционала. Возможно браузер вставил туда какой-либо текст, нужно обработать и такой вариант
@@ -214,7 +221,7 @@ $(function(){
 			// Запоминаем этот запрос, который мы ищем, чтобы не произвводить повторного поиска
 			options['last_search_query'] = old_val;
 			// Добавляем нашей форме поиска поле загрузки
-			searchBlock.f_search.addClass('search__load');
+			searchBlock.f_search.addClass('search__loading');
 			// Собираем параметры для Ajax запроса
 			var params = {
 						'ajax_q'                : 1,
@@ -259,18 +266,18 @@ $(function(){
 					// Показываем результаты на основе пришедших данных
 					showDropdownSearch(data);
 					// Убираем информацию о том что запрос грузится.
-					searchBlock.f_search.removeClass("search__load");
+					searchBlock.f_search.removeClass("search__loading");
 				}
 			});
 		}else{
-			$("#search-results").hide();
+			$(".search-results").hide();
 		}
 
 		function showDropdownSearch(data){
 			// Отображение категорий в поиске
 			if(data.category.length!=undefined && data.category.length>0){
 				$(".search-results__category .search-results__item").remove();
-				$("#search-results").hide();
+				$(".search-results").hide();
 				for(с=0; с < data.category.length; с++){
 					// Проверка наличия изображения
 					if (data.category[с].image_icon == null) {
@@ -285,12 +292,12 @@ $(function(){
 				}
 			}else{
 				$(".search-results__category .search-results__item").remove();
-				$("#search-results").hide();
+				$(".search-results").hide();
 			}
 			// Отображение товаров в поиске
 			if(data.goods.length!=undefined && data.goods.length>0){
 				$(".search-results__goods .search-results__item").remove();
-				$("#search-results").hide();
+				$(".search-results").hide();
 				for(i=0; i < data.goods.length; i++){
 					// Проверка наличия изображения
 					if (data.goods[i].image_icon == null) {
@@ -304,18 +311,18 @@ $(function(){
 					}
 					// Если последняя итерация цикла вставим кнопку "показать все"
 					if(i > 3){
-						$('.search-results__showAll').show();
+						$('.search-results__showAll').removeClass('is-hide');
 					}
 				}
 			}else{
 				$(".search-results__goods .search-results__item").remove();
-				$("#search-results").hide();
+				$(".search-results").hide();
 			}
 			// Скрываем результаты поиска если ничего не найдено
 			if((data.category.length + data.goods.length) > 0){
-				$("#search-results").show();
+				$(".search-results").show();
 			}else{
-				$("#search-results").hide();
+				$(".search-results").hide();
 			}
 
 			if((data.category.length) > 0){
@@ -330,7 +337,7 @@ $(function(){
 				$(".search-results__goods").hide();
 			}
 			// Убираем информацию о том что запрос грузится.
-			searchBlock.f_search.removeClass("search__load");
+			searchBlock.f_search.removeClass("search__loading");
 		}
 	}
 

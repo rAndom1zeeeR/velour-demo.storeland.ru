@@ -1,6 +1,6 @@
 <div class="order-info">
   {% IF FORM_NOTICE %}
-  <div class="notice {% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
+  <div class="notice-{% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
   {% ENDIF %}
   <div class="client__blocks">
     <h3 class="client__title">Данные заказа</h3>

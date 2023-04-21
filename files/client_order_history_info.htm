@@ -1,6 +1,6 @@
 <div class="page-client">
   {% IF no_data %}
-    <div class="notice attention">Нет такого заказа. Полный список ваших заказов доступен в разделе <a href="{USER_HISTORY_LIST_URL}">мои заказы</a>.</div>
+    <div class="notice-attention">Нет такого заказа. Полный список ваших заказов доступен в разделе <a href="{USER_HISTORY_LIST_URL}">мои заказы</a>.</div>
   {% ELSE %}
     <div class="client__blocks">
       <h3 class="client__title">Заказ <strong>{% IFNOT no_data %}№{CLIENT_ORDER_NUM}{% ENDIF %}</strong></h3>

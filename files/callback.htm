@@ -1,6 +1,6 @@
 <div class="page-сallback">
   {% IF FORM_NOTICE %}
-  <div class="notice {% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
+  <div class="notice-{% IF FORM_NOTICE_IS_GOOD %}success{% ELSE %}warning{% ENDIF %}">{FORM_NOTICE | nl2br}</div>
   {% ENDIF %}
 
   {% IFNOT FORM_NOTICE_IS_GOOD %}
@@ -24,7 +24,7 @@
 
       <div class="form__fields">
         <label for="callback_comment" class="form__label">Комментарий</label>
-        <textarea id="callback_comment" class="textarea" rows="3" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий">{FORM_CALLBACK_COMMENT}</textarea>
+        <textarea id="callback_comment" class="form__textarea" rows="3" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий">{FORM_CALLBACK_COMMENT}</textarea>
       </div>
 
       <div class="form__fields">
@@ -100,7 +100,7 @@
 
       <div class="form__pp">
         <span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
-        <a data-fancybox data-src="#fancybox__pp" href="javascript:;">правилами обработки данных</a>
+        <a data-fancybox data-src="#fancybox__pp">правилами обработки данных</a>
       </div>
     </div>
     {% ENDIF %}

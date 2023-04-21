@@ -1,6 +1,6 @@
 <div class="page-compare">
   {% IF compare_list_empty %}
-  <div class="notice attention">Ваш список сравнения пуст. Вы можете добавлять сюда товары из <a href="{CATALOG_URL}" title="Перейти в Каталог">каталога</a> и сравнивать их между собой.</div>
+  <div class="notice-attention">Ваш список сравнения пуст. Вы можете добавлять сюда товары из <a href="{CATALOG_URL}" title="Перейти в Каталог">каталога</a> и сравнивать их между собой.</div>
   <div class="page-buttons">
     <a class="button-primary" href="{CATALOG_URL}" title="Назад в Каталог"><span>Назад</span></a>
   </div>
@@ -12,7 +12,7 @@
     <div class="compare__nav flex justify-between">
       <div class="compare__switch flex">
         <div class="compare__switch-icon"></div>
-        <span class="compare__switch-label" slot="Только отличия">Показывать все отличия</span>
+        <span class="compare__switch-label" slot="Только отличия">Показать все</span>
       </div>
       <div class="swiper-navigation">
         <div class="swiper-button-prev"></div>
@@ -71,18 +71,17 @@
             <form class="product__form" action="{CART_ADD_GOODS_MODIFICATION_URL}" method="post" data-id="{goods_mod_info.GOODS_MOD_ID}">
               <input type="hidden" name="hash" value="{HASH}" />
               <input type="hidden" name="form[goods_from]" value="{goods_mod_info.GOODS_FROM}" />
-              <input type="hidden" name="form[goods_mod_id]" value="{goods_mod_info.GOODS_MOD_ID}" class="goodsModificationId" />
+              <input type="hidden" name="form[goods_mod_id]" value="{goods_mod_info.GOODS_MOD_ID}" />
               <input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
               <!-- Добавление товара в корзину -->
-              <div class="compare__addCart product__addCart">
-                {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE && goods_mod_info.REST_VALUE=0 %}
+              <div class="compare__addCart product__cart">
+                {% IF goods_mod_info.REST_VALUE=0 %}
                   <a class="add-notify button-empty" 
                     title="Уведомить" 
                     data-tooltip="Уведомить" 
                     rel="nofollow" 
                     data-fancybox 
                     data-src="#fancybox__notify" 
-                    href="javascript:;" 
                     data-name="{goods_mod_info.NAME}" 
                     data-art="{goods_mod_info.ART_NUMBER}"
                   >
@@ -90,7 +89,6 @@
                     <span>Уведомить</span>
                   </a>
                 {% ELSE %}
-                  <!--a class="add-cart quick button-primary" title="Быстро оформить заказ" rel="nofollow" href="{CART_ADD_GOODS_MODIFICATION_URL | url_amp}?hash={HASH | url_amp}&amp;form%5Bgoods_from%5D={goods_mod_info.GOODS_FROM}&amp;form%5Bgoods_mod_id%5D={goods_mod_info.PRICE_NOW_ID}"><i class="icon-cart"></i><span>Купить</span></a-->
                   <a class="add-cart button-primary" 
                     title="Добавить в корзину &laquo;{goods_mod_info.GOODS_NAME}&raquo;" 
                     data-tooltip="В корзину" 
@@ -119,7 +117,7 @@
         <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
           <div class="compare__item swiper-slide" data-index="{goods_mod_info.index}">
-            <div class="compare__price product__price {CURRENCY_CHAR_CODE} {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT>goods_mod_info.PRICE_NOW %}has-price-old{% ELSEIF goods_mod_info.PRICE_OLD>goods_mod_info.PRICE_NOW %}has-price-old{% ENDIF %}" data-id="{goods_mod_info.GOODS_MOD_ID}">
+            <div class="compare__price product__price {CURRENCY_CHAR_CODE}" data-id="{goods_mod_info.GOODS_MOD_ID}">
               <span class="price__now {CURRENCY_CHAR_CODE}" data-price="{goods_mod_info.PRICE_NOW}" itemprop="price">{goods_mod_info.PRICE_NOW | money_format}</span>
 	            {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT > goods_mod_info.PRICE_NOW %}
               <span class="price__old {CURRENCY_CHAR_CODE}" data-price="{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT}">{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
