@@ -3381,7 +3381,7 @@ function swiperShow(){
 		spaceBetween: 16,
 		speed: 400,
 		lazy: {
-			enabled: true,
+			enabled: false,
 			loadPrevNext: true,
 			loadOnTransitionStart: true,
 		},
