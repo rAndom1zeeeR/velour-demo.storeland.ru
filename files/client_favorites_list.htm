@@ -23,7 +23,7 @@
 					<input type="hidden" name="form[goods_mod_id]" value="{favorites_goods.MIN_PRICE_NOW_ID}" />
 					<input type="hidden" name="form[goods_id]" value="{favorites_goods.ID}" />
 					<input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
-					<link itemprop="image" href="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" />
+					<link itemprop="image" href="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" />
 					<!-- Изображение товара -->
 					<div class="product__image">
 						<!-- Стикеры -->
@@ -44,9 +44,9 @@
 						<!-- Изображение -->
 						<a class="product__img flex-center" href="{favorites_goods.URL_MIN_PRICE_NOW | url_amp}" title="{favorites_goods.NAME}" itemprop="url" data-id="{favorites_goods.IMAGE_ID}">
 							<noscript>
-								<img class="noscript-lozad" src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{favorites_goods.NAME}" />
+								<img class="noscript-lozad" src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{favorites_goods.NAME}" />
 							</noscript>
-							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{favorites_goods.NAME}" />
+							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=VELOUR" data-src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{favorites_goods.NAME}" />
 						</a>
 
 						<!-- Быстрый просмотр -->
@@ -191,7 +191,7 @@
 								data-action-delete-title="Убрать &laquo;{favorites_goods.NAME}&raquo; из списка сравнения с другими товарами"
 								data-prodname="{favorites_goods.NAME}"
 								data-produrl="{favorites_goods.URL}"
-								data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+								data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
 								data-id="{favorites_goods.ID}"
 								data-mod-id="{favorites_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{favorites_goods.MIN_PRICE_NOW}"
@@ -216,7 +216,7 @@
 								data-action-delete-title="Убрать &laquo;{favorites_goods.NAME}&raquo; из списка сравнения с другими товарами"
 								data-prodname="{favorites_goods.NAME}"
 								data-produrl="{favorites_goods.URL}"
-								data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+								data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
 								data-id="{favorites_goods.ID}"
 								data-mod-id="{favorites_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{favorites_goods.MIN_PRICE_NOW}"
@@ -245,7 +245,7 @@
 								data-action-delete-title="Убрать &laquo;{favorites_goods.NAME}&raquo; из Избранного"
 								data-prodname="{favorites_goods.NAME}"
 								data-produrl="{favorites_goods.URL}"
-								data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+								data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
 								data-id="{favorites_goods.ID}"
 								data-mod-id="{favorites_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{favorites_goods.MIN_PRICE_NOW}"
@@ -270,7 +270,7 @@
 								data-action-delete-title="Убрать &laquo;{favorites_goods.NAME}&raquo; из Избранного"
 								data-prodname="{favorites_goods.NAME}"
 								data-produrl="{favorites_goods.URL}"
-								data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+								data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
 								data-id="{favorites_goods.ID}"
 								data-mod-id="{favorites_goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{favorites_goods.MIN_PRICE_NOW}"

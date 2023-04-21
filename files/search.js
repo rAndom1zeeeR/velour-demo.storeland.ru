@@ -281,7 +281,7 @@ $(function(){
 				for(с=0; с < data.category.length; с++){
 					// Проверка наличия изображения
 					if (data.category[с].image_icon == null) {
-						data.category[с].image_icon = '/design/no-photo.png'
+						data.category[с].image_icon = '/design/no-photo.jpg'
 					} else {
 						data.category[с].image_icon = data.category[с].image_icon;
 					}
@@ -301,7 +301,7 @@ $(function(){
 				for(i=0; i < data.goods.length; i++){
 					// Проверка наличия изображения
 					if (data.goods[i].image_icon == null) {
-						data.goods[i].image_icon = '/design/no-photo.png'
+						data.goods[i].image_icon = '/design/no-photo.jpg'
 					} else {
 						data.goods[i].image_icon = data.goods[i].image_icon;
 					}
