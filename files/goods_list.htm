@@ -264,15 +264,9 @@
 					<div class="categories__item" data-id="{nested_categories_list.ID}">
 						<a class="categories__image flex-center" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
 							<noscript>
-<<<<<<< HEAD
 								<img class="noscript-lozad" src="{% IF nested_categories_list.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{nested_categories_list.IMAGE_MEDIUM}{% ENDIF %}" alt="{nested_categories_list.NAME}">
 							</noscript>
 							<img class="lozad" data-src="{% IF nested_categories_list.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{nested_categories_list.IMAGE_MEDIUM}{% ENDIF %}" alt="{nested_categories_list.NAME}">
-=======
-								<img class="noscript-lozad" src="{% IF nested_categories_list.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{nested_categories_list.IMAGE_MEDIUM}{% ENDIF %}" alt="{nested_categories_list.NAME}">
-							</noscript>
-							<img class="lozad" data-src="{% IF nested_categories_list.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{nested_categories_list.IMAGE_MEDIUM}{% ENDIF %}" alt="{nested_categories_list.NAME}">
->>>>>>> dev
 						</a>
 						<a class="categories__name" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
 							<span>{nested_categories_list.NAME}</span>
@@ -320,11 +314,7 @@
 							<input type="hidden" name="form[goods_mod_id]" value="{goods.MIN_PRICE_NOW_ID}" />
 							<input type="hidden" name="form[goods_id]" value="{goods.ID}" />
 							<input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
-<<<<<<< HEAD
 							<link itemprop="image" href="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" />
-=======
-							<link itemprop="image" href="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" />
->>>>>>> dev
 							<!-- Изображение товара -->
 							<div class="product__image">
 								<!-- Стикеры -->
@@ -345,15 +335,9 @@
 								<!-- Изображение -->
 								<a class="product__img flex-center" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}" itemprop="url" data-id="{goods.IMAGE_ID}">
 									<noscript>
-<<<<<<< HEAD
 										<img class="noscript-lozad" src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
 									</noscript>
 									<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=VELOUR" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
-=======
-										<img class="noscript-lozad" src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
-									</noscript>
-									<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
->>>>>>> dev
 								</a>
 
 								<!-- Быстрый просмотр -->
@@ -441,11 +425,7 @@
 										data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
 										data-prodname="{goods.NAME}"
 										data-produrl="{goods.URL}"
-<<<<<<< HEAD
 										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
-=======
-										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
->>>>>>> dev
 										data-id="{goods.ID}"
 										data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{goods.MIN_PRICE_NOW}"
@@ -470,11 +450,7 @@
 										data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
 										data-prodname="{goods.NAME}"
 										data-produrl="{goods.URL}"
-<<<<<<< HEAD
 										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
-=======
-										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
->>>>>>> dev
 										data-id="{goods.ID}"
 										data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{goods.MIN_PRICE_NOW}"
@@ -503,11 +479,7 @@
 										data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
 										data-prodname="{goods.NAME}"
 										data-produrl="{goods.URL}"
-<<<<<<< HEAD
 										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
-=======
-										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
->>>>>>> dev
 										data-id="{goods.ID}"
 										data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{goods.MIN_PRICE_NOW}"
@@ -532,11 +504,7 @@
 										data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
 										data-prodname="{goods.NAME}"
 										data-produrl="{goods.URL}"
-<<<<<<< HEAD
 										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
-=======
-										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
->>>>>>> dev
 										data-id="{goods.ID}"
 										data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{goods.MIN_PRICE_NOW}"
@@ -649,11 +617,7 @@
 							<input type="hidden" name="form[goods_mod_id]" value="{goods.MIN_PRICE_NOW_ID}" />
 							<input type="hidden" name="form[goods_id]" value="{goods.ID}" />
 							<input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
-<<<<<<< HEAD
 							<link itemprop="image" href="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" />
-=======
-							<link itemprop="image" href="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" />
->>>>>>> dev
 							<!-- Изображение товара -->
 							<div class="product__image">
 								<!-- Стикеры -->
@@ -674,15 +638,9 @@
 								<!-- Изображение -->
 								<a class="product__img flex-center" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}" itemprop="url" data-id="{goods.IMAGE_ID}">
 									<noscript>
-<<<<<<< HEAD
 										<img class="noscript-lozad" src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
 									</noscript>
 									<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=VELOUR" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
-=======
-										<img class="noscript-lozad" src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
-									</noscript>
-									<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
->>>>>>> dev
 								</a>
 
 								<!-- Быстрый просмотр -->
@@ -827,11 +785,7 @@
 										data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
 										data-prodname="{goods.NAME}"
 										data-produrl="{goods.URL}"
-<<<<<<< HEAD
 										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
-=======
-										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
->>>>>>> dev
 										data-id="{goods.ID}"
 										data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{goods.MIN_PRICE_NOW}"
@@ -856,11 +810,7 @@
 										data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
 										data-prodname="{goods.NAME}"
 										data-produrl="{goods.URL}"
-<<<<<<< HEAD
 										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
-=======
-										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
->>>>>>> dev
 										data-id="{goods.ID}"
 										data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{goods.MIN_PRICE_NOW}"
@@ -889,11 +839,7 @@
 										data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
 										data-prodname="{goods.NAME}"
 										data-produrl="{goods.URL}"
-<<<<<<< HEAD
 										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
-=======
-										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
->>>>>>> dev
 										data-id="{goods.ID}"
 										data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{goods.MIN_PRICE_NOW}"
@@ -918,11 +864,7 @@
 										data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
 										data-prodname="{goods.NAME}"
 										data-produrl="{goods.URL}"
-<<<<<<< HEAD
 										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.jpg?design=VELOUR{% ENDIF %}"
-=======
-										data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
->>>>>>> dev
 										data-id="{goods.ID}"
 										data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{goods.MIN_PRICE_NOW}"

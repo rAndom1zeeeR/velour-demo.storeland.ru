@@ -113,24 +113,14 @@ function toTop(){
 
 	// Действие наверх
   goto.addEventListener('click', function(){
-<<<<<<< HEAD
-=======
-		console.log('click');
->>>>>>> dev
     scrollTop(0)
   })
 }
 
 
-<<<<<<< HEAD
 ///////////////////////////////////////
 // Изменение текста в объкте. /JS/JEST/
 ///////////////////////////////////////
-=======
-///////////////////////////////////////
-// Изменение текста в объкте. /JS/JEST/
-///////////////////////////////////////
->>>>>>> dev
 function changeTxt(obj){
 	const slot = obj.querySelector('[slot]')
 	const hideText = slot.getAttribute('slot')
@@ -254,10 +244,6 @@ class Password {
 		
 	// Регистрация. /JS/
 	registration(obj){
-<<<<<<< HEAD
-=======
-		// console.log('registration', obj.checked)
->>>>>>> dev
 		const email = document.querySelector('#sites_client_email')
 		const pass = document.querySelector('.password')
 		if (obj.checked){
@@ -304,18 +290,8 @@ class Password {
 // Конструктор функции Сравнения товаров
 ///////////////////////////////////////
 class Compare {
-<<<<<<< HEAD
 	// Функции при клике
 	onClick(){
-=======
-	constructor(){
-		console.log('Compare start')
-	}
-
-	// Функции при клике
-	onClick(){
-		console.log('Compare onClick')
->>>>>>> dev
 		const element = document.querySelector('.compare__table')
 		// Если нет контента
 		if (!element) {return false;}
@@ -355,10 +331,6 @@ class Compare {
 
 	// Скрытие характеристик товара, которые выделил пользователь
 	onSelected(){
-<<<<<<< HEAD
-=======
-		// console.log('Compare onSelected')
->>>>>>> dev
 		document.querySelector('.compare__showAll').classList.remove('is-hide')
 		document.querySelectorAll('.compare__line').forEach((el) => {
 			const сhecked = el.querySelector('.compare__input:checked')
@@ -368,10 +340,6 @@ class Compare {
 
 	// Показать отличия
 	onSwitch(obj){
-<<<<<<< HEAD
-=======
-		console.log('Compare onSwitch')
->>>>>>> dev
 		// Обновляем текст
 		changeTxt(obj)
 		if (obj.classList.contains('switch-on')){
@@ -394,10 +362,6 @@ class Compare {
 
 	// Слайдер сравнения
 	onSlider(){
-<<<<<<< HEAD
-=======
-		// console.log('Compare onSlider')
->>>>>>> dev
 		const swiper = new Swiper('.compare__line', {
 			loop: false,
 			allowTouchMove: false,
@@ -459,10 +423,6 @@ function keyPress(oToCheckField, oKeyEvent){
 ///////////////////////////////////////
 class Quantity {
 	init(doc = document){
-<<<<<<< HEAD
-=======
-		// console.log('doc', doc);
->>>>>>> dev
 		if (!doc) {doc = document}
 	
 		const qtys = doc.querySelectorAll('.qty')
@@ -496,37 +456,21 @@ class Quantity {
 	
 				// Если карточка товара
 				if (prodView) {
-<<<<<<< HEAD
-=======
-					// console.log('prodView', prodView);
->>>>>>> dev
 					quantity.updView(prodView)
 				}
 	
 				// Если корзина
 				if (prodCart) {
-<<<<<<< HEAD
-=======
-					// console.log('prodCart', prodCart);
->>>>>>> dev
 					quantity.updCart(input)
 				}
 	
 				// Если выпадающая корзина
 				if (prodAddto) {
-<<<<<<< HEAD
-=======
-					// console.log('prodAddto', prodAddto);
->>>>>>> dev
 					quantity.updAddto(input)				
 				}
 	
 				// Если товар
 				if (prodItem) {
-<<<<<<< HEAD
-=======
-					// console.log('prodItem', prodItem);
->>>>>>> dev
 					quantity.updAddtoValue(input)
 				}
 	
@@ -537,10 +481,6 @@ class Quantity {
 
 	// Функция Плюс + для товара. //JS
 	getPlus(obj){
-<<<<<<< HEAD
-=======
-		// console.log('plus obj', obj)
->>>>>>> dev
 		obj.value = parseInt(obj.value) + 1
 		obj.setAttribute('value', obj.value)
 		obj.dispatchEvent(new Event('input'));
@@ -549,10 +489,6 @@ class Quantity {
 
 	// Функция Минус - для товара. //JS
 	getMinus(obj){
-<<<<<<< HEAD
-=======
-		// console.log('minus obj', obj)
->>>>>>> dev
 		obj.value = parseInt(obj.value) - 1
 		obj.setAttribute('value', obj.value)
 		obj.dispatchEvent(new Event('input'));
@@ -561,10 +497,6 @@ class Quantity {
 
 	// Проверка кол-ва. //JS
 	getCheck(obj){
-<<<<<<< HEAD
-=======
-		// console.log('check obj', obj);
->>>>>>> dev
 		// Количество
 		let val = parseInt(obj.value);
 		const minus = obj.parentElement.querySelector('.qty__select-minus')
@@ -623,20 +555,11 @@ class Quantity {
 			const priceData = priceOld.getAttribute('data-price');
 			const multiOld = parseInt(val * priceData);
 			priceOld.querySelector('.num').innerHTML = addSpaces(multiOld);
-<<<<<<< HEAD
-=======
-			// console.log('goods priceOld', priceData)
-			// console.log('goods multiOld', multiOld)
->>>>>>> dev
 		}
 	}
 
 	// Корзина
 	updCart(obj){
-<<<<<<< HEAD
-=======
-		console.log('updCart', obj);
->>>>>>> dev
 		const item = obj.closest('.cartTable__item');
 		const mod = item.getAttribute('data-mod-id');
 		const priceNow = item.querySelector('.cartTable__price');
@@ -656,7 +579,6 @@ class Quantity {
 		await fetch('/cart', {
 			method: "POST",
 			body: data
-<<<<<<< HEAD
 		})
 		// Получаем ответ
 		.then((response) => response.text())
@@ -667,31 +589,12 @@ class Quantity {
 			const doc = parser.parseFromString(html, 'text/html');
 			quantity.updCartContent(doc, mod, priceNow)
 		})
-=======
-		})
-		// Получаем ответ
-		.then((response) => response.text())
-		// Преобразуем в html
-		.then((html) => {
-			// Convert the HTML string into a document object
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(html, 'text/html');
-			quantity.updCartContent(doc, mod, priceNow)
-			// console.log('getCart doc', doc);
-		})
->>>>>>> dev
 		.catch((error) => console.error(error));
 	
 	};
 
 	// Обновление в корзине
 	updCartContent(doc, mod, priceNow){
-<<<<<<< HEAD
-=======
-		// console.log('doc2', $doc);
-		// console.log('mod2', $mod);
-		// console.log('priceNow2', $priceNow);
->>>>>>> dev
 		// Обновить цену
 		const price = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price');
 		priceNow.innerHTML = price.innerHTML;
@@ -705,20 +608,10 @@ class Quantity {
 		setTimeout(() => {
 			cart.minSum();			
 		}, 100);
-<<<<<<< HEAD
-=======
-		// console.log('price', price);
-		// console.log('newCount', newCount);
-		// console.log('newTotal', newTotal);
->>>>>>> dev
 	};
 
 	// Выпадающая корзина
 	updAddto(obj){
-<<<<<<< HEAD
-=======
-		// console.log('updAddto obj', obj);
->>>>>>> dev
 		const item = obj.closest('.addto__item');
 		const mod = item.getAttribute('data-mod-id');
 		const price = item.querySelector('.addto__price');
@@ -762,25 +655,13 @@ class Quantity {
 		// Обновить сумму
 		const newSum = doc.querySelector('.cartSumTotal').innerHTML;
 		quantity.updCartSum(newSum);
-<<<<<<< HEAD
-=======
-		// console.log('updAddto newSum', newSum);
->>>>>>> dev
 		// Обновить скидку
 		const newDiscount = doc.querySelector('.cartTotal__item-discount .cartTotal__price');
 		const totalDiscount = document.querySelector('.addto__total-discount')
 		if (newDiscount){
-<<<<<<< HEAD
 			totalDiscount.classList.remove('is-hide')
 			quantity.updAddtoDiscount(newDiscount.innerHTML)
 		} else {
-=======
-			// console.log('updAddto newDiscount1', newDiscount);
-			totalDiscount.classList.remove('is-hide')
-			quantity.updAddtoDiscount(newDiscount.innerHTML)
-		} else {
-			// console.log('updAddto newDiscount2', newDiscount);
->>>>>>> dev
 			totalDiscount.classList.add('is-hide')
 		}
 	
@@ -846,13 +727,6 @@ class Product {
 				const qty = e.querySelector('.qty__input')
 				const count = e.querySelector('.inCart__count')
 				const addtoItem = document.querySelector('.addto__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
-<<<<<<< HEAD
-=======
-				console.log('qty1', qty);
-				console.log('count1', count);
-				console.log('addtoItem1', addtoItem);
-				console.log('addtoItem2', addtoItem.value);
->>>>>>> dev
 				// Обновление данных
 				e.classList.add('product__inCart');
 				qty.value = addtoItem.value
@@ -1101,10 +975,6 @@ class Product {
 							}
 						},
 						error: function(){
-<<<<<<< HEAD
-=======
-							console.log('Error Ajax add-compare')
->>>>>>> dev
 							notyStart('Error Ajax add-compare', 'warning')
 						}
 					});
@@ -1241,10 +1111,6 @@ class Product {
 							}
 						},
 						error: function(){
-<<<<<<< HEAD
-=======
-							console.log('Error Ajax add-favorites');
->>>>>>> dev
 							notyStart('Error Ajax add-favorites', 'warning');
 						}
 					});
@@ -1270,14 +1136,6 @@ class Product {
 				const formBlock = $($(this).get(0));
 				const formData = formBlock.serializeArray();
 				const t = $(this);
-<<<<<<< HEAD
-=======
-				// const qty = t.find('.qty__input');
-				// const val = parseInt(qty.val());
-				// const id = t.find('input[name="form[goods_id]"]').val();
-				// console.log('val', val);
-				// const mod = t.find('.qty__input').attr('name');
->>>>>>> dev
 
 				// Проверка на существование формы отправки запроса на добавление товара в корзину
 				if (1 > formBlock.length || formBlock.get(0).tagName != 'FORM'){
@@ -1523,10 +1381,6 @@ class Product {
 
 // Функция получения HTML контента по ссылке
 async function getFetch(url){
-<<<<<<< HEAD
-=======
-	// console.log('getFetch url', url);
->>>>>>> dev
 	return await fetch(url)
 		// Получаем ответ
 		.then((response) => response.text())
@@ -1534,10 +1388,6 @@ async function getFetch(url){
 		.then((text) => {
 			const parser = new DOMParser();
 			const html = parser.parseFromString(text, 'text/html');
-<<<<<<< HEAD
-=======
-			// console.log('getFetch html', html);
->>>>>>> dev
 			return html
 		})
 		// Если получили ошибку
@@ -1550,11 +1400,6 @@ async function getFetch(url){
 ///////////////////////////////////////
 class Remove {
 	constructor(){
-<<<<<<< HEAD
-=======
-		console.log('Remove start');
-
->>>>>>> dev
 		// Действия при клике
 		this.onClick = function(){
 			const content = document.querySelector('.addto')
@@ -1572,34 +1417,18 @@ class Remove {
 
 				// Удалить из корзины
 				if (removeCart){
-<<<<<<< HEAD
-=======
-					console.log('removeCart', event)
->>>>>>> dev
 					event.preventDefault();
 					remove.fromCart(removeCart)
 				// Удалить из сравнения
 				} else if (removeCartAll){
-<<<<<<< HEAD
-=======
-					console.log('removeCartAll', event)
->>>>>>> dev
 					event.preventDefault();
 					remove.fromCartAll(removeCartAll)
 				// Удалить все из сравнения
 				} else if (removeCompare){
-<<<<<<< HEAD
-=======
-					console.log('removeCompare', event)
->>>>>>> dev
 					event.preventDefault();
 					remove.fromCompare(removeCompare)
 				// Удалить все из сравнения
 				} else if (removeCompareAll){
-<<<<<<< HEAD
-=======
-					console.log('removeCompareAll', event)
->>>>>>> dev
 					event.preventDefault();
 					remove.fromCompareAll(removeCompareAll)
 				// Удалить из избранного
@@ -1608,10 +1437,6 @@ class Remove {
 					remove.fromFavorites(removeFavorites)
 				// Удалить все из избранного
 				} else if (removeFavoritesAll){
-<<<<<<< HEAD
-=======
-					console.log('fromFavoritesAll', event)
->>>>>>> dev
 					event.preventDefault();
 					remove.fromFavoritesAll(removeFavoritesAll)
 				} else {
@@ -1625,10 +1450,6 @@ class Remove {
 		// Обновление данных после удаления
 		this.fromElements = function(obj){
 			obj.forEach((e) => {
-<<<<<<< HEAD
-=======
-				// console.log('e', e);
->>>>>>> dev
 				e.parentElement.classList.remove('is-added');
 				e.classList.remove('is-added');
 				e.querySelector('span').innerText = e.getAttribute('data-add-tooltip');
@@ -1640,10 +1461,6 @@ class Remove {
 
 		// Удаление товара из корзины без обновлении страницы
 		this.fromCart = function(obj){
-<<<<<<< HEAD
-=======
-			console.log('Remove fromCart', obj);
->>>>>>> dev
 			if (confirm('Вы точно хотите удалить товар из корзины?')){
 				const href = obj.getAttribute('href');
 				const qty = obj.getAttribute('data-qty');
@@ -1699,10 +1516,6 @@ class Remove {
 
 		// Удаление ВСЕХ товаров из Корзины без обновлении страницы
 		this.fromCartAll = function(obj){
-<<<<<<< HEAD
-=======
-			console.log('Remove fromCartAll');
->>>>>>> dev
 			if (confirm('Вы точно хотите очистить корзину?')){
 				$.ajax({
 					cache: false,
@@ -1723,10 +1536,6 @@ class Remove {
 
 		// Удаление товара из Сравнения без обновлении страницы
 		this.fromCompare = function(obj){
-<<<<<<< HEAD
-=======
-			console.log('fromCompare', obj)
->>>>>>> dev
 			if (confirm('Вы точно хотите удалить товар из сравнения?')){
 				const href = obj.getAttribute('href');
 				const id = obj.getAttribute('data-id');
@@ -1771,10 +1580,6 @@ class Remove {
 
 		// Удаление ВСЕХ товаров из Сравнения без обновлении страницы
 		this.fromCompareAll = function(obj){
-<<<<<<< HEAD
-=======
-			console.log('fromCompareAll', obj)
->>>>>>> dev
 			if (confirm('Вы точно хотите очистить сравнение?')){
 				$.ajax({
 					cache: false,
@@ -1792,10 +1597,6 @@ class Remove {
 
 		// Удаление товара из Избранного без обновлении страницы
 		this.fromFavorites = function(obj){
-<<<<<<< HEAD
-=======
-			console.log('fromFavorites', obj)
->>>>>>> dev
 			if (confirm('Вы точно хотите удалить товар из Избранного?')){
 				const href = obj.getAttribute('href');
 				const id = obj.getAttribute('data-id');
@@ -1839,10 +1640,6 @@ class Remove {
 
 		// Удаление ВСЕХ товаров из Избранного без обновлении страницы
 		this.fromFavoritesAll = function(obj){
-<<<<<<< HEAD
-=======
-			console.log('fromFavoritesAll', obj)
->>>>>>> dev
 			if (confirm('Вы точно хотите очистить Избранное?')){
 				$.ajax({
 					cache: false,
@@ -1997,10 +1794,6 @@ class Goods {
 	constructor(){
 		// Слайдер доп. изображений
 		this.swiperImages = function(mod){
-<<<<<<< HEAD
-=======
-			// console.log('mod swiperImages', mod);
->>>>>>> dev
 			if (mod == 'productView') {return false;}
 			if (mod == 'productViewMod') {return false;}
 			// Слайдер товаров
@@ -2087,7 +1880,6 @@ class Goods {
 
 			// Функция смены изображений при изменении модификации
 			function changeImages(){
-<<<<<<< HEAD
 				const ids = []
 				const mods = document.querySelectorAll('.modifications-props__select')
 				mods.forEach(e => {
@@ -2099,31 +1891,6 @@ class Goods {
 						if (!id) {return false}
 						const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
 						const index = thumb.getAttribute('data-swiper-slide-index')
-=======
-				console.log('changeImages()');
-				const ids = []
-				const mods = document.querySelectorAll('.modifications-props__select')
-				mods.forEach(e => {
-					console.log('e1', e);
-					console.log('e2', e.value);
-					e.addEventListener('change', function(){
-						console.log('e2', this);
-						console.log('this.value', this.value);
-						console.log('e3', e.value);
-						console.log('ids',ids);
-						const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ getModId() +'"]')
-						// console.log('getModId()',getModId());
-						console.log('mod',mod);
-						
-						if (!mod) {return false}
-						const id = mod.querySelector('[name="goods_mod_image_id"]').value
-						console.log('id', id);
-						if (!id) {return false}
-						const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
-						const index = thumb.getAttribute('data-swiper-slide-index')
-						console.log('thumb', thumb);
-						console.log('index', index);
->>>>>>> dev
 						swiperImage.slideTo(index)
 						
 					})
@@ -2141,34 +1908,8 @@ class Goods {
 					const arr = []
 					const slugs = document.querySelectorAll('.goodsModificationsSlug')
 					slugs.forEach(e => arr.push(e.getAttribute('rel')))
-<<<<<<< HEAD
 					return items.sort(compareNumeric).join('_')
 				}
-=======
-					console.log('items', items);
-					console.log('arr', arr);
-					return items.sort(compareNumeric).join('_')
-				}
-				// mods.forEach(e => {
-				// 	e.addEventListener('change', function(){
-				// 		console.log('e', e);
-				// 		const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ e.value +'"]')
-				// 		console.log('this.value', e.value);
-				// 		console.log('mod', mod);
-
-				// 		if (!mod) {return false}
-				// 		const id = mod.querySelector('[name="goods_mod_image_id"]').value
-				// 		console.log('id', id);
-				// 		if (!id) {return false}
-				// 		const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
-				// 		const index = thumb.getAttribute('data-swiper-slide-index')
-				// 		console.log('thumb', thumb);
-				// 		console.log('index', index);
-				// 		swiperImage.slideTo(index)
-				// 		// swiperThumb.slideTo(index)
-				// 	})
-				// })
->>>>>>> dev
 			}
 
 		};
@@ -2217,16 +1958,10 @@ class Goods {
 		// Действия при клике
 		this.onClick = function(){
 			const content = document.querySelector('.productViewBlock');
-			// console.log('productView', content);
 			// Если нет контента
 			if (!content) {return false;}
 
 			content.addEventListener('click', function(event){
-<<<<<<< HEAD
-=======
-				// console.log('event1', event)
-				// console.log('event1.target', event.target)
->>>>>>> dev
 				// Объявление переменных
 				const targetNav = event.target.closest('.opinion__nav');
 				const targetAdd = event.target.closest('.opinion__add');
@@ -2252,7 +1987,6 @@ class Goods {
 
 					// Если нет отзывов по фильтру
 					if (count == 0){return false}
-<<<<<<< HEAD
 
 					// Все
 					if (nav == 'all'){
@@ -2272,27 +2006,6 @@ class Goods {
 						parentButton.style.display = 'none'
 					}
 
-=======
-
-					// Все
-					if (nav == 'all'){
-						items.forEach(item => item.style.display = '')
-						parentButton.style.display = ''
-					}
-
-					// Положительные
-					if (nav == 'good'){
-						items.forEach(item => item.style.display = item.matches('[data-nav-content="good"]') ? 'block' : 'none')
-						parentButton.style.display = 'none'
-					}
-
-					// Отрицательные
-					if (nav == 'bad'){
-						items.forEach(item => item.style.display = item.matches('[data-nav-content="bad"]') ? 'block' : 'none')
-						parentButton.style.display = 'none'
-					}
-
->>>>>>> dev
 					// Запуск функции навигации отзывов
 					goods.opinionNavigates(targetNav, navs)
 
@@ -2332,41 +2045,12 @@ class Goods {
 				else if (targetCaptcha){
 					goods.RefreshImageAction(event.target,1,1);
 					$('.captcha__image').attr('src',$('.captcha__image').attr('src')+'&rand'+Math.random(0,10000));
-<<<<<<< HEAD
 				}
 
 				// Новый модификации
 				else if (targetMod){
 					event.preventDefault();
 					goods.newModification($(event.target.parentElement));
-=======
-				}
-
-				// Новый модификации
-				else if (targetMod){
-					event.preventDefault();
-					goods.newModification($(event.target.parentElement));
-				}
-
-				// Ответ админа. /JS/
-				else if (targetAnswer){
-					event.preventDefault();
-					const next = targetAnswer.nextElementSibling;
-					isActived(targetAnswer);
-					targetAnswer.matches('.is-actived') ? next.classList.remove('is-hide') : next.classList.add('is-hide');
-				}
-
-				// Переход к характеристикам
-				if (moreFeat){
-					const content = document.querySelector('.productView__tabs')
-					scrollTop(content.offsetTop + 32)
-				}
-
-				// Переход к описанию
-				if (moreDesc){
-					const content = document.querySelector('.productView__tabs')
-					scrollTop(content.offsetTop + 32)
->>>>>>> dev
 				}
 
 				// Ответ админа. /JS/
@@ -2463,13 +2147,6 @@ class Goods {
 				}).join('_');
 			}
 
-<<<<<<< HEAD
-=======
-			const $parentBlock = $(selector);
-			// console.log('selector', selector);
-			// console.log('$parentBlock', $parentBlock);
-
->>>>>>> dev
 			const
 				$parentBlock = $(selector),
 				goodsDataProperties = $parentBlock.find('.modifications-props select[name="form[properties][]"]'), // Запоминаем поля выбора свойств, для ускорения работы со значениями свойств
@@ -2650,11 +2327,6 @@ class Cart {
 			}
 
 			content.addEventListener('click', function(event){
-<<<<<<< HEAD
-=======
-				// console.log('event1', event)
-				// console.log('event1.target', event.target)
->>>>>>> dev
 				// Объявление переменных
 				const remove = event.target.closest('.cartTable__remove');
 				const start = event.target.closest('.startOrder');
@@ -2670,10 +2342,6 @@ class Cart {
 				} else if (close){
 					cart.orderClose();
 				} else if (make){
-<<<<<<< HEAD
-=======
-					console.log('make', make);
->>>>>>> dev
 					event.preventDefault();
 					const form = $('.order-fast__form');
 					form.validate();
@@ -2716,11 +2384,6 @@ class Cart {
 			if ($('.cartTotal__min').length){
 				const minPrice = parseInt($('.cartTotal__min-price').data('price'));
 				const totalSum = parseInt($('.cartSumDiscount').data('price'));
-<<<<<<< HEAD
-=======
-				console.log('minPrice', minPrice);
-				console.log('totalSum', totalSum);
->>>>>>> dev
 				if (minPrice > totalSum){
 					const diff = minPrice - totalSum;
 					$('.cartTotal__min-price').find('.num').text(addSpaces(diff));
@@ -2795,10 +2458,6 @@ class Order {
 
 		// Валидация формы в оформлении заказа
 		this.onValidate = function(){
-<<<<<<< HEAD
-=======
-			console.log('onValidate');
->>>>>>> dev
 			// Валидация формы
 			$('.order-fast__form').validate({
 				validClass: 'valid',
@@ -2935,10 +2594,6 @@ class Order {
 
 			// Выбор оплаты по умолчанию
 			$('.order-payment__radio').each(function(){
-<<<<<<< HEAD
-=======
-				// console.log('each', $(this).parent());
->>>>>>> dev
 				const paymentDescription = $('.order-payment__radio:checked').parent().find('.order-payment__desc').html();
 				const payDesc = $('.order-payment__desc');
 				payDesc.html(paymentDescription);
@@ -3474,10 +3129,6 @@ function closeAll(){
 ///////////////////////////////////////
 function ajaxForms(id,flag,successMessage,errorMessage){
   flag = false;
-<<<<<<< HEAD
-=======
-  console.log('ajaxForms loaded ', id)
->>>>>>> dev
 	if(!id) { return false}
   const form = $(id).find('.form__callback');
   form.on('submit',function(event){
@@ -3787,7 +3438,6 @@ window.addEventListener('resize', function(){
     $('body').removeClass('landscape');
   }
   mainnav('header .mainnav', '1', 991);
-	// console.log('getClientWidth()', getClientWidth());
 });
 
 function catalogHover(){
