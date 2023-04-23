@@ -95,7 +95,11 @@ h6 {font-size: 14px;}
 /**************************************/
 /*** Иконки форматов файлов ***/
 /**************************************/
+<<<<<<< HEAD
 .file_extension_icon {width: 16px;height: 16px;display: inline-block;margin-right: 10px;background: var(--color-white) url('{ASSETS_IMAGES_PATH}icons-files-extensions.gif?design=VELOUR') no-repeat left top;}
+=======
+.file_extension_icon {width: 16px;height: 16px;display: inline-block;margin-right: 10px;background: var(--color-white) url('{ASSETS_IMAGES_PATH}icons-files-extensions.gif?design=THEMENAME') no-repeat left top;}
+>>>>>>> dev
 .file_extension_icon.torrent {background-position: -16px 0}
 .file_extension_icon.xls {background-position: -32px 0}
 .file_extension_icon.ie7 {background-position: -48px 0}
